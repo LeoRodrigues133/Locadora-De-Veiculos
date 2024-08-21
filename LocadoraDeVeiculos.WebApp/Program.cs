@@ -1,4 +1,8 @@
+using LocadoraDeVeiculos.Aplicacao.Services;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Infra.Compartilhado;
+using LocadoraDeVeiculos.Infra.ModuloVeiculos;
+using System.Reflection;
 
 namespace LocadoraDeVeiculos.WebApp
 {
@@ -8,9 +12,23 @@ namespace LocadoraDeVeiculos.WebApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllersWithViews();
+            #region Injeção de dependencias
 
             builder.Services.AddDbContext<LocadoraDbContext>();
+
+            builder.Services.AddScoped<IRepositorioVeiculo, RepositorioVeiculosEmOrm>();
+
+            builder.Services.AddScoped<VeiculoService>();
+
+            builder.Services.AddAutoMapper(config =>
+            {
+                config.AddMaps(Assembly.GetExecutingAssembly());
+            });
+
+            #endregion
+
+            builder.Services.AddControllersWithViews();
+
             var app = builder.Build();
 
             if (!app.Environment.IsDevelopment())

@@ -1,23 +1,25 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 
-namespace LocadoraDeVeiculos.Dominio;
+namespace LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 
 public class Veiculo : EntidadeBase
 {
     public Veiculo(
-        Cor cor, 
-        Marca marca, 
-        TipoCnh tipoCnh, 
-        Combustivel combustivel, 
-        DateTime ano, 
-        string placa, 
-        string modelo, 
-        int quilometragem, 
+        bool alugado,
+        Cor cor,
+        Marca marca,
+        CategoriaVeiculo categoriaVeiculo,
+        Combustivel combustivel,
+        int ano,
+        string placa,
+        string modelo,
+        int quilometragem,
         int capacidadeTanqueDeCombustivel)
     {
+        Alugado = alugado;
         Cor = cor;
         Marca = marca;
-        TipoCnh = tipoCnh;
+        CategoriaVeiculo = categoriaVeiculo;
         Combustivel = combustivel;
         Ano = ano;
         Placa = placa;
@@ -26,14 +28,15 @@ public class Veiculo : EntidadeBase
         CapacidadeTanqueDeCombustivel = capacidadeTanqueDeCombustivel;
     }
 
+    public bool Alugado { get; set; }
     public Cor Cor { get; set; }
     public Marca Marca { get; set; }
-    public TipoCnh TipoCnh { get; set; }
+    public CategoriaVeiculo CategoriaVeiculo { get; set; }
     public Combustivel Combustivel { get; set; }
-    public DateTime Ano { get; set; }
-    public string Placa {  get; set; }
-    public string Modelo {  get; set; }
-    public int Quilometragem {  get; set; }
+    public int Ano { get; set; }
+    public string Placa { get; set; }
+    public string Modelo { get; set; }
+    public int Quilometragem { get; set; }
     public int CapacidadeTanqueDeCombustivel { get; set; }
 
 }

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ListarVeiculoViewModel>
+@{
+    ViewBag.Title = "Lista de Veículos";
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>Cor</th>
+            <th>Marca</th>
+            <th>Categoria</th>
+            <th>Combustível</th>
+            <th>Ano</th>
+            <th>Placa</th>
+            <th>Modelo</th>
+            <th>Quilometragem</th>
+            <th>Capacidade do Tanque</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var veiculo in Model)
+        {
+            <tr >
+                <td>@veiculo.Alugado</td>
+                <td>@veiculo.Cor</td>
+                <td>@veiculo.Marca</td>
+                <td>@veiculo.CategoriaVeiculo</td> 
+                <td>@veiculo.Combustivel</td>
+                <td>@veiculo.Ano</td>
+                <td>@veiculo.Placa</td>
+                <td>@veiculo.Modelo</td>
+                <td>@veiculo.Quilometragem</td>
+                <td>@veiculo.CapacidadeTanqueDeCombustivel Litros</td>
+                <td class="d-flex gap-2">
+                    <a asp-action="Editar" asp-route-id="@veiculo.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Excluir" asp-route-id="@veiculo.Id" class="btn btn-danger">Excluir</a>
+                    <a asp-action="Detalhes" asp-route-id="@veiculo.Id" class="btn btn-primary">Detalhes</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Cadastrar" class="btn btn-primary">Cadastrar Novo Veículo</a>

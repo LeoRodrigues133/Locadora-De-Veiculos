@@ -14,7 +14,7 @@ public abstract class RepositorioBaseEmOrm<Generico> where Generico : EntidadeBa
 
     protected abstract DbSet<Generico> ObterRegistros();
 
-    public void Inserir(Generico entidade)
+    public void Cadastrar(Generico entidade)
     {
         ObterRegistros().Add(entidade);
 

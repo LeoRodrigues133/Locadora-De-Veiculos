@@ -1,0 +1,70 @@
+﻿@using LocadoraDeVeiculos.Dominio.ModuloVeiculos
+@model EditarVeiculoViewModel
+
+@{
+    ViewBag.Title = "Edição de Veículo";
+}
+
+<form asp-action="Editar">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Cor" class="control-label"></label>
+        <select asp-for="Cor" class="form-control" asp-items="Html.GetEnumSelectList<Cor>()"></select>
+        <span asp-validation-for="Cor" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Marca" class="control-label"></label>
+        <select asp-for="Marca" class="form-control" asp-items="Html.GetEnumSelectList<Marca>()"></select>
+        <span asp-validation-for="Marca" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoriaVeiculo" class="control-label"></label>
+        <select asp-for="CategoriaVeiculo" class="form-control" asp-items="Html.GetEnumSelectList<CategoriaVeiculo>()"></select>
+        <span asp-validation-for="CategoriaVeiculo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Combustivel" class="control-label"></label>
+        <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<Combustivel>()"></select>
+        <span asp-validation-for="Combustivel" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ano" class="control-label"></label>
+        <input asp-for="Ano" class="form-control" />
+        <span asp-validation-for="Ano" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Placa" class="control-label"></label>
+        <input asp-for="Placa" class="form-control" />
+        <span asp-validation-for="Placa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Modelo" class="control-label"></label>
+        <input asp-for="Modelo" class="form-control" />
+        <span asp-validation-for="Modelo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Quilometragem" class="control-label"></label>
+        <input asp-for="Quilometragem" class="form-control" />
+        <span asp-validation-for="Quilometragem" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CapacidadeTanqueDeCombustivel" class="control-label"></label>
+        <input asp-for="CapacidadeTanqueDeCombustivel" class="form-control" />
+        <span asp-validation-for="CapacidadeTanqueDeCombustivel" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+    </div>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary">Voltar</a>

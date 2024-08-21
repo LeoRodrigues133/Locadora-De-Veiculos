@@ -1,4 +1,4 @@
-﻿namespace LocadoraDeVeiculos.Dominio;
+﻿namespace LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 
 public enum Marca
 {
