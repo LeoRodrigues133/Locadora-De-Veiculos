@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    MensagemViewModel? mensagem = ViewBag.Mensagem ?? null;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -34,6 +38,7 @@
         <h1 class="text-light-emphasis">@ViewBag.Title</h1>
         <hr />
         <main role="main" class="pb-3">
+            <partial name="_Mensagem" model="mensagem" ></partial>
             @RenderBody()
         </main>
     </div>

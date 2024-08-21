@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 
-public class VeiculoController : Controller
+public class VeiculoController : WebController
 {
     readonly IMapper _mapeador;
     readonly VeiculoService _serviceVeiculo;
@@ -24,7 +25,7 @@ public class VeiculoController : Controller
 
         if (resultado.IsFailed)
         {
-            //MensagemFalha(resultado.ToResult()); //Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
             return View("Index", "Home");
         }
@@ -33,7 +34,7 @@ public class VeiculoController : Controller
 
         var listarVM = _mapeador.Map<IEnumerable<ListarVeiculoViewModel>>(veiculos);
 
-        //ViewBag.Mensagem = TempData.DesserializarMensagemViewModel(); //Ainda não implementado
+        ViewBag.Mensagem = TempData.DesserializarMensagemViewModel(); ////Ainda não implementado
 
         return View(listarVM);
     }
@@ -44,7 +45,7 @@ public class VeiculoController : Controller
 
         if (resultado.IsFailed)
         {
-            //MensagemFalha(resultado.ToResult()); //Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
             return View("Index", "Home");
         }
@@ -74,12 +75,12 @@ public class VeiculoController : Controller
 
         if (resultado.IsFailed)
         {
-            //MensagemFalha(resultado.ToResult()); //Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
             return RedirectToAction(nameof(Listar));
         }
 
-        //ApresentarMensagemSucesso($"O registro ID [{filme.Id}] foi inserido com sucesso!"); //Ainda não implementado
+        ApresentarMensagemSucesso($"O registro ID [{veiculo.Id}] foi cadastrado com sucesso!"); ////Ainda não implementado
 
 
         return RedirectToAction(nameof(Listar));
@@ -92,7 +93,7 @@ public class VeiculoController : Controller
 
         if (resultado.IsFailed)
         {
-            //MensagemFalha(resultado.ToResult()); //Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
             return RedirectToAction(nameof(Listar));
         }
@@ -116,12 +117,12 @@ public class VeiculoController : Controller
 
         if (resultado.IsFailed)
         {
-            //MensagemFalha(resultado.ToResult()); //Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
             return RedirectToAction(nameof(Listar));
         }
 
-        //ApresentarMensagemSucesso($"O registro ID [{veiculo.Id}] foi editado com sucesso!"); //Ainda não implementado;
+        ApresentarMensagemSucesso($"O registro ID [{veiculo.Id}] foi editado com sucesso!"); ////Ainda não implementado;
 
         return RedirectToAction(nameof(Listar));
     }
@@ -132,7 +133,7 @@ public class VeiculoController : Controller
 
         if (resultado.IsFailed)
         {
-            //MensagemFalha(resultado.ToResult()); //Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
             return RedirectToAction(nameof(Listar));
         }
@@ -151,12 +152,12 @@ public class VeiculoController : Controller
 
         if (resultado.IsFailed)
         {
-            //MensagemFalha(resultado); //Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
             return RedirectToAction(nameof(Listar));
         }
 
-        //ApresentarMensagemSucesso($"O registro ID [{veiculo.Id}] foi editado com sucesso!"); //Ainda não implementado;
+        ApresentarMensagemSucesso($"O registro foi deletado com sucesso!"); ////Ainda não implementado;
 
 
         return RedirectToAction(nameof(Listar));
