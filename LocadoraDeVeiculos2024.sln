@@ -3,9 +3,55 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Apresentacao", "1. Apresentacao", "{2F1BF3CC-A583-4AD3-87D9-63ED7B1F4E9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Aplicacao", "2. Aplicacao", "{B3AAF8D8-9400-492F-938C-418FB8D45746}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Dominio", "3. Dominio", "{CC935F45-3B1B-42F4-A55C-6DBFABF38FA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Infraestrutura", "4. Infraestrutura", "{3E8CEB8D-D54D-4787-B67C-1645A6600421}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Testes", "5. Testes", "{D0BAA6C5-E873-40A5-A58B-5D66304CA164}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraDeVeiculos.Aplicacao", "LocadoraDeVeiculos.Aplicacao\LocadoraDeVeiculos.Aplicacao.csproj", "{BFC0A704-6427-473D-9AAD-58F531187212}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraDeVeiculos.Dominio", "LocadoraDeVeiculos.Dominio\LocadoraDeVeiculos.Dominio.csproj", "{A0A47575-1C47-42A1-9F34-0E58CB619124}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraDeVeiculos.Infra", "LocadoraDeVeiculos.Infra\LocadoraDeVeiculos.Infra.csproj", "{792F9749-B076-4EEE-BC94-073389FC0048}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocadoraDeVeiculos.WebApp", "LocadoraDeVeiculos.WebApp\LocadoraDeVeiculos.WebApp.csproj", "{C3971A9E-E985-4F43-9D3B-A8D58869F6F2}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFC0A704-6427-473D-9AAD-58F531187212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC0A704-6427-473D-9AAD-58F531187212}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC0A704-6427-473D-9AAD-58F531187212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC0A704-6427-473D-9AAD-58F531187212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0A47575-1C47-42A1-9F34-0E58CB619124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A47575-1C47-42A1-9F34-0E58CB619124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A47575-1C47-42A1-9F34-0E58CB619124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A47575-1C47-42A1-9F34-0E58CB619124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{792F9749-B076-4EEE-BC94-073389FC0048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{792F9749-B076-4EEE-BC94-073389FC0048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{792F9749-B076-4EEE-BC94-073389FC0048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{792F9749-B076-4EEE-BC94-073389FC0048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3971A9E-E985-4F43-9D3B-A8D58869F6F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3971A9E-E985-4F43-9D3B-A8D58869F6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3971A9E-E985-4F43-9D3B-A8D58869F6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3971A9E-E985-4F43-9D3B-A8D58869F6F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BFC0A704-6427-473D-9AAD-58F531187212} = {B3AAF8D8-9400-492F-938C-418FB8D45746}
+		{A0A47575-1C47-42A1-9F34-0E58CB619124} = {CC935F45-3B1B-42F4-A55C-6DBFABF38FA5}
+		{792F9749-B076-4EEE-BC94-073389FC0048} = {3E8CEB8D-D54D-4787-B67C-1645A6600421}
+		{C3971A9E-E985-4F43-9D3B-A8D58869F6F2} = {2F1BF3CC-A583-4AD3-87D9-63ED7B1F4E9F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A684FBE0-A84A-4C26-ABED-3FE35737C6F8}

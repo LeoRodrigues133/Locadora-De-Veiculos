@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LocadoraDeVeiculos.Dominio.Aluguel" Collapsed="true">
+    <Position X="1.75" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAACAAAAAAAAAAAAQAQEAAgAAACA=</HashCode>
+      <FileName>3.4 ModuloAlugueis\Aluguel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocadoraDeVeiculos.Dominio.Compartilhado.EntidadeBase" Collapsed="true">
+    <Position X="4.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>3.1 Compartilhado\EntidadeBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocadoraDeVeiculos.Dominio.Veiculo" Collapsed="true">
+    <Position X="6" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IACAABAAAAACCAAAAAAAAAAAAEEAAAAAAAgAAAAgAAA=</HashCode>
+      <FileName>3.2 ModuloVeiculos\Veiculo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocadoraDeVeiculos.Dominio.Cliente" Collapsed="true">
+    <Position X="6" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAgCAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAEAA=</HashCode>
+      <FileName>3.3 ModuloPessoas\3.2.1 ModuloClientes\Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocadoraDeVeiculos.Dominio.PerfilCliente" Collapsed="true">
+    <Position X="2" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAACAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>3.3 ModuloPessoas\3.2.1 ModuloClientes\PerfilCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocadoraDeVeiculos.Dominio.Condutor" Collapsed="true">
+    <Position X="6" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>3.3 ModuloPessoas\3.2.2 ModuloCondutores\Condutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocadoraDeVeiculos.Dominio.Plano" Collapsed="true">
+    <Position X="1.75" Y="3.25" Width="1.75" />
+    <InheritanceLine Type="LocadoraDeVeiculos.Dominio.Compartilhado.EntidadeBase" FixedToPoint="true">
+      <Path>
+        <Point X="5" Y="3.167" />
+        <Point X="5" Y="3.688" />
+        <Point X="3.5" Y="3.688" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>3.4 ModuloAlugueis\Plano.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocadoraDeVeiculos.Dominio.Seguro" Collapsed="true">
+    <Position X="1.75" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>3.4 ModuloAlugueis\Seguro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocadoraDeVeiculos.Dominio.ModuloPessoas.Funcionario" Collapsed="true">
+    <Position X="6" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>3.3 ModuloPessoas\3.2.3 ModuloFuncionario\Funcionario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="LocadoraDeVeiculos.Dominio.Combustivel" Collapsed="true">
+    <Position X="2" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAgAAAQAAAAIAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>3.2 ModuloVeiculos\Combustivel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="LocadoraDeVeiculos.Dominio.Cor" Collapsed="true">
+    <Position X="3.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAgAEAAAAAAAAAACAAAAgAAAAAAYAAAAA=</HashCode>
+      <FileName>3.2 ModuloVeiculos\Cor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="LocadoraDeVeiculos.Dominio.Marca" Collapsed="true">
+    <Position X="2" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEIAAAAAgAQAIAAAAAAAgAABAAAgAAAAI=</HashCode>
+      <FileName>3.2 ModuloVeiculos\Marca.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="LocadoraDeVeiculos.Dominio.enumPerfil" Collapsed="true">
+    <Position X="5.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAIAAAA=</HashCode>
+      <FileName>3.3 ModuloPessoas\3.2.1 ModuloClientes\enumPerfil.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="LocadoraDeVeiculos.Dominio.TipoCnh" Collapsed="true">
+    <Position X="3.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApgEAAAA=</HashCode>
+      <FileName>3.3 ModuloPessoas\3.2.2 ModuloCondutores\TipoCnh.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Yu Gothic" Size="10" />
+</ClassDiagram>
