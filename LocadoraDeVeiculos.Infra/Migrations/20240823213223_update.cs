@@ -5,7 +5,7 @@
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class addgrupodeveiculos : Migration
+    public partial class update : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,6 +21,29 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TBGrupo", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBPlano",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ValorDiaria = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
+                    PrecoKM = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
+                    ValorExtrapolado = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
+                    KmDisponivel = table.Column<int>(type: "int", nullable: true),
+                    GrupoVeiculosId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBPlano", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TBPlano_TBGrupo_GrupoVeiculosId",
+                        column: x => x.GrupoVeiculosId,
+                        principalTable: "TBGrupo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,6 +75,11 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_TBPlano_GrupoVeiculosId",
+                table: "TBPlano",
+                column: "GrupoVeiculosId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TBVeiculos_GrupoVeiculosId",
                 table: "TBVeiculos",
                 column: "GrupoVeiculosId");
@@ -60,6 +88,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TBPlano");
+
             migrationBuilder.DropTable(
                 name: "TBVeiculos");
 

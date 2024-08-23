@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.Dominio;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado;
 
@@ -9,6 +10,7 @@ public class LocadoraDbContext : DbContext
 {
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<GrupoVeiculos> GrupoVeiculos { get; set; }
+    public DbSet<Plano> Planos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -31,6 +33,7 @@ public class LocadoraDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new MapeadorVeiculos());
         modelBuilder.ApplyConfiguration(new MapeadorGrupoVeiculos());
+        modelBuilder.ApplyConfiguration(new MapeadorPlanos());
 
         base.OnModelCreating(modelBuilder);
     }

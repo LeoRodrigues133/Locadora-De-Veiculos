@@ -14,7 +14,8 @@ namespace LocadoraDeVeiculos.WebApp.Mapping
                 .ForMember(vm => vm.Alugado, opt => opt.MapFrom(v => v.Alugado ? "Alugado" : "Livre"))
                 .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom(v => v.GrupoVeiculos));
 
-            CreateMap<Veiculo, EditarVeiculoViewModel>();
+            CreateMap<Veiculo, EditarVeiculoViewModel>()
+                .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom(v => v.GrupoVeiculos));
 
             CreateMap<CadastroVeiculoViewModel, Veiculo>();
 

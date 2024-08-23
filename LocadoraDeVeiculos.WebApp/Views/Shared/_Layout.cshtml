@@ -32,6 +32,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="GrupoVeiculos" asp-action="Listar">Grupos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Plano" asp-action="Listar">Planos</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -41,7 +44,7 @@
         <h1 class="text-light-emphasis">@ViewBag.Title</h1>
         <hr />
         <main role="main" class="pb-3">
-            <partial name="_Mensagem" model="mensagem" ></partial>
+            <partial name="_Mensagem" model="mensagem"></partial>
             @RenderBody()
         </main>
     </div>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ListarPlanoViewModel>
+@{
+    ViewBag.Title = "Lista de Planos";
+}
+
+<h2>Lista de Planos</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Grupo de Veículos</th>
+            <th>Valor Diária</th>
+            <th>Preço KM</th>
+            <th>Km Disponível</th>
+            <th>Valor Extrapolado</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plano in Model)
+        {
+            <tr>
+                <td>@plano.GrupoVeiculos.Nome</td>
+                <td>@plano.ValorDiaria?.ToString("C")</td>
+                <td>@plano.PrecoKm?.ToString("C")</td>
+                <td>@plano.kmDisponivel</td>
+                <td>@plano.ValorExtrapolado?.ToString("C")</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@plano.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Detalhes" asp-route-id="@plano.Id" class="btn btn-info">Detalhes</a>
+                    <a asp-action="Excluir" asp-route-id="@plano.Id" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Cadastrar" class="btn btn-primary">Novo Plano</a>
