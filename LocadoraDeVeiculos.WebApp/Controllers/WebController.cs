@@ -36,4 +36,12 @@ public class WebController : Controller
             Mensagem = mensagem
         });
     }
+    protected void ApresentarMensagemFalhaEditavel(string mensagem)
+    {
+        TempData.SerializarMensagemViewModel(new MensagemViewModel
+        {
+            Titulo = "Falha",
+            Mensagem = mensagem
+        });
+    }
 }

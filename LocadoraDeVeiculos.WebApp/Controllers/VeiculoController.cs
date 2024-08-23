@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using LocadoraDeVeiculos.WebApp.Models;
+using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
-using LocadoraDeVeiculos.WebApp.Extensions;
-using LocadoraDeVeiculos.WebApp.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 
@@ -12,10 +13,12 @@ public class VeiculoController : WebController
 {
     readonly IMapper _mapeador;
     readonly VeiculoService _serviceVeiculo;
+    readonly GrupoVeiculosService _serviceGrupo;
 
-    public VeiculoController(VeiculoService serviceVeiculo, IMapper mapeador)
+    public VeiculoController(VeiculoService serviceVeiculo, GrupoVeiculosService serviceGrupo, IMapper mapeador)
     {
         _mapeador = mapeador;
+        _serviceGrupo = serviceGrupo;
         _serviceVeiculo = serviceVeiculo;
     }
 
@@ -31,10 +34,10 @@ public class VeiculoController : WebController
         }
 
         var veiculos = resultado.Value;
-
+        
         var listarVM = _mapeador.Map<IEnumerable<ListarVeiculoViewModel>>(veiculos);
 
-        ViewBag.Mensagem = TempData.DesserializarMensagemViewModel(); ////Ainda não implementado
+        ViewBag.Mensagem = TempData.DesserializarMensagemViewModel();
 
         return View(listarVM);
     }
@@ -59,15 +62,15 @@ public class VeiculoController : WebController
 
     public IActionResult Cadastrar()
     {
-        var cadastroVm = new CadastroVeiculoViewModel();
-        return View(cadastroVm);
+
+        return View(CarregarDadosFormulario());
     }
 
     [HttpPost]
     public IActionResult Cadastrar(CadastroVeiculoViewModel cadastroVm)
     {
         if (!ModelState.IsValid)
-            return View(cadastroVm);
+            return View(CarregarDadosFormulario(cadastroVm));
 
         var veiculo = _mapeador.Map<Veiculo>(cadastroVm);
 
@@ -80,11 +83,9 @@ public class VeiculoController : WebController
             return RedirectToAction(nameof(Listar));
         }
 
-        ApresentarMensagemSucesso($"O registro ID [{veiculo.Id}] foi cadastrado com sucesso!"); ////Ainda não implementado
-
+        ApresentarMensagemSucesso($"O registro ID [{veiculo.Id}] foi cadastrado com sucesso!");
 
         return RedirectToAction(nameof(Listar));
-
     }
 
     public ActionResult Editar(int id)
@@ -99,6 +100,12 @@ public class VeiculoController : WebController
         }
 
         var veiculo = resultado.Value;
+        if (veiculo.Alugado == true)
+        {
+            ApresentarMensagemFalhaEditavel("O veículo não pode ser editado enquanto estiver alugado.");
+
+            return RedirectToAction(nameof(Listar));
+        }
 
         var editarVM = _mapeador.Map<EditarVeiculoViewModel>(veiculo);
 
@@ -119,10 +126,10 @@ public class VeiculoController : WebController
         {
             ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
-            return RedirectToAction(nameof(Listar));
+            return RedirectToAction(nameof(Editar));
         }
 
-        ApresentarMensagemSucesso($"O registro ID [{veiculo.Id}] foi editado com sucesso!"); ////Ainda não implementado;
+        ApresentarMensagemSucesso($"O registro ID [{veiculo.Id}] foi editado com sucesso!");
 
         return RedirectToAction(nameof(Listar));
     }
@@ -157,9 +164,34 @@ public class VeiculoController : WebController
             return RedirectToAction(nameof(Listar));
         }
 
-        ApresentarMensagemSucesso($"O registro foi deletado com sucesso!"); ////Ainda não implementado;
+        ApresentarMensagemSucesso($"O registro foi deletado com sucesso!");
 
 
         return RedirectToAction(nameof(Listar));
+    }
+    private CadastroVeiculoViewModel? CarregarDadosFormulario(
+       CadastroVeiculoViewModel? dadosPrevios = null)
+    {
+        var resultadoGrupos = _serviceGrupo.SelecionarTodos();
+
+        if (resultadoGrupos.IsFailed)
+        {
+            ApresentarMensagemFalha(resultadoGrupos.ToResult());
+            return null;
+        }
+
+        var gruposDisponiveis = resultadoGrupos.Value;
+
+        if (dadosPrevios is null)
+        {
+            var formularioVm = new CadastroVeiculoViewModel
+            {
+                GrupoVeiculos = gruposDisponiveis.Select(g => new SelectListItem(g.Nome, g.Id.ToString()))
+            };
+            return formularioVm;
+        }
+
+        dadosPrevios.GrupoVeiculos = gruposDisponiveis.Select(g => new SelectListItem(g.Nome, g.Id.ToString()));
+        return dadosPrevios;
     }
 }

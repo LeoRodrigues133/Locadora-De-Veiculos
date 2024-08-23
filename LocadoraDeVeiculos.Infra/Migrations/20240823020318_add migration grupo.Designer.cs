@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    [Migration("20240821175737_migration veiculos")]
-    partial class migrationveiculos
+    [Migration("20240823020318_add migration grupo")]
+    partial class addmigrationgrupo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,23 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(25)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TBGrupo", (string)null);
+                });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.Veiculo", b =>
                 {
@@ -50,6 +67,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("Cor")
                         .HasColumnType("int");
 
+                    b.Property<int>("GrupoVeiculosId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Marca")
                         .HasColumnType("int");
 
@@ -66,7 +86,25 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GrupoVeiculosId");
+
                     b.ToTable("TBVeiculos", (string)null);
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.Veiculo", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", "GrupoVeiculos")
+                        .WithMany("Veiculos")
+                        .HasForeignKey("GrupoVeiculosId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("GrupoVeiculos");
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", b =>
+                {
+                    b.Navigation("Veiculos");
                 });
 #pragma warning restore 612, 618
         }

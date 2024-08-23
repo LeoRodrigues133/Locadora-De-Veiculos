@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado
 {
@@ -53,6 +54,16 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
             BuilderVeiculos.Property(v => v.CapacidadeTanqueDeCombustivel)
                 .IsRequired()
                 .HasColumnType("int");
+
+            BuilderVeiculos.Property(v => v.GrupoVeiculosId)
+                .IsRequired()
+                .HasColumnType("int");
+
+            BuilderVeiculos.HasOne(v => v.GrupoVeiculos)
+                .WithMany(g => g.Veiculos)
+                .HasForeignKey(v => v.GrupoVeiculosId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }
