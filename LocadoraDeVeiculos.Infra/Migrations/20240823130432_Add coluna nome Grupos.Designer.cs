@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    [Migration("20240823055212_add")]
-    partial class add
+    [Migration("20240823130432_Add coluna nome Grupos")]
+    partial class AddcolunanomeGrupos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,9 +58,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("CapacidadeTanqueDeCombustivel")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoriaVeiculo")
-                        .HasColumnType("int");
-
                     b.Property<int>("Combustivel")
                         .HasColumnType("int");
 
@@ -96,8 +93,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", "GrupoVeiculos")
                         .WithMany("Veiculos")
                         .HasForeignKey("GrupoVeiculosId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Grupo_Name");
 
                     b.Navigation("GrupoVeiculos");
                 });

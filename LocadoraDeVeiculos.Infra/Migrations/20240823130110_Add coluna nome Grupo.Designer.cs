@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    [Migration("20240823020318_add migration grupo")]
-    partial class addmigrationgrupo
+    [Migration("20240823130110_Add coluna nome Grupo")]
+    partial class AddcolunanomeGrupo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,9 +58,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("CapacidadeTanqueDeCombustivel")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoriaVeiculo")
-                        .HasColumnType("int");
-
                     b.Property<int>("Combustivel")
                         .HasColumnType("int");
 
@@ -68,6 +65,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("GrupoVeiculosId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GrupoVeiculos_Name")
                         .HasColumnType("int");
 
                     b.Property<int>("Marca")
@@ -86,7 +86,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GrupoVeiculosId");
+                    b.HasIndex("GrupoVeiculos_Name");
 
                     b.ToTable("TBVeiculos", (string)null);
                 });
@@ -95,8 +95,8 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 {
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", "GrupoVeiculos")
                         .WithMany("Veiculos")
-                        .HasForeignKey("GrupoVeiculosId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("GrupoVeiculos_Name")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("GrupoVeiculos");

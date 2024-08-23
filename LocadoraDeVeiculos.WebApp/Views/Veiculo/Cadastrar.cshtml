@@ -1,5 +1,5 @@
 ﻿@using LocadoraDeVeiculos.Dominio.ModuloVeiculos
-@model CadastroVeiculoViewModel
+@model FormVeiculoViewModel
 @{
     ViewBag.Title = "Cadastro de Veículo";
 }
@@ -20,13 +20,6 @@
         <label asp-for="Marca" class="control-label"></label>
         <select asp-for="Marca" class="form-control" asp-items="Html.GetEnumSelectList<Marca>()"></select>
         <span asp-validation-for="Marca" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CategoriaVeiculo" class="control-label"></label>
-        <select asp-for="CategoriaVeiculo" class="form-control" asp-items="Html.GetEnumSelectList<CategoriaVeiculo>()">
-        </select>
-        <span asp-validation-for="CategoriaVeiculo" class="text-danger"></span>
     </div>
 
     <div class="form-group">

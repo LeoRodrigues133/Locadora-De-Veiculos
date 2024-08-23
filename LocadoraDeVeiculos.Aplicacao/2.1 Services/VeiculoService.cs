@@ -1,15 +1,18 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.Aplicacao.Services;
 
 public class VeiculoService
 {
     readonly IRepositorioVeiculo _repositorioVeiculo;
+    readonly IRepositorioGrupoVeiculos _repositorioGrupo;
 
-    public VeiculoService(IRepositorioVeiculo repositorioVeiculo)
+    public VeiculoService(IRepositorioVeiculo repositorioVeiculo, IRepositorioGrupoVeiculos repositorioGrupo)
     {
         _repositorioVeiculo = repositorioVeiculo;
+        _repositorioGrupo = repositorioGrupo;
     }
 
     public Result<Veiculo> Cadastrar(Veiculo veiculo)
@@ -30,6 +33,12 @@ public class VeiculoService
         if (veiculo.CapacidadeTanqueDeCombustivel <= 0)
             return Result.Fail("Capacidade do tanque de combustível deve ser maior que zero.");
         #endregion
+
+        var id = veiculo.GrupoVeiculosId;
+
+        var grupo = _repositorioGrupo.SelecionarPorId(id);
+        
+        veiculo.GrupoVeiculos = grupo;
 
         _repositorioVeiculo.Cadastrar(veiculo);
 
@@ -79,8 +88,7 @@ public class VeiculoService
         veiculoSelecionado.Cor = veiculoEditado.Cor;
         veiculoSelecionado.Marca = veiculoEditado.Marca;
         veiculoSelecionado.Combustivel = veiculoEditado.Combustivel;
-        veiculoSelecionado.GrupoVeiculos = veiculoEditado.GrupoVeiculos;
-        veiculoSelecionado.CategoriaVeiculo = veiculoEditado.CategoriaVeiculo;
+        veiculoSelecionado.GrupoVeiculosId = veiculoEditado.GrupoVeiculosId;
         veiculoSelecionado.Ano = veiculoEditado.Ano;
         veiculoSelecionado.Placa = veiculoEditado.Placa;
         veiculoSelecionado.Modelo = veiculoEditado.Modelo;

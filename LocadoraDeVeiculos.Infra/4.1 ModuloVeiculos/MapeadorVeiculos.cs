@@ -27,10 +27,6 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
                 .IsRequired()
                 .HasColumnType("int");
 
-            BuilderVeiculos.Property(v => v.CategoriaVeiculo)
-                .IsRequired()
-                .HasColumnType("int");
-
             BuilderVeiculos.Property(v => v.Combustivel)
                 .IsRequired()
                 .HasColumnType("int");
@@ -63,6 +59,7 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
                 .WithMany(g => g.Veiculos)
                 .HasForeignKey(v => v.GrupoVeiculosId)
                 .OnDelete(DeleteBehavior.Restrict);
+
 
         }
     }

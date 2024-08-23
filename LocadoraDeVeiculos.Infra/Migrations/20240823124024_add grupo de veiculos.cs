@@ -5,7 +5,7 @@
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class addmigrationgrupo : Migration
+    public partial class addgrupodeveiculos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,7 +32,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     Alugado = table.Column<bool>(type: "bit", nullable: false),
                     Cor = table.Column<int>(type: "int", nullable: false),
                     Marca = table.Column<int>(type: "int", nullable: false),
-                    CategoriaVeiculo = table.Column<int>(type: "int", nullable: false),
                     Combustivel = table.Column<int>(type: "int", nullable: false),
                     GrupoVeiculosId = table.Column<int>(type: "int", nullable: false),
                     Ano = table.Column<int>(type: "int", nullable: false),

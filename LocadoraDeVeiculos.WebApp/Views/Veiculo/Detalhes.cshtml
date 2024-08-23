@@ -1,4 +1,4 @@
-﻿@model LocadoraDeVeiculos.WebApp.Models.DetalhesVeiculoViewModel
+﻿@model DetalhesVeiculoViewModel
 
 @{
     ViewBag.Title = "Detalhes do Veículo";
@@ -7,6 +7,10 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="form-group">
+    <label>Grupo:</label>
+    <input class="form-control" value="@Model.GrupoVeiculos" disabled />
+</div>
+<div class="form-group">
     <label>Cor:</label>
     <input class="form-control" value="@Model.Cor" disabled />
 </div>
@@ -14,11 +18,6 @@
 <div class="form-group">
     <label>Marca:</label>
     <input class="form-control" value="@Model.Marca" disabled />
-</div>
-
-<div class="form-group">
-    <label>Categoria do Veículo:</label>
-    <input class="form-control" value="@Model.CategoriaVeiculo" disabled />
 </div>
 
 <div class="form-group">

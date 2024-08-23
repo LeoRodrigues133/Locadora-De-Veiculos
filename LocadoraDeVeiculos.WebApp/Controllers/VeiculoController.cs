@@ -88,7 +88,7 @@ public class VeiculoController : WebController
         return RedirectToAction(nameof(Listar));
     }
 
-    public ActionResult Editar(int id)
+    public IActionResult Editar(int id)
     {
         var resultado = _serviceVeiculo.SelecionarId(id);
 
@@ -99,7 +99,29 @@ public class VeiculoController : WebController
             return RedirectToAction(nameof(Listar));
         }
 
+        var resultadoGrupos = _serviceGrupo.SelecionarTodos();
+
+        if (resultadoGrupos.IsFailed)
+        {
+            ApresentarMensagemFalha(resultadoGrupos.ToResult());
+
+            return null;
+        }
+
         var veiculo = resultado.Value;
+
+        var editarVm = _mapeador.Map<EditarVeiculoViewModel>(veiculo);
+
+        var gruposDisponiveis = resultadoGrupos.Value;
+
+        editarVm.GrupoVeiculos = gruposDisponiveis
+            .Select(g => new SelectListItem
+            {
+                Value = g.Id.ToString(),
+                Text = g.Nome,
+                Selected = g.Id == veiculo.GrupoVeiculos.Id // Seleciona o grupo associado ao veículo
+            }).ToList();
+
         if (veiculo.Alugado == true)
         {
             ApresentarMensagemFalhaEditavel("O veículo não pode ser editado enquanto estiver alugado.");
@@ -107,13 +129,11 @@ public class VeiculoController : WebController
             return RedirectToAction(nameof(Listar));
         }
 
-        var editarVM = _mapeador.Map<EditarVeiculoViewModel>(veiculo);
-
-        return View(editarVM);
+        return View(editarVm);
     }
 
     [HttpPost]
-    public ActionResult Editar(EditarVeiculoViewModel editarVm)
+    public IActionResult Editar(EditarVeiculoViewModel editarVm)
     {
         if (!ModelState.IsValid)
             return View(editarVm);
@@ -134,7 +154,7 @@ public class VeiculoController : WebController
         return RedirectToAction(nameof(Listar));
     }
 
-    public ActionResult Excluir(int id)
+    public IActionResult Excluir(int id)
     {
         var resultado = _serviceVeiculo.SelecionarId(id);
 
@@ -153,7 +173,7 @@ public class VeiculoController : WebController
     }
 
     [HttpPost]
-    public ActionResult Excluir(DetalhesVeiculoViewModel detalhesVm)
+    public IActionResult Excluir(DetalhesVeiculoViewModel detalhesVm)
     {
         var resultado = _serviceVeiculo.Excluir(detalhesVm.Id);
 
@@ -169,8 +189,8 @@ public class VeiculoController : WebController
 
         return RedirectToAction(nameof(Listar));
     }
-    private CadastroVeiculoViewModel? CarregarDadosFormulario(
-       CadastroVeiculoViewModel? dadosPrevios = null)
+    private FormVeiculoViewModel? CarregarDadosFormulario(
+       FormVeiculoViewModel? dadosPrevios = null)
     {
         var resultadoGrupos = _serviceGrupo.SelecionarTodos();
 
@@ -184,7 +204,7 @@ public class VeiculoController : WebController
 
         if (dadosPrevios is null)
         {
-            var formularioVm = new CadastroVeiculoViewModel
+            var formularioVm = new FormVeiculoViewModel
             {
                 GrupoVeiculos = gruposDisponiveis.Select(g => new SelectListItem(g.Nome, g.Id.ToString()))
             };

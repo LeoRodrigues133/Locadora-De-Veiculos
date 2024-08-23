@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LocadoraDeVeiculos.WebApp.Models;
 
-public abstract class FormVeiculoViewModel
+public class FormVeiculoViewModel
 {
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     [Required(ErrorMessage = "O veículo está Alugado.")]
     public bool Alugado { get; set; }
@@ -18,10 +18,6 @@ public abstract class FormVeiculoViewModel
 
     [Required(ErrorMessage = "A Marca é obrigatória.")]
     public Marca Marca { get; set; }
-
-    [DisplayName("Categoria do Veículo")]
-    [Required(ErrorMessage = "O Tipo de CNH é obrigatório.")]
-    public CategoriaVeiculo CategoriaVeiculo { get; set; }
 
     [Required(ErrorMessage = "O Combustível é obrigatório.")]
     public Combustivel Combustivel { get; set; }
@@ -42,7 +38,7 @@ public abstract class FormVeiculoViewModel
     [Range(0, int.MaxValue, ErrorMessage = "A Quilometragem deve ser um valor positivo.")]
     public int Quilometragem { get; set; }
 
-    //[Required(ErrorMessage = "O veículo deve ser registrado em um grupo.")]
+    [Required(ErrorMessage = "O veículo deve ser registrado em um grupo.")]
     [DisplayName("Grupo de Veículo")]
     public int grupoVeiculosId { get; set; }
 
@@ -51,24 +47,22 @@ public abstract class FormVeiculoViewModel
     [Required(ErrorMessage = "A Capacidade do Tanque de Combustível é obrigatória.")]
     public int CapacidadeTanqueDeCombustivel { get; set; }
 
-}
-
-public class CadastroVeiculoViewModel : FormVeiculoViewModel
-{
     [DisplayName("Grupo de Veículos")]
     public IEnumerable<SelectListItem>? GrupoVeiculos { get; set; }
 }
 
+public class CadastroVeiculoViewModel : FormVeiculoViewModel
+{
+}
+
 public class EditarVeiculoViewModel : FormVeiculoViewModel
 {
-    public GrupoVeiculos? grupoVeiculos { get; set; }
-    public int Id { get; set; }
 }
 
 public class DetalhesVeiculoViewModel : FormVeiculoViewModel
 {
     public int Id { get; set; }
-    public Veiculo? Veiculo { get; set; }
+    public GrupoVeiculos GrupoVeiculos { get; set; }
 }
 
 public class ListarVeiculoViewModel : FormVeiculoViewModel
