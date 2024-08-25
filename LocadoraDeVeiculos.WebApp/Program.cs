@@ -6,6 +6,8 @@ using LocadoraDeVeiculos.Infra.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.WebApp.Mapping;
+using static LocadoraDeVeiculos.WebApp.Mapping.VeiculoProfile;
 
 namespace LocadoraDeVeiculos.WebApp
 {
@@ -26,6 +28,7 @@ namespace LocadoraDeVeiculos.WebApp
             builder.Services.AddScoped<PlanoService>();
             builder.Services.AddScoped<VeiculoService>();
             builder.Services.AddScoped<GrupoVeiculosService>();
+            builder.Services.AddScoped<GrupoResolver>();
 
             builder.Services.AddAutoMapper(config =>
             {
