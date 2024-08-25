@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.WebApp.Models;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.Dominio;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class GrupoVeiculosController : WebController
@@ -38,18 +39,29 @@ public class GrupoVeiculosController : WebController
 
     public ActionResult Detalhes(int id)
     {
-        return View();
+        var resultado = _serviceGrupo.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var grupo = resultado.Value;
+
+        var detalheVm = _mapeador.Map<DetalhesGrupoViewModel>(grupo);
+
+        return View(detalheVm);
     }
 
     public ActionResult Cadastrar()
     {
-        var CadastroVm = new GrupoViewModels();
-
-        return View(CadastroVm);
+        return View();
     }
 
     [HttpPost]
-    public ActionResult Cadastrar(GrupoViewModels CadastroVm)
+    public ActionResult Cadastrar(CadastroGrupoViewModels CadastroVm)
     {
         if (!ModelState.IsValid)
             return View(CadastroVm);
@@ -72,25 +84,75 @@ public class GrupoVeiculosController : WebController
 
     public ActionResult Editar(int id)
     {
-        return View();
+        var resultado = _serviceGrupo.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var grupo = resultado.Value;
+
+        var editarVm = _mapeador.Map<EditarGrupoViewModel>(grupo);
+
+        return View(editarVm);
     }
 
     [HttpPost]
-    public ActionResult Editar(int id, EditarGrupoViewModel EditarVm)
+    public ActionResult Editar(EditarGrupoViewModel editarVm)
     {
+        var grupo = _mapeador.Map<GrupoVeiculos>(editarVm);
 
-        return View();
+        var resultado = _serviceGrupo.Editar(grupo);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        ApresentarMensagemSucesso($"O registro ID [{grupo.Id}] foi editado com sucesso!");
+
+        return RedirectToAction(nameof(Listar));
     }
 
     public ActionResult Excluir(int id)
     {
-        return View();
+        var resultado = _serviceGrupo.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var grupo = resultado.Value;
+
+        var excluirVm = _mapeador.Map<ExcluirGrupoViewModel>(grupo);
+
+        return View(excluirVm);
     }
 
     [HttpPost]
-    public ActionResult Excluir(int id, ExcluirGrupoViewModel ExcluirVm)
+    public ActionResult Excluir(ExcluirGrupoViewModel excluirVm)
     {
+        var resultado = _serviceGrupo.SelecionarId(excluirVm.Id);
 
-        return View();
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var grupo = resultado.Value;
+
+        ApresentarMensagemSucesso($"O registro foi deletado com sucesso!");
+
+        return RedirectToAction(nameof(Listar));
     }
 }

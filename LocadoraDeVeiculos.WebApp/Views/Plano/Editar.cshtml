@@ -1,0 +1,44 @@
+﻿@model FormPlanoViewModels
+
+@{
+    ViewBag.Title = "Editar Plano";
+}
+
+<h2>Editar Plano</h2>
+
+<form asp-action="Editar">
+    <div class="form-group">
+        <label asp-for="GrupoVeiculos" class="control-label"></label>
+        <select asp-for="grupoVeiculosId" class="form-control" asp-items="Model.GrupoVeiculos"></select>
+        <span asp-validation-for="GrupoVeiculos" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ValorDiaria" class="control-label">Valor da Diária</label>
+        <input asp-for="ValorDiaria" class="form-control" />
+        <span asp-validation-for="ValorDiaria" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PrecoKm" class="control-label">Valor do Km</label>
+        <input asp-for="PrecoKm" class="form-control" />
+        <span asp-validation-for="PrecoKm" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="kmDisponivel" class="control-label">Km Disponível</label>
+        <input asp-for="kmDisponivel" class="form-control" />
+        <span asp-validation-for="kmDisponivel" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ValorExtrapolado" class="control-label">Valor Extrapolado por Km</label>
+        <input asp-for="ValorExtrapolado" class="form-control" />
+        <span asp-validation-for="ValorExtrapolado" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

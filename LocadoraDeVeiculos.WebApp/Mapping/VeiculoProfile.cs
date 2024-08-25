@@ -15,7 +15,7 @@ public class VeiculoProfile : Profile
             .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom(v => v.GrupoVeiculos));
 
         CreateMap<Veiculo, EditarVeiculoViewModel>()
-            .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom<GrupoResolver>());
+            .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom<Resolver>());
 
         CreateMap<CadastroVeiculoViewModel, Veiculo>();
 
@@ -24,22 +24,4 @@ public class VeiculoProfile : Profile
         CreateMap<Veiculo, DetalhesVeiculoViewModel>();
     }
 
-
-    public class GrupoResolver : IValueResolver<Veiculo, EditarVeiculoViewModel, IEnumerable<SelectListItem>?>
-    {
-        readonly IRepositorioGrupoVeiculos _repositorioGrupo;
-
-        public GrupoResolver(IRepositorioGrupoVeiculos repositorioGrupo)
-        {
-            _repositorioGrupo = repositorioGrupo;
-        }
-
-        public IEnumerable<SelectListItem> Resolve(Veiculo source, EditarVeiculoViewModel destination, IEnumerable<SelectListItem> destMember, ResolutionContext context)
-        {
-            return _repositorioGrupo
-                .SelecionarTodos()
-                .Select
-                (Grupo => new SelectListItem(Grupo.Nome, Grupo.Id.ToString()));
-        }
-    }
 }

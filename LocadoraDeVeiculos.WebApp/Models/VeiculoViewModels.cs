@@ -1,8 +1,8 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+﻿using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.WebApp.Models;
 
@@ -68,6 +68,5 @@ public class DetalhesVeiculoViewModel : FormVeiculoViewModel
 public class ListarVeiculoViewModel : FormVeiculoViewModel
 {
     public string Alugado { get; set; }
-    public string grupoVeiculos { get; set; }
     public GrupoVeiculos GrupoVeiculos { get; set; }
 }

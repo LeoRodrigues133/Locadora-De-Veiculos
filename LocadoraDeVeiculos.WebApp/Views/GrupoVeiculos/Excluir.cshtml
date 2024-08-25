@@ -1,5 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ExcluirGrupoViewModel
 @{
+    ViewBag.Title = "Excluir Grupo de Veículos";
 }
+
+<div class="alert alert-danger" role="alert">
+    <strong>Tem certeza que deseja excluir este grupo de veículos?</strong>
+</div>
+
+<div class="form-group">
+    <label>Nome:</label>
+    <input class="form-control" value="@Model.Nome" disabled />
+</div>
+
+<form asp-action="Excluir" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

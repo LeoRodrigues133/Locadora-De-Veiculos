@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using LocadoraDeVeiculos.WebApp.Models;
-using LocadoraDeVeiculos.Aplicacao.Services;
-using LocadoraDeVeiculos.WebApp.Extensions;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.Dominio;
+using LocadoraDeVeiculos.WebApp.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using LocadoraDeVeiculos.WebApp.Extensions;
+using LocadoraDeVeiculos.Aplicacao.Services;
+using FluentResults;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
@@ -25,7 +26,7 @@ public class PlanoController : WebController
     {
         var resultado = _servicePlano.SelecionarTodos();
 
-        if(resultado.IsFailed)
+        if (resultado.IsFailed)
         {
             ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
@@ -43,12 +44,24 @@ public class PlanoController : WebController
 
     public IActionResult Detalhes(int id)
     {
-        return View();
+        var resultado = _servicePlano.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var plano = resultado.Value;
+
+        var detalhesVm = _mapeador.Map<DetalhesPlanoViewModel>(plano);
+
+        return View(detalhesVm);
     }
 
     public IActionResult Cadastrar()
     {
-
         return View(CarregarDadosFormulario());
     }
 
@@ -62,7 +75,7 @@ public class PlanoController : WebController
 
         var resultado = _servicePlano.Cadastrar(plano);
 
-        if(resultado.IsFailed)
+        if (resultado.IsFailed)
         {
             ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
 
@@ -76,25 +89,96 @@ public class PlanoController : WebController
 
     public IActionResult Editar(int id)
     {
-        return View();
+        var resultado = _servicePlano.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var resultadoGrupos = _serviceGrupo.SelecionarTodos();
+
+        if (resultadoGrupos.IsFailed)
+        {
+            ApresentarMensagemFalha(resultadoGrupos.ToResult());
+
+            return null;
+        }
+
+        var plano = resultado.Value;
+
+        var editarVm = _mapeador.Map<EditarPlanoViewModel>(plano);
+
+        var gruposDisponiveis = resultadoGrupos.Value;
+
+        editarVm.GrupoVeiculos = gruposDisponiveis
+            .Select(g => new SelectListItem
+            {
+                Value = g.Id.ToString(),
+                Text = g.Nome,
+                Selected = g.Id == plano.GrupoVeiculos.Id // Seleciona o grupo associado ao veículo
+            }).ToList();
+
+        return View(editarVm);
     }
 
     [HttpPost]
     public IActionResult Editar(int id, EditarPlanoViewModel editarVm)
     {
+        if (!ModelState.IsValid)
+            return View(editarVm);
 
-        return View();
+        var plano = _mapeador.Map<Plano>(editarVm);
+
+        var resultado = _servicePlano.Editar(plano);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+
+            return RedirectToAction(nameof(Editar));
+        }
+
+        ApresentarMensagemSucesso($"O registro ID [{plano.Id}] foi editado com sucesso!");
+
+        return RedirectToAction(nameof(Listar));
     }
 
     public IActionResult Excluir(int id)
     {
-        return View();
+        var resultado = _servicePlano.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var plano = resultado.Value;
+
+        var excluirVm = _mapeador.Map<DetalhesPlanoViewModel>(plano);
+
+        return View(excluirVm);
     }
 
     [HttpPost]
-    public IActionResult Excluir(int id, ExcluirPlanoViewModel excluirVm)
+    public IActionResult Excluir(DetalhesPlanoViewModel excluirVm)
     {
-        return View();
+        var resultado = _servicePlano.SelecionarId(excluirVm.Id); 
+        
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        ApresentarMensagemSucesso($"O registro foi deletado com sucesso!");
+
+        return RedirectToAction(nameof(Listar));
     }
     private FormPlanoViewModels? CarregarDadosFormulario(
        FormPlanoViewModels? dadosPrevios = null)

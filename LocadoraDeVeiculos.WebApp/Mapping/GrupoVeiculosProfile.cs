@@ -11,11 +11,14 @@ public class GrupoVeiculosProfile : Profile
 
         CreateMap<GrupoVeiculos, ListarGrupoViewModel>();
 
-        CreateMap<GrupoViewModels, GrupoVeiculos>();
+        CreateMap<GrupoVeiculos, EditarGrupoViewModel>();
+
+        CreateMap<CadastroGrupoViewModels, GrupoVeiculos>();
 
         CreateMap<EditarGrupoViewModel, GrupoVeiculos>();
 
-        CreateMap<GrupoVeiculos, EditarGrupoViewModel>()
-            .ForMember(vm => vm.Nome, opt => opt.MapFrom(g => g.Nome));
+        CreateMap<GrupoVeiculos, DetalhesGrupoViewModel>();
+
+        CreateMap<GrupoVeiculos, ExcluirGrupoViewModel>();
     }
 }

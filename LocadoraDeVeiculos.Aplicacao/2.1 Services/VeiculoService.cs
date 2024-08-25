@@ -95,7 +95,7 @@ public class VeiculoService
         veiculoSelecionado.Alugado = veiculoEditado.Alugado;
         veiculoSelecionado.Quilometragem = veiculoEditado.Quilometragem;
         veiculoSelecionado.CapacidadeTanqueDeCombustivel = veiculoEditado.CapacidadeTanqueDeCombustivel;
-        #endregion
+        #endregion|
 
         _repositorioVeiculo.Editar(veiculoSelecionado);
 

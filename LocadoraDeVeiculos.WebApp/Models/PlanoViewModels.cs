@@ -7,7 +7,7 @@ namespace LocadoraDeVeiculos.WebApp.Models;
 
 public class FormPlanoViewModels
 {
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     public decimal? ValorDiaria { get; set; }
 
@@ -27,10 +27,13 @@ public class FormPlanoViewModels
 }
 
 public class CadastroPlanoViewModel : FormPlanoViewModels { }
-public class ListarPlanoViewModel : FormPlanoViewModels { 
+public class ListarPlanoViewModel : FormPlanoViewModels
+{
 
-    public GrupoVeiculos GrupoVeiculos { get; set;}
+    public GrupoVeiculos GrupoVeiculos { get; set; }
 }
-public class ExcluirPlanoViewModel : FormPlanoViewModels { }
 public class EditarPlanoViewModel : FormPlanoViewModels { }
-public class DetalhesPlanoViewModel: FormPlanoViewModels { }
+public class DetalhesPlanoViewModel : FormPlanoViewModels
+{
+    public GrupoVeiculos GrupoVeiculos { get; set; }
+}

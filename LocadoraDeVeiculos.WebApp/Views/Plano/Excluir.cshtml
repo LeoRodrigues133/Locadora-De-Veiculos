@@ -1,0 +1,41 @@
+﻿@model DetalhesPlanoViewModel
+@{
+    ViewBag.Title = "Excluir Plano";
+}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Tem certeza que deseja excluir este plano?</strong>
+</div>
+
+<div class="form-group">
+    <label>Grupo de Veículos:</label>
+    <input class="form-control" value="@Model.GrupoVeiculos" disabled />
+</div>
+
+<div class="form-group">
+    <label>Valor da Diária:</label>
+    <input class="form-control" value="@Model.ValorDiaria?.ToString("C")" disabled />
+</div>
+
+<div class="form-group">
+    <label>Valor do Km:</label>
+    <input class="form-control" value="@Model.PrecoKm?.ToString("C")" disabled />
+</div>
+
+<div class="form-group">
+    <label>Km Disponível:</label>
+    <input class="form-control" value="@Model.kmDisponivel" disabled />
+</div>
+
+<div class="form-group">
+    <label>Valor Extrapolado por Km:</label>
+    <input class="form-control" value="@Model.ValorExtrapolado?.ToString("C")" disabled />
+</div>
+
+<form asp-action="Excluir" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

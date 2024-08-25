@@ -11,7 +11,8 @@ public class PlanoProfile : Profile
         CreateMap<Plano, ListarPlanoViewModel>()
             .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom(v => v.GrupoVeiculos));
 
-        CreateMap<Plano, EditarPlanoViewModel>();
+        CreateMap<Plano, EditarPlanoViewModel>()
+            .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom<Resolver>());
 
         CreateMap<CadastroPlanoViewModel, Plano>();
 

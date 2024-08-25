@@ -24,9 +24,9 @@ public class GrupoVeiculosService
         return Result.Ok(grupo);
     }
 
-    public Result<GrupoVeiculos> Editar(GrupoVeiculos grupo)
+    public Result<GrupoVeiculos> Editar(GrupoVeiculos grupoEditado)
     {
-        var grupoSelecionado = _repositorioGrupo.SelecionarPorId(grupo.Id);
+        var grupoSelecionado = _repositorioGrupo.SelecionarPorId(grupoEditado.Id);
 
         if (grupoSelecionado is null)
             Result.Fail("O grupo não foi encontrado");
@@ -37,7 +37,7 @@ public class GrupoVeiculosService
         #endregion
 
         #region Edit
-        grupo.Nome = grupoSelecionado.Nome;
+        grupoSelecionado.Nome = grupoEditado.Nome;
         #endregion
 
         _repositorioGrupo.Editar(grupoSelecionado);

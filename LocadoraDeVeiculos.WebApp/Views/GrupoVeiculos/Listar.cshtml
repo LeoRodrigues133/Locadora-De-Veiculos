@@ -17,9 +17,9 @@
                 <td>@grupo.Nome</td>
                 <td>@grupo.Grupos</td>
                 <td class="d-flex gap-2">
-                    <a asp-action="EditarGrupo" asp-route-id="@grupo.Id" class="btn btn-warning">Editar</a>
-                    <a asp-action="ExcluirGrupo" asp-route-id="@grupo.Id" class="btn btn-danger">Excluir</a>
-                    <a asp-action="DetalhesGrupo" asp-route-id="@grupo.Id" class="btn btn-primary">Detalhes</a>
+                    <a asp-action="Editar" asp-route-id="@grupo.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Excluir" asp-route-id="@grupo.Id" class="btn btn-danger">Excluir</a>
+                    <a asp-action="Detalhes" asp-route-id="@grupo.Id" class="btn btn-primary">Detalhes</a>
                 </td>
             </tr>
         }
