@@ -13,6 +13,10 @@ public class MapeadorPlanos : IEntityTypeConfiguration<Plano>
             .IsRequired()
             .ValueGeneratedOnAdd();
 
+        builderPlano.Property(p => p.TipoPlano)
+            .IsRequired()
+            .HasColumnType("int");
+
         builderPlano.Property(p => p.PrecoKM)
             .HasColumnType("decimal")
             .IsRequired(false);

@@ -21,10 +21,10 @@
         {
             <tr>
                 <td>@plano.GrupoVeiculos.Nome</td>
-                <td>@plano.ValorDiaria?.ToString("C")</td>
-                <td>@plano.PrecoKm?.ToString("C")</td>
-                <td>@plano.kmDisponivel</td>
-                <td>@plano.ValorExtrapolado?.ToString("C")</td>
+                <td>@plano.testin(plano.ValorDiaria)</td>
+                <td>@plano.testin(plano.PrecoKm)</td>
+                <td>@plano.testin(plano.kmDisponivel)</td>
+                <td>@plano.testin(plano.ValorExtrapolado)</td>
                 <td>
                     <a asp-action="Editar" asp-route-id="@plano.Id" class="btn btn-primary">Editar</a>
                     <a asp-action="Detalhes" asp-route-id="@plano.Id" class="btn btn-info">Detalhes</a>
