@@ -47,6 +47,18 @@ public class PlanoService
         return Result.Ok(planoSelecionado);
     }
 
+    public Result<Plano> Excluir(int id)
+    {
+        var plano = _repositorioPlano.SelecionarPorId(id);
+
+        if(plano is null)
+            return Result.Fail("O plano não foi encontrado!");
+
+        _repositorioPlano.Excluir(plano);
+
+        return Result.Ok();
+    }
+
     public Result<Plano> SelecionarId(int id)
     {
         var plano = _repositorioPlano.SelecionarPorId(id);

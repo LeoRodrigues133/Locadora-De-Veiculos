@@ -140,7 +140,7 @@ public class GrupoVeiculosController : WebController
     [HttpPost]
     public ActionResult Excluir(ExcluirGrupoViewModel excluirVm)
     {
-        var resultado = _serviceGrupo.SelecionarId(excluirVm.Id);
+        var resultado = _serviceGrupo.Excluir(excluirVm.Id);
 
         if (resultado.IsFailed)
         {

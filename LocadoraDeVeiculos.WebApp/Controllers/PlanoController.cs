@@ -167,8 +167,8 @@ public class PlanoController : WebController
     [HttpPost]
     public IActionResult Excluir(DetalhesPlanoViewModel excluirVm)
     {
-        var resultado = _servicePlano.SelecionarId(excluirVm.Id); 
-        
+        var resultado = _servicePlano.Excluir(excluirVm.Id); 
+
         if (resultado.IsFailed)
         {
             ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
