@@ -29,20 +29,20 @@
         <input asp-for="ValorDiaria" id="valorDiaria" class="form-control" />
         <span asp-validation-for="ValorDiaria" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="PrecoKm" id="precoKmlabel" class="control-label">Valor por Km</label>
+    <div class="form-group" id="divprecoKm">
+        <label asp-for="PrecoKm" class="control-label">Valor por Km</label>
         <input asp-for="PrecoKm" id="precoKm" class="form-control" />
         <span asp-validation-for="PrecoKm" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="kmDisponivel" id="kmDisponivellabel" class="control-label">Km Disponível</label>
+    <div class="form-group" id="divkmDisponivel">
+        <label asp-for="kmDisponivel" class="control-label">Km Disponível</label>
         <input asp-for="kmDisponivel" id="kmDisponivel" class="form-control" />
         <span asp-validation-for="kmDisponivel" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="ValorExtrapolado" id="valorExtrapoladolabel" class="control-label">Valor Extrapolado por Km</label>
+    <div class="form-group" id="divvalorExtrapolado">
+        <label asp-for="ValorExtrapolado"  class="control-label">Valor Extrapolado por Km</label>
         <input asp-for="ValorExtrapolado" id="valorExtrapolado" class="form-control" />
         <span asp-validation-for="ValorExtrapolado" class="text-danger"></span>
     </div>
@@ -56,10 +56,13 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const tipoPlanoRadios = document.querySelectorAll('input[name="TipoPlano"]');
-        const valorDiaria = document.getElementById('valorDiaria');
         const precoKm = document.getElementById('precoKm');
         const kmDisponivel = document.getElementById('kmDisponivel');
         const valorExtrapolado = document.getElementById('valorExtrapolado');
+
+        const divprecoKm = document.getElementById('divprecoKm');
+        const divkmDisponivel = document.getElementById('divkmDisponivel');
+        const divvalorExtrapolado = document.getElementById('divvalorExtrapolado');
 
         function atualizarCampos() {
             tipoPlanoRadios.forEach(function (radio) {
@@ -67,15 +70,15 @@
                     switch (this.value) {
                         case "Diario":
                             // --> Visíveis
-                            valorDiaria.disabled = false;
-
                             precoKm.disabled = false;
-
+                            divprecoKm.hidden = false;
 
                             // --> Ocultos
+                            divkmDisponivel.hidden = true;
                             kmDisponivel.disabled = true;
                             kmDisponivel.value = '';
 
+                            divvalorExtrapolado.hidden = true;
                             valorExtrapolado.disabled = true;
                             valorExtrapolado.value = '';
 
@@ -83,28 +86,33 @@
 
                         case "Controlado":
                             // --> Visíveis
-                            valorDiaria.disabled = false;
-
                             kmDisponivel.disabled = false;
+                            divkmDisponivel.hidden = false;
 
                             valorExtrapolado.disabled = false;
+                            divvalorExtrapolado.hidden = false;
 
                             // --> Ocultos
+                            divprecoKm.hidden = true;
                             precoKm.disabled = true;
                             precoKm.value = '';
                             break;
 
                         case "Livre":
                             // --> Visíveis
-                            valorDiaria.disabled = false;
 
                             // --> Ocultos
-
+                            precoKm.value = '';
                             precoKm.disabled = true;
+                            divprecoKm.hidden = true;
 
+                            kmDisponivel.value = '';
                             kmDisponivel.disabled = true;
+                            divkmDisponivel.hidden = true;
 
+                            valorExtrapolado.value = '';
                             valorExtrapolado.disabled = true;
+                            divvalorExtrapolado.hidden = true;
 
                             break;
                     }

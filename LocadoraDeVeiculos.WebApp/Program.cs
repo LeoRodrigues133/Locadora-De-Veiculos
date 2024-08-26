@@ -1,13 +1,14 @@
 using System.Reflection;
+using LocadoraDeVeiculos.WebApp.Mapping;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Infra.Compartilhado;
 using LocadoraDeVeiculos.Infra.ModuloAlugueis;
 using LocadoraDeVeiculos.Infra.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis;
+using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloClientes;
+using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
-using LocadoraDeVeiculos.WebApp.Mapping;
-using static LocadoraDeVeiculos.WebApp.Mapping.VeiculoProfile;
 
 namespace LocadoraDeVeiculos.WebApp
 {
@@ -24,8 +25,10 @@ namespace LocadoraDeVeiculos.WebApp
             builder.Services.AddScoped<IRepositorioPlano, RepositorioPlanoEmOrm>();
             builder.Services.AddScoped<IRepositorioVeiculo, RepositorioVeiculosEmOrm>();
             builder.Services.AddScoped<IRepositorioGrupoVeiculos, RepositorioGrupoVeiculosOrm>();
+            builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
 
             builder.Services.AddScoped<PlanoService>();
+            builder.Services.AddScoped<ClienteService>();
             builder.Services.AddScoped<VeiculoService>();
             builder.Services.AddScoped<GrupoVeiculosService>();
             builder.Services.AddScoped<Resolver>();

@@ -1,0 +1,150 @@
+﻿@using LocadoraDeVeiculos.Dominio
+@model CadastroClienteViewModel
+
+@{
+    ViewBag.Title = "Cadastro de Cliente";
+}
+
+<form asp-action="Cadastrar">
+    <div class="form-group">
+        <label asp-for="RG" class="control-label"></label>
+        <input asp-for="RG" id="rg" class="form-control" maxlength="9" />
+        <span asp-validation-for="RG" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Nome" class="control-label"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Telefone" class="control-label"></label>
+        <input asp-for="Telefone" id="fone" class="form-control" maxlength="15" />
+        <span asp-validation-for="Telefone" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Endereco" class="control-label"></label>
+        <input asp-for="Endereco" class="form-control" />
+        <span asp-validation-for="Endereco" class="text-danger"></span>
+    </div>
+
+    <label>Tipo de Perfil:</label><br />
+    <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" id="pessoaFisica" name="TipoPerfil" value="true" checked />
+        <label for="pessoaFisica" class="btn btn-outline-secondary">Pessoa Física</label>
+
+        <input type="radio" class="btn-check" id="pessoaJuridica" name="TipoPerfil" value="false" />
+        <label for="pessoaJuridica" class="btn btn-outline-secondary">Pessoa Jurídica</label>
+    </div>
+    <span asp-validation-for="TipoPerfil" class="text-danger"></span>
+
+    <div class="form-group" id="divcpf">
+        <label asp-for="CPF" class="control-label"></label>
+        <input asp-for="CPF" id="cpf" class="form-control" maxlength="14" />
+        <span asp-validation-for="CPF" class="text-danger"></span>
+    </div>
+
+    <div class="form-group" id="divcnpj">
+        <label asp-for="CNPJ" class="control-label"></label>
+        <input asp-for="CNPJ" id="cnpj" class="form-control" maxlength="18" />
+        <span asp-validation-for="CNPJ" class="text-danger"></span>
+    </div>
+
+   
+    <div class="form-group">
+        <input type="submit" value="Cadastrar" class="btn btn-primary" />
+        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cpfInput = document.getElementById('cpf');
+        var cnpjInput = document.getElementById('cnpj');
+        var rgInput = document.getElementById('rg');
+        var telefoneInput = document.getElementById('fone');
+        var divcpf = document.getElementById('divcpf');
+        var divcnpj = document.getElementById('divcnpj');
+
+        function SelecionarPerfil() {
+            var radioPerfilChk = document.querySelector('input[name="TipoPerfil"]:checked');
+
+            if (radioPerfilChk) {
+                if (radioPerfilChk.value === "false") { // Pessoa Jurídica
+
+                    cpfInput.disabled = true;
+                    divcpf.hidden = true;
+
+                    cnpjInput.disabled = false;
+                    divcnpj.hidden = false;
+
+                    cpfInput.value = '';
+
+                } else if (radioPerfilChk.value === "true") { // Pessoa Física
+
+                    cpfInput.disabled = false;
+                    divcpf.hidden = false;
+
+                    cnpjInput.disabled = true;
+                    divcnpj.hidden = true;
+
+                    cnpjInput.value = '';
+                }
+            }
+        }
+
+        SelecionarPerfil();
+
+        document.querySelectorAll('input[name="TipoPerfil"]').forEach(function (radio) {
+            radio.addEventListener('change', SelecionarPerfil);
+        });
+
+        cpfInput.addEventListener('input', function () {
+            var value = cpfInput.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                cpfInput.value = value;
+            }
+        });
+
+        cnpjInput.addEventListener('input', function () {
+            var value = cnpjInput.value.replace(/\D/g, '');
+            if (value.length <= 14) {
+                value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+                value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                value = value.replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+                cnpjInput.value = value;
+            }
+        });
+
+        rgInput.addEventListener('input', function () {
+            var value = rgInput.value.replace(/\D/g, '');
+            if (value.length <= 9) {
+                value = value.replace(/(\d{1})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                rgInput.value = value;
+            }
+        });
+
+        telefoneInput.addEventListener('input', function () {
+            var value = telefoneInput.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{2})(\d)/, '($1) $2');
+                value = value.replace(/(\d{1})(\d{4})(\d{4})$/, '$1 $2-$3');
+                telefoneInput.value = value;
+            }
+        });
+    });
+</script>

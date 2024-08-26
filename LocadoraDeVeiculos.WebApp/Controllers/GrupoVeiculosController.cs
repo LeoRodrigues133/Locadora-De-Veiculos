@@ -61,7 +61,7 @@ public class GrupoVeiculosController : WebController
     }
 
     [HttpPost]
-    public ActionResult Cadastrar(CadastroGrupoViewModels CadastroVm)
+    public ActionResult Cadastrar(CadastroGrupoViewModel CadastroVm)
     {
         if (!ModelState.IsValid)
             return View(CadastroVm);

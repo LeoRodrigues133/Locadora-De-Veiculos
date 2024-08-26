@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado
 {

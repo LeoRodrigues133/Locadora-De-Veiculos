@@ -13,7 +13,7 @@ public class GrupoVeiculosProfile : Profile
 
         CreateMap<GrupoVeiculos, EditarGrupoViewModel>();
 
-        CreateMap<CadastroGrupoViewModels, GrupoVeiculos>();
+        CreateMap<CadastroGrupoViewModel, GrupoVeiculos>();
 
         CreateMap<EditarGrupoViewModel, GrupoVeiculos>();
 

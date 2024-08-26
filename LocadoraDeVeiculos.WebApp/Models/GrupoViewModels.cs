@@ -9,7 +9,7 @@ public abstract class formGrupoViewModel
     public string Nome { get; set; }
 }
 
-public class CadastroGrupoViewModels : formGrupoViewModel
+public class CadastroGrupoViewModel : formGrupoViewModel
 {
 }
 public class ListarGrupoViewModel : formGrupoViewModel
