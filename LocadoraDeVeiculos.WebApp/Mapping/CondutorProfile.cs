@@ -10,7 +10,8 @@ public class CondutorProfile : Profile
     {
         CreateMap<CadastroCondutorViewModel, Condutor>();
 
-        CreateMap<Condutor, EditarCondutorViewModel>();
+        CreateMap<Condutor, EditarCondutorViewModel>()
+            .ForMember(vm => vm.Clientes, opt => opt.MapFrom<Resolver>());
 
         CreateMap<EditarCondutorViewModel, Condutor>();
 

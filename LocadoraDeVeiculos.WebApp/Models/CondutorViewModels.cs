@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using LocadoraDeVeiculos.Dominio;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace LocadoraDeVeiculos.WebApp.Models;
@@ -22,6 +23,15 @@ public class CadastroCondutorViewModel : FormCondutorViewModel
 {
     public IEnumerable<SelectListItem>? Clientes { get; set; }
 }
-public class EditarCondutorViewModel : FormCondutorViewModel { }
-public class ExcluirCondutorViewModel : FormCondutorViewModel { }
-public class DetalhesCondutorViewModel : FormCondutorViewModel { }
+public class EditarCondutorViewModel : FormCondutorViewModel
+{
+    public IEnumerable<SelectListItem>? Clientes { get; set; }
+}
+public class ExcluirCondutorViewModel : FormCondutorViewModel
+{
+    public IEnumerable<SelectListItem>? Clientes { get; set; }
+}
+public class DetalhesCondutorViewModel : FormCondutorViewModel
+{
+    public Cliente Cliente { get; set; }
+}

@@ -28,7 +28,7 @@ public class Condutor : EntidadeBase
     public DateTime ValidadeCNH { get; set; }
     public Cliente Cliente { get; set; }
     public bool ClienteCondutor {  get; set; }
-    public int ClienteId { get;}
+    public int ClienteId { get; set; }
     public string? Nome {  get; set; }
     public string? Email {  get; set; }
     public string? Telefone {  get; set; }

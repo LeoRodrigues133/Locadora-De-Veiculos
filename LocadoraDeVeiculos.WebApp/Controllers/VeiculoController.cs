@@ -184,7 +184,6 @@ public class VeiculoController : WebController
 
         ApresentarMensagemSucesso($"O registro foi deletado com sucesso!");
 
-
         return RedirectToAction(nameof(Listar));
     }
     private FormVeiculoViewModel? CarregarDadosFormulario(

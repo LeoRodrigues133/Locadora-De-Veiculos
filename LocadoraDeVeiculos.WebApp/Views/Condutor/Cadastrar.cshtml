@@ -4,6 +4,8 @@
     ViewBag.Title = "Cadastro de Condutor";
 }
 
+@* //Perguntar sobre como colocar o valor dos atributos no input *@
+
 <form asp-action="Cadastrar" method="post">
     <div class="form-group">
         <label for="ClienteId">Cliente:</label>
@@ -17,37 +19,37 @@
 
     <div class="form-group">
         <label asp-for="Nome" class="control-label">Nome:</label>
-        <input asp-for="Nome" class="form-control" />
+        <input asp-for="Nome" id="nome" class="form-control" />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Email" class="control-label">Email:</label>
-        <input asp-for="Email" class="form-control" />
+        <input asp-for="Email" id="email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Telefone" class="control-label">Telefone:</label>
-        <input asp-for="Telefone" class="form-control" />
+        <input asp-for="Telefone" id="fone" id="fone" maxlength="16" class="form-control" />
         <span asp-validation-for="Telefone" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="CPF" class="control-label">CPF:</label>
-        <input asp-for="CPF" class="form-control" />
+        <input asp-for="CPF" id="cpf" maxlength="14" class="form-control" />
         <span asp-validation-for="CPF" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="CNH" class="control-label">CNH:</label>
-        <input asp-for="CNH" class="form-control" />
+        <input asp-for="CNH" maxlength="12" class="form-control" />
         <span asp-validation-for="CNH" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="ValidadeCNH" class="control-label">Validade:</label>
-        <input asp-for="ValidadeCNH" class="form-control" type="date" />
+        <input asp-for="ValidadeCNH" class="form-control" type="date" value="2000-01-01"/>
         <span asp-validation-for="ValidadeCNH" class="text-danger"></span>
     </div>
 
@@ -56,3 +58,61 @@
         <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
     </div>
 </form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cpfInput = document.getElementById('cpf');
+        var telefoneInput = document.getElementById('fone');
+        var emailInput = document.getElementById('email');
+        var nomeInput = document.getElementById('nome');
+        var clienteCondutorCheckbox = document.getElementById('ClienteCondutor');
+
+        function atualizarCamposCondutor() {
+            var ehCondutor = clienteCondutorCheckbox.checked;
+
+            cpfInput.disabled = ehCondutor;
+            telefoneInput.disabled = ehCondutor;
+            emailInput.disabled = ehCondutor;
+            nomeInput.disabled = ehCondutor;
+
+            cpfInput.value = '';
+            telefoneInput.value = '';
+            emailInput.value = '';
+            nomeInput.value = '';
+        }
+
+        clienteCondutorCheckbox.addEventListener('change', function () {
+            atualizarCamposCondutor();
+        });
+
+        atualizarCamposCondutor();
+
+        cpfInput.addEventListener('input', function () {
+            var value = cpfInput.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                cpfInput.value = value;
+            }
+        });
+
+        telefoneInput.addEventListener('input', function () {
+            var value = telefoneInput.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{2})(\d)/, '($1) $2');
+                value = value.replace(/(\d{1})(\d{4})(\d{4})$/, '$1 $2-$3');
+                telefoneInput.value = value;
+            }
+        });
+
+        AtualizaCLiente.addEventListener('change', function () {
+            var selectedOption = clienteSelect.options[clienteSelect.selectedIndex];
+            var nomeCliente = selectedOption.getAttribute('data-nome');
+
+            nomeInput.value = nomeCliente || '';
+            cpfInput.value = cpfCliente || '';
+            foneInput.value = foneCliente || '';
+            emailInput.value = emailCliente || '';
+        });
+    });
+</script>

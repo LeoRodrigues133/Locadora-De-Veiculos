@@ -39,7 +39,20 @@ public class CondutorController : WebController
 
     public IActionResult Detalhes(int id)
     {
-        return View();
+        var resultado = _serviceCondutor.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var condutor = resultado.Value;
+
+        var detalhesVM = _mapeador.Map<DetalhesCondutorViewModel>(condutor);
+
+        return View(detalhesVM);
     }
 
     public IActionResult Cadastrar()
@@ -49,7 +62,7 @@ public class CondutorController : WebController
 
     [HttpPost]
     public IActionResult Cadastrar(CadastroCondutorViewModel cadastroVm)
-    
+
     {
         if (!ModelState.IsValid)
             return View(CarregarDadosFormulario(cadastroVm));
@@ -72,23 +85,89 @@ public class CondutorController : WebController
 
     public IActionResult Editar(int id)
     {
-        return View();
+        var resultado = _serviceCondutor.SelecionarId(id);
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var clientes = _serviceCliente.SelecionarTodos();
+
+        if (clientes.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return null;
+        }
+
+        var condutor = resultado.Value;
+
+        var editarVm = _mapeador.Map<EditarCondutorViewModel>(condutor);
+
+        var clientesElegiveis = clientes.Value;
+
+        editarVm.Clientes = clientesElegiveis
+            .Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Nome,
+                Selected = c.Id == condutor.Id
+            });
+
+        return View(editarVm);
     }
 
     [HttpPost]
     public IActionResult Editar(EditarCondutorViewModel editarVm)
     {
+        var condutor = _mapeador.Map<Condutor>(editarVm);
+
+        var resultado = _serviceCondutor.Editar(condutor);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+
+            return RedirectToAction(nameof(Editar));
+        }
+        ApresentarMensagemSucesso($"O registro ID [{condutor.Id}] foi editado com sucesso!");
+
         return RedirectToAction(nameof(Listar));
     }
 
     public IActionResult Excluir(int id)
     {
-        return View();
+        var resultado = _serviceCondutor.SelecionarId(id);
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var condutor = resultado.Value;
+
+        var excluirVm = _mapeador.Map<ExcluirCondutorViewModel>(condutor);
+
+        return View(excluirVm);
     }
 
     [HttpPost]
-    public IActionResult Excluir()
+    public IActionResult Excluir(ExcluirCondutorViewModel detalhesVm)
     {
+        var resultado = _serviceCondutor.Excluir(detalhesVm.Id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+
+        ApresentarMensagemSucesso($"O registro foi deletado com sucesso!");
+
         return RedirectToAction(nameof(Listar));
     }
 

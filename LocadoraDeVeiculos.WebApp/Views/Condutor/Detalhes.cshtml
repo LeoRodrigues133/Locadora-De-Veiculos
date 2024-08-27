@@ -1,5 +1,92 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model DetalhesCondutorViewModel
+
 @{
+    ViewBag.Title = "Excluir Condutor";
 }
+
+
+<div class="alert alert-danger" role="alert">
+    <strong>Tem certeza que deseja excluir este condutor?</strong>
+</div>
+
+<div class="form-group">
+    <label>Nome:</label>
+    <input class="form-control" value="@Model.Nome" disabled />
+</div>
+
+<div class="form-group">
+    <label>Email:</label>
+    <input class="form-control" value="@Model.Email" disabled />
+</div>
+
+<div class="form-group">
+    <label>Telefone:</label>
+    <input class="form-control" value="@Model.Telefone" disabled />
+</div>
+
+<div class="form-group">
+    <label>CPF:</label>
+    <input class="form-control" value="@Model.CPF" disabled />
+</div>
+
+<div class="form-group">
+    <label>CNH:</label>
+    <input class="form-control" value="@Model.CNH" disabled />
+</div>
+
+<div class="form-group">
+    <label>Validade CNH:</label>
+    <input class="form-control" value="@Model.ValidadeCNH.ToString("dd/MM/yyyy")" disabled />
+</div>
+
+<hr />
+
+<h4>Informações do Cliente</h4>
+
+<div class="form-group">
+    <label>RG:</label>
+    <input class="form-control" value="@Model.Cliente.RG" disabled />
+</div>
+
+<div class="form-group">
+    <label>Nome do Cliente:</label>
+    <input class="form-control" value="@Model.Cliente.Nome" disabled />
+</div>
+
+<div class="form-group">
+    <label>Email do Cliente:</label>
+    <input class="form-control" value="@Model.Cliente.Email" disabled />
+</div>
+
+<div class="form-group">
+    <label>Telefone do Cliente:</label>
+    <input class="form-control" value="@Model.Cliente.Telefone" disabled />
+</div>
+
+<div class="form-group">
+    <label>Endereço do Cliente:</label>
+    <input class="form-control" value="@Model.Cliente.Endereco" disabled />
+</div>
+
+<div class="form-group">
+    <label>CPF do Cliente:</label>
+    <input class="form-control" value="@Model.Cliente.CPF" disabled />
+</div>
+
+<div class="form-group">
+    <label>CNPJ do Cliente:</label>
+    <input class="form-control" value="@Model.Cliente.CNPJ" disabled />
+</div>
+
+<div class="form-group">
+    <label>Tipo de Perfil:</label>
+    <input class="form-control" value="@(Model.Cliente.TipoPerfil ? "Pessoa Física" : "Pessoa Jurídica")" disabled />
+</div>
+
+<form asp-action="Excluir" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
