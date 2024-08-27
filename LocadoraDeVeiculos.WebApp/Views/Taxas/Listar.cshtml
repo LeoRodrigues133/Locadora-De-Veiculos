@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ListarTaxasViewModel>
+
+@{
+    ViewBag.Title = "Lista de Clientes";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Valor</th>
+            <th>Tipo de Cobrança</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Taxa in Model)
+        {
+            <tr>
+                <td>@Taxa.Nome</td>
+                <td>@Taxa.Valor.ToString("C")</td>
+                <td>@(Taxa.TipoDeCobranca ? "Fixa" : "Diária")</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@Taxa.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Detalhes" asp-route-id="@Taxa.Id" class="btn btn-info">Detalhes</a>
+                    <a asp-action="Excluir" asp-route-id="@Taxa.Id" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Cadastrar" class="btn btn-success">Novo Cadastro</a>

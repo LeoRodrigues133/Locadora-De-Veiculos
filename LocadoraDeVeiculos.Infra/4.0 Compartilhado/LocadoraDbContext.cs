@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Dominio;
 using LocadoraDeVeiculos.Infra.ModuloPessoas;
+using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado;
 
@@ -13,7 +14,8 @@ public class LocadoraDbContext : DbContext
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<Cliente> Clientes { get;  set; }
     public DbSet<GrupoVeiculos> GrupoVeiculos { get; set; }
-    public DbSet<Condutor> Condutores { get; internal set; }
+    public DbSet<Condutor> Condutores { get; set; }
+    public DbSet<TaxaServico> Taxas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -39,6 +41,7 @@ public class LocadoraDbContext : DbContext
         modelBuilder.ApplyConfiguration(new MapeadorClientes());
         modelBuilder.ApplyConfiguration(new MapeadorGrupoVeiculos());
         modelBuilder.ApplyConfiguration(new MapeadorCondutores());
+        modelBuilder.ApplyConfiguration(new MapeadorTaxas());
 
         base.OnModelCreating(modelBuilder);
     }

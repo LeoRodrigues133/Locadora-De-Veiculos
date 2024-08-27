@@ -4,7 +4,6 @@ using LocadoraDeVeiculos.WebApp.Models;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
-using LocadoraDeVeiculos.Dominio;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class GrupoVeiculosController : WebController
@@ -148,8 +147,6 @@ public class GrupoVeiculosController : WebController
 
             return RedirectToAction(nameof(Listar));
         }
-
-        var grupo = resultado.Value;
 
         ApresentarMensagemSucesso($"O registro foi deletado com sucesso!");
 
