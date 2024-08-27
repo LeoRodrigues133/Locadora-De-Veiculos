@@ -28,5 +28,4 @@ public class Cliente : EntidadeBase
     public bool TipoPerfil { get; set; }
     public string? CPF { get; set; }
     public string? CNPJ { get; set; }
-
 }

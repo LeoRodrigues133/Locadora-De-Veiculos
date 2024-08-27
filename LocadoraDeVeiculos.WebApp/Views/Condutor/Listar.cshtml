@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ListarCondutorViewModel>
+
+@{
+    ViewBag.Title = "Listagem de Condutores";
+}
+
+<h2>Listagem de Condutores</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>CPF</th>
+            <th>CNH</th>
+            <th>Validade CNH</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var condutor in Model)
+        {
+            <tr>
+                <td>@condutor.Nome</td>
+                <td>@condutor.Email</td>
+                <td>@condutor.Telefone</td>
+                <td>@condutor.CPF</td>
+                <td>@condutor.CNH</td>
+                <td>@condutor.ValidadeCNH.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@condutor.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Detalhes" asp-route-id="@condutor.Id" class="btn btn-info">Detalhes</a>
+                    <a asp-action="Excluir" asp-route-id="@condutor.Id" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Cadastrar" class="btn btn-success">Cadastrar Novo Condutor</a>

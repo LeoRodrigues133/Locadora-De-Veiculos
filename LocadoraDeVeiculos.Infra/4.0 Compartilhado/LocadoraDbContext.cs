@@ -13,6 +13,7 @@ public class LocadoraDbContext : DbContext
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<Cliente> Clientes { get;  set; }
     public DbSet<GrupoVeiculos> GrupoVeiculos { get; set; }
+    public DbSet<Condutor> Condutores { get; internal set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -37,6 +38,7 @@ public class LocadoraDbContext : DbContext
         modelBuilder.ApplyConfiguration(new MapeadorVeiculos());
         modelBuilder.ApplyConfiguration(new MapeadorClientes());
         modelBuilder.ApplyConfiguration(new MapeadorGrupoVeiculos());
+        modelBuilder.ApplyConfiguration(new MapeadorCondutores());
 
         base.OnModelCreating(modelBuilder);
     }

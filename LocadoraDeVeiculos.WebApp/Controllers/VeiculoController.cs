@@ -61,7 +61,6 @@ public class VeiculoController : WebController
 
     public IActionResult Cadastrar()
     {
-
         return View(CarregarDadosFormulario());
     }
 

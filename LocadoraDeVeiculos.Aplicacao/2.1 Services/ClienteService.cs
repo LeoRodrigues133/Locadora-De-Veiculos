@@ -1,8 +1,6 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Dominio;
 using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography.X509Certificates;
 
 namespace LocadoraDeVeiculos.Aplicacao.Services;
 public class ClienteService

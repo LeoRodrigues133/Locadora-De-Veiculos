@@ -9,6 +9,8 @@ using LocadoraDeVeiculos.Dominio.ModuloAlugueis;
 using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloClientes;
 using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloCondutores;
+using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloCondutores;
 
 namespace LocadoraDeVeiculos.WebApp
 {
@@ -26,7 +28,9 @@ namespace LocadoraDeVeiculos.WebApp
             builder.Services.AddScoped<IRepositorioVeiculo, RepositorioVeiculosEmOrm>();
             builder.Services.AddScoped<IRepositorioGrupoVeiculos, RepositorioGrupoVeiculosOrm>();
             builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
+            builder.Services.AddScoped<IRepositorioCondutor, RepositorioCondutoresEmOrm>();
 
+            builder.Services.AddScoped<CondutorService>();
             builder.Services.AddScoped<PlanoService>();
             builder.Services.AddScoped<ClienteService>();
             builder.Services.AddScoped<VeiculoService>();

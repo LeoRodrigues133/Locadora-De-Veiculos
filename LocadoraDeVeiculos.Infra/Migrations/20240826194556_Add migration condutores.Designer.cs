@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Infra.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    partial class LocadoraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240826194556_Add migration condutores")]
+    partial class Addmigrationcondutores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,9 +82,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<string>("CPF")
                         .HasColumnType("varchar(15))");
 
-                    b.Property<bool>("ClienteCondutor")
-                        .HasColumnType("bit");
-
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
@@ -92,7 +92,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnType("varchar(100))");
 
                     b.Property<string>("Telefone")
-                        .HasColumnType("varchar(17))");
+                        .HasColumnType("varchar(15))");
 
                     b.Property<DateTime>("ValidadeCNH")
                         .HasColumnType("date");
