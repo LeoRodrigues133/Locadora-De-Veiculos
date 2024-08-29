@@ -1,0 +1,75 @@
+﻿@model CadastroAluguelViewModel
+@{
+    ViewBag.Title = "Cadastro de aluguel";
+}
+
+
+<form asp-action="Cadastrar">
+    <div class="form-group">
+        <label asp-for="CondutorId" class="control-label">Condutor:</label>
+        <select asp-for="CondutorId" class="form-control" asp-items="Model.Condutores"></select>
+        <span asp-validation-for="CondutorId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GrupoId" class="control-label">Grupo de Automóveis:</label>
+        <select asp-for="GrupoId" class="form-control" asp-items="Model.Grupos"></select>
+        <span asp-validation-for="GrupoId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="VeiculoId" class="control-label">Automóvel:</label>
+        <select asp-for="VeiculoId" class="form-control" asp-items="Model.Veiculos"></select>
+        <span asp-validation-for="VeiculoId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DataLocacao" class="control-label">Data de Saída:</label>
+        <input asp-for="DataLocacao" class="form-control" type="date" />
+        <span asp-validation-for="DataLocacao" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateDevolucaoPrevista" class="control-label">Retorno:</label>
+        <input asp-for="DateDevolucaoPrevista" class="form-control" type="date" />
+        <span asp-validation-for="DateDevolucaoPrevista" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Entrada" class="control-label">Valor de Entrada:</label>
+        <input asp-for="Entrada" value="1000" class="form-control" type="text" disabled />
+        <span asp-validation-for="Entrada" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PlanoId" class="control-label">Plano:</label>
+        <select asp-for="PlanoId" class="form-control" asp-items="Model.Planos"></select>
+        <span asp-validation-for="PlanoId" class="text-danger"></span>
+    </div>
+
+    <div class="d-flex card-body">
+        @foreach (var taxa in Model.Taxas)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+
+                <label class="form-check-label" for="taxa_@taxa.Id">
+                    @taxa.Nome (@taxa.Valor.ToString("C"))
+                </label>
+            </div>
+            
+        }
+    </div>
+
+    @*     <div class="form-group">
+    <label asp-for="TaxaServicoId" class="control-label">Taxas e Serviços:</label>
+    <select asp-for="TaxaServicoId" class="form-control" asp-items="Model.Taxas"></select>
+    <span asp-validation-for="TaxaServicoId" class="text-danger"></span>
+    </div>
+    *@
+
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

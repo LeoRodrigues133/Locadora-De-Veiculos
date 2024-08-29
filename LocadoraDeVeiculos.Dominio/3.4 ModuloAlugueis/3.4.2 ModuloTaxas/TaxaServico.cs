@@ -6,18 +6,17 @@ public class TaxaServico : EntidadeBase
     public TaxaServico(
         string nome,
         decimal valor,
-        bool tipoDeCobranca
-        /*int aluguelId*/)
+        bool tipoDeCobranca)
     {
         Nome = nome;
         Valor = valor;
         TipoDeCobranca = tipoDeCobranca;
-        //AluguelId = alugueilId;
+        Alugueis = new List<Aluguel>();
 
     }
 
     public string Nome {  get; set; }
     public decimal Valor    { get; set; }
-    //public int AluguelId {  get; set; }
+    public List<Aluguel> Alugueis { get; set; }
     public bool TipoDeCobranca {  get; set; }
 }

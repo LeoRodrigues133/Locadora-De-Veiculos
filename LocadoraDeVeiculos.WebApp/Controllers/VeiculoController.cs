@@ -209,6 +209,7 @@ public class VeiculoController : WebController
         }
 
         dadosPrevios.GrupoVeiculos = gruposDisponiveis.Select(g => new SelectListItem(g.Nome, g.Id.ToString()));
+
         return dadosPrevios;
     }
 }

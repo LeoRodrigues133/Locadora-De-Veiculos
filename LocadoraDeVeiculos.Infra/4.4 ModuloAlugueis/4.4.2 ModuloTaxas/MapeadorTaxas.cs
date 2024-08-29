@@ -24,14 +24,5 @@ public class MapeadorTaxas : IEntityTypeConfiguration<TaxaServico>
         builderTaxas.Property(t => t.TipoDeCobranca)
             .IsRequired()
             .HasColumnType("bit");
-
-        //builderTaxas.Property(t => t.AluguelId)
-        //    .IsRequired()
-        //    .HasColumnType("int");
-
-        //builderTaxas.HasOne(t => t.Aluguel)
-        //    .WithMany(a => a.Taxa)
-        //    .HasForeignKey(t => t.AluguelId)
-        //    .IsRequired();
     }
 }

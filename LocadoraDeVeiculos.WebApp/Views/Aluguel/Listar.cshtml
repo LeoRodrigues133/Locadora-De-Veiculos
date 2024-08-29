@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ListarAluguelViewModel>
+@{
+    ViewBag.Title = "Listagem de Aluguéis";
+}
+
+<h2>Listagem de Aluguéis</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Condutor</th>
+            <th>Grupo de Automóveis</th>
+            <th>Automóvel</th>
+            <th>Data de Saída</th>
+            <th>Retorno Previsto</th>
+            <th>Valor de Entrada</th>
+            <th>Plano</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aluguel in Model)
+        {
+            <tr>
+                <td>@aluguel.Condutores</td>
+                <td>@aluguel.Grupos</td>
+                <td>@aluguel.Veiculos</td>
+                <td>@aluguel.DataLocacao.ToString("dd/MM/yyyy")</td>
+                <td>@aluguel.DateDevolucaoPrevista?.ToString("dd/MM/yyyy")</td>
+                <td>@aluguel.Entrada.ToString("C")</td>
+                <td>@aluguel.Planos</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@aluguel.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Excluir" asp-route-id="@aluguel.Id" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Cadastrar" class="btn btn-primary">Novo Aluguel</a>

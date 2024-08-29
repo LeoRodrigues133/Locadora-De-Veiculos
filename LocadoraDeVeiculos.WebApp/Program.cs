@@ -6,13 +6,14 @@ using LocadoraDeVeiculos.Infra.ModuloAlugueis;
 using LocadoraDeVeiculos.Infra.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis;
-using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloClientes;
-using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
-using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloCondutores;
-using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloCondutores;
-using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
 using LocadoraDeVeiculos.Infra.ModuloAlugueis.ModuloTaxas;
+using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloClientes;
+using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
+using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
+using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloCondutores;
+using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloCondutores;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloAlugueis;
 
 namespace LocadoraDeVeiculos.WebApp
 {
@@ -27,19 +28,21 @@ namespace LocadoraDeVeiculos.WebApp
             builder.Services.AddDbContext<LocadoraDbContext>();
 
             builder.Services.AddScoped<IRepositorioPlano, RepositorioPlanoEmOrm>();
-            builder.Services.AddScoped<IRepositorioVeiculo, RepositorioVeiculosEmOrm>();
-            builder.Services.AddScoped<IRepositorioGrupoVeiculos, RepositorioGrupoVeiculosOrm>();
+            builder.Services.AddScoped<IRepositorioAluguel, RepositorioAluguelEmOrm>();
             builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
+            builder.Services.AddScoped<IRepositorioVeiculo, RepositorioVeiculosEmOrm>();
             builder.Services.AddScoped<IRepositorioCondutor, RepositorioCondutoresEmOrm>();
             builder.Services.AddScoped<IRepositorioTaxaEServicos, RepositorioTaxasEmOrm>();
+            builder.Services.AddScoped<IRepositorioGrupoVeiculos, RepositorioGrupoVeiculosOrm>();
 
+            builder.Services.AddScoped<Resolver>();
             builder.Services.AddScoped<TaxasService>();
-            builder.Services.AddScoped<CondutorService>();
             builder.Services.AddScoped<PlanoService>();
+            builder.Services.AddScoped<AluguelService>();
             builder.Services.AddScoped<ClienteService>();
             builder.Services.AddScoped<VeiculoService>();
+            builder.Services.AddScoped<CondutorService>();
             builder.Services.AddScoped<GrupoVeiculosService>();
-            builder.Services.AddScoped<Resolver>();
 
             builder.Services.AddAutoMapper(config =>
             {
