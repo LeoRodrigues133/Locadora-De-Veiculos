@@ -22,13 +22,13 @@
         @foreach (var aluguel in Model)
         {
             <tr>
-                <td>@aluguel.Condutores</td>
-                <td>@aluguel.Grupos</td>
-                <td>@aluguel.Veiculos</td>
+                <td>@aluguel.Condutor</td>
+                <td>@aluguel.Grupo</td>
+                <td>@aluguel.Veiculo</td>
                 <td>@aluguel.DataLocacao.ToString("dd/MM/yyyy")</td>
                 <td>@aluguel.DateDevolucaoPrevista?.ToString("dd/MM/yyyy")</td>
                 <td>@aluguel.Entrada.ToString("C")</td>
-                <td>@aluguel.Planos</td>
+                <td>@aluguel.Plano</td>
                 <td>
                     <a asp-action="Editar" asp-route-id="@aluguel.Id" class="btn btn-warning">Editar</a>
                     <a asp-action="Excluir" asp-route-id="@aluguel.Id" class="btn btn-danger">Excluir</a>

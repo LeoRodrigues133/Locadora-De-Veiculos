@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    [Migration("20240827155844_add migration taxas")]
-    partial class addmigrationtaxas
+    [Migration("20240829033236_Teste")]
+    partial class Teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,68 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AluguelTaxaServico", b =>
+                {
+                    b.Property<int>("AlugueisId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaxasId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlugueisId", "TaxasId");
+
+                    b.HasIndex("TaxasId");
+
+                    b.ToTable("TBAluguelTaxa", (string)null);
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Aluguel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CondutorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataLocacao")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("DateDevolucaoPrevista")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("Entrada")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GrupoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlanoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VeiculoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("CondutorId");
+
+                    b.HasIndex("GrupoId");
+
+                    b.HasIndex("PlanoId");
+
+                    b.HasIndex("VeiculoId");
+
+                    b.ToTable("TBAluguel", (string)null);
+                });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Cliente", b =>
                 {
@@ -225,6 +287,64 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.HasIndex("GrupoVeiculosId");
 
                     b.ToTable("TBPlano", (string)null);
+                });
+
+            modelBuilder.Entity("AluguelTaxaServico", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.Aluguel", null)
+                        .WithMany()
+                        .HasForeignKey("AlugueisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas.TaxaServico", null)
+                        .WithMany()
+                        .HasForeignKey("TaxasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Aluguel", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LocadoraDeVeiculos.Dominio.Condutor", "Condutor")
+                        .WithMany()
+                        .HasForeignKey("CondutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", "Grupo")
+                        .WithMany()
+                        .HasForeignKey("GrupoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LocadoraDeVeiculos.Dominio.Plano", "Plano")
+                        .WithMany()
+                        .HasForeignKey("PlanoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.Veiculo", "Veiculo")
+                        .WithMany()
+                        .HasForeignKey("VeiculoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Condutor");
+
+                    b.Navigation("Grupo");
+
+                    b.Navigation("Plano");
+
+                    b.Navigation("Veiculo");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Condutor", b =>

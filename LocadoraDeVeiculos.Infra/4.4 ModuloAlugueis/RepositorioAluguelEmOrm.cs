@@ -23,18 +23,16 @@ public class RepositorioAluguelEmOrm : RepositorioBaseEmOrm<Aluguel>, IRepositor
     public override Aluguel? SelecionarPorId(int id)
     {
         return _dbContext.Alugueis.Include(c => c.Condutor)
-            .ThenInclude(ct => ct.Cliente)
             .Include(c => c.Veiculo)
-            .ThenInclude(v => v.GrupoVeiculos)
+            .Include(v => v.Grupo)
             .Include(c => c.Plano)
             .FirstOrDefault(c => c.Id == id)!;
     }
     public override List<Aluguel> SelecionarTodos()
     {
         return _dbContext.Alugueis.Include(c => c.Condutor)
-            .ThenInclude(ct => ct.Cliente)
             .Include(c => c.Veiculo)
-            .ThenInclude(v => v.GrupoVeiculos)
+            .Include(v => v.Grupo)
             .Include(c => c.Plano)
             .ToList();
     }

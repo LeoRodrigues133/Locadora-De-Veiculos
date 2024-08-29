@@ -12,20 +12,23 @@ namespace LocadoraDeVeiculos.Aplicacao.Services;
 public class AluguelService
 {
     readonly IRepositorioPlano _repositorioPlano;
+    readonly IRepositorioCliente _repositorioCliente;
+    readonly IRepositorioAluguel _repositorioAluguel;
     readonly IRepositorioVeiculo _repositorioVeiculo;
     readonly IRepositorioCondutor _repositorioCondutor;
     readonly IRepositorioTaxaEServicos _repositorioTaxa;
     readonly IRepositorioGrupoVeiculos _repositorioGrupoVeiculos;
-    readonly IRepositorioAluguel _repositorioAluguel;
 
     public AluguelService(
         IRepositorioPlano repositorioPlano, IRepositorioVeiculo repositorioVeiculo,
-        IRepositorioCliente repositorioCliente, IRepositorioCondutor repositorioCondutor,
-        IRepositorioTaxaEServicos repositorioTaxa, IRepositorioGrupoVeiculos repositorioGrupoVeiculos, IRepositorioAluguel repositorioAluguel)
+        IRepositorioAluguel repositorioAluguel, IRepositorioCliente repositorioCliente,
+        IRepositorioCondutor repositorioCondutor, IRepositorioTaxaEServicos repositorioTaxa,
+        IRepositorioGrupoVeiculos repositorioGrupoVeiculos)
     {
         _repositorioTaxa = repositorioTaxa;
         _repositorioPlano = repositorioPlano;
         _repositorioVeiculo = repositorioVeiculo;
+        _repositorioCliente = repositorioCliente;
         _repositorioAluguel = repositorioAluguel;
         _repositorioCondutor = repositorioCondutor;
         _repositorioGrupoVeiculos = repositorioGrupoVeiculos;
@@ -51,14 +54,17 @@ public class AluguelService
 
     private void BuscarRegistros(Aluguel aluguel)
     {
+        var condutor = _repositorioCondutor.SelecionarPorId(aluguel.CondutorId);
+        aluguel.Condutor = condutor;
+
         var plano = _repositorioPlano.SelecionarPorId(aluguel.PlanoId);
         var veiculo = _repositorioVeiculo.SelecionarPorId(aluguel.VeiculoId);
         var grupo = _repositorioGrupoVeiculos.SelecionarPorId(aluguel.GrupoId);
-        var condutor = _repositorioCondutor.SelecionarPorId(aluguel.CondutorId);
+        var cliente = _repositorioCliente.SelecionarPorId(condutor.ClienteId);
 
         aluguel.Plano = plano;
-        aluguel.Veiculo = veiculo;
         aluguel.Grupo = grupo;
-        aluguel.Condutor = condutor;
+        aluguel.Veiculo = veiculo;
+        aluguel.Cliente = cliente;
     }
 }

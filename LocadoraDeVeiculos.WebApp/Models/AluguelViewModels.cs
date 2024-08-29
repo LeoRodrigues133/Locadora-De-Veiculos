@@ -6,12 +6,11 @@ namespace LocadoraDeVeiculos.WebApp.Models;
 public class FormAluguelViewModel
 {
     public int Id { get; set; }
-    public int Entrada { get; set; }
+    public int Entrada { get; set; } = 1000;
     public IEnumerable<SelectListItem>? Condutores { get; set; }
     public IEnumerable<SelectListItem>? Veiculos { get; set; }
     public IEnumerable<SelectListItem>? Clientes { get; set; }
     public IEnumerable<SelectListItem>? Planos { get; set; }
-    public List<TaxaServico> Taxas { get; set; }
     public IEnumerable<SelectListItem>? Grupos { get; set; }
     public DateTime DataLocacao { get; set; } = DateTime.UtcNow;
     public DateTime? DateDevolucaoPrevista { get; set; } = DateTime.UtcNow;
@@ -24,12 +23,12 @@ public class FormAluguelViewModel
 }
 public class ListarAluguelViewModel : FormAluguelViewModel
 {
-    public string Condutores { get; set; }
-    public string Veiculos { get; set; }
-    public string Clientes { get; set; }
-    public string Planos { get; set; }
-    public string Seguros { get; set; }
-    public string Grupos { get; set; }
+    public string Condutor { get; set; }
+    public string Veiculo { get; set; }
+    public string Cliente { get; set; }
+    public string Plano { get; set; }
+    public string Seguro { get; set; }
+    public string Grupo { get; set; }
 }
 public class CadastroAluguelViewModel : FormAluguelViewModel
 {
@@ -38,6 +37,9 @@ public class CadastroAluguelViewModel : FormAluguelViewModel
     public IEnumerable<SelectListItem>? Clientes { get; set; }
     public IEnumerable<SelectListItem>? Planos { get; set; }
     public IEnumerable<SelectListItem>? Grupos { get; set; }
+    public bool Checado {  get; set; }
+    public List<TaxaServico>? Taxas { get; set; }
+    public List<int> taxasSelecionadas { get; set; } = new();
 
 }
 public class ExcluirAluguelViewModel : FormAluguelViewModel { }

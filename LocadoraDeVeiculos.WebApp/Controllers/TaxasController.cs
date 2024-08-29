@@ -3,6 +3,7 @@ using FluentResults;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
@@ -35,6 +36,8 @@ public class TaxasController : WebController
         var taxas = resultado.Value;
 
         var listarVm = _mapeador.Map<IEnumerable<ListarTaxasViewModel>>(taxas);
+
+        ViewBag.Mensagem = TempData.DesserializarMensagemViewModel();
 
         return View(listarVm);
     }

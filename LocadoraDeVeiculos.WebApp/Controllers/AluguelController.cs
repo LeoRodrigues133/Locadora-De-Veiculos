@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using LocadoraDeVeiculos.Dominio;
 using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.Aplicacao.Services;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.WebApp.Extensions;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
@@ -62,7 +59,7 @@ public class AluguelController : WebController
         return View();
     }
 
-    public IActionResult cadastrar()
+    public IActionResult Cadastrar()
     {
         return View(CarregarDados());
     }
@@ -72,8 +69,18 @@ public class AluguelController : WebController
     {
         if (!ModelState.IsValid)
             return View(CarregarDados(cadastroVm));
-        
+
+
         var aluguel = _mapeador.Map<Aluguel>(cadastroVm);
+
+        foreach (var taxaId in cadastroVm.taxasSelecionadas)
+        {
+            var result = _taxasService.SelecionarId(taxaId);
+            var taxa = result.Value;
+
+            if (taxa is not null)
+                aluguel.Taxas.Add(taxa);
+        }
 
         var resultado = _aluguelService.Cadastrar(aluguel);
 
@@ -121,25 +128,30 @@ public class AluguelController : WebController
 
         if (resultadoGrupos.IsFailed)
         {
-            ApresentarMensagemFalha(resultadoGrupos.ToResult()); return null;
+            ApresentarMensagemFalha(resultadoGrupos.ToResult());
+            return null;
         }
 
         if (resultadoCondutores.IsFailed)
         {
-            ApresentarMensagemFalha(resultadoCondutores.ToResult()); return null;
+            ApresentarMensagemFalha(resultadoCondutores.ToResult());
+            return null;
         }
 
         if (resultadoPlanos.IsFailed)
         {
-            ApresentarMensagemFalha(resultadoPlanos.ToResult()); return null;
+            ApresentarMensagemFalha(resultadoPlanos.ToResult());
+            return null;
         }
         if (resultadoVeiculos.IsFailed)
         {
-            ApresentarMensagemFalha(resultadoVeiculos.ToResult()); return null;
+            ApresentarMensagemFalha(resultadoVeiculos.ToResult());
+            return null;
         }
         if(resultadoTaxas.IsFailed)
         {
-            ApresentarMensagemFalha(resultadoTaxas.ToResult()); return null;
+            ApresentarMensagemFalha(resultadoTaxas.ToResult());
+            return null;
         }
         var taxasD = resultadoTaxas.Value;
         var gruposD = resultadoGrupos.Value;

@@ -48,16 +48,19 @@
     </div>
 
     <div class="d-flex card-body">
-        @foreach (var taxa in Model.Taxas)
+        @if (Model.Taxas != null && Model.Taxas.Count > 0)
         {
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" />
-
-                <label class="form-check-label" for="taxa_@taxa.Id">
-                    @taxa.Nome (@taxa.Valor.ToString("C"))
-                </label>
-            </div>
-            
+            @for (int i = 0; i < Model.Taxas.Count; i++)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="TaxasSelecionadas" value="@Model.Taxas[i].Id" id="taxa_@Model.Taxas[i].Id" />
+                    <label class="form-check-label" for="taxa_@Model.Taxas[i].Id">@Model.Taxas[i].Nome (@Model.Taxas[i].Valor.ToString("C"))</label>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Nenhuma taxa disponível.</p>
         }
     </div>
 

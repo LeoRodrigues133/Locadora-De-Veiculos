@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Dominio;
 using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.Aplicacao.Services;
+using LocadoraDeVeiculos.WebApp.Extensions;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class CondutorController : WebController
@@ -33,6 +34,8 @@ public class CondutorController : WebController
         var condutores = resultado.Value;
 
         var listarVM = _mapeador.Map<IEnumerable<ListarCondutorViewModel>>(condutores);
+
+        ViewBag.Mensagem = TempData.DesserializarMensagemViewModel();
 
         return View(listarVM);
     }
