@@ -8,7 +8,15 @@ public class Cliente : EntidadeBase
     {
     }
 
-    public Cliente(string rG, string nome, string email, string telefone, string endereco, bool tipoPerfil, string? cPF, string? cNPJ)
+    public Cliente(
+        string rG,
+        string nome,
+        string email,
+        string telefone,
+        string endereco,
+        bool tipoPerfil,
+        string? cPF,
+        string? cNPJ)
     {
         RG = rG;
         Nome = nome;

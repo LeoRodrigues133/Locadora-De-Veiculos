@@ -3,11 +3,10 @@
     ViewBag.Title = "Lista de Planos";
 }
 
-<h2>Lista de Planos</h2>
-
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Grupo de Veículos</th>
             <th>Valor Diária</th>
             <th>Preço KM</th>
@@ -20,6 +19,7 @@
         @foreach (var plano in Model)
         {
             <tr>
+                <th>@plano.Id</th>
                 <td>@plano.GrupoVeiculos.Nome</td>
                 <td>@plano.testin(plano.ValorDiaria)</td>
                 <td>@plano.testin(plano.PrecoKm)</td>

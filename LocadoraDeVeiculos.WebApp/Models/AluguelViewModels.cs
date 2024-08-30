@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using LocadoraDeVeiculos.Dominio;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.WebApp.Models;
 
@@ -18,6 +21,7 @@ public class FormAluguelViewModel
     public int VeiculoId { get; set; }
     public int GrupoId { get; set; }
     public int CondutorId { get; set; }
+    public int ClienteId { get; set; }
     public int SeguroId { get; set; }
     public int TaxaServicoId { get; set; }
 }
@@ -30,6 +34,7 @@ public class ListarAluguelViewModel : FormAluguelViewModel
     public string Seguro { get; set; }
     public string Grupo { get; set; }
 }
+
 public class CadastroAluguelViewModel : FormAluguelViewModel
 {
     public IEnumerable<SelectListItem>? Condutores { get; set; }
@@ -37,11 +42,30 @@ public class CadastroAluguelViewModel : FormAluguelViewModel
     public IEnumerable<SelectListItem>? Clientes { get; set; }
     public IEnumerable<SelectListItem>? Planos { get; set; }
     public IEnumerable<SelectListItem>? Grupos { get; set; }
-    public bool Checado {  get; set; }
+    public bool Checado { get; set; }
     public List<TaxaServico>? Taxas { get; set; }
-    public List<int> taxasSelecionadas { get; set; } = new();
+    public List<int> taxasSelecionadas { get; set; } = new List<int>();
 
 }
 public class ExcluirAluguelViewModel : FormAluguelViewModel { }
 public class EditarAluguelViewModel : FormAluguelViewModel { }
-public class DetalhesAluguelViewModel : FormAluguelViewModel { }
+public class FinalizarAluguelViewModel : FormAluguelViewModel
+{
+    public string Condutor { get; set; }
+    public string Veiculo { get; set; }
+    public string Cliente { get; set; }
+    public string Plano { get; set; }
+    public string Seguro { get; set; }
+    public string Grupo { get; set; }
+    public List<TaxaServico> Taxas { get; set; }
+    public decimal? ValorFinal { get; set; }
+}
+public class DetalhesAluguelViewModel : FormAluguelViewModel
+{
+    public Cliente Cliente { get; set; }
+    public Condutor Condutor { get; set; }
+    public Veiculo Veiculo { get; set; }
+    public Plano Plano { get; set; }
+    public GrupoVeiculos Grupo { get; set; }
+    public List<TaxaServico> Taxas { get; set; }
+}

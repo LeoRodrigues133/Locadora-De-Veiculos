@@ -19,6 +19,7 @@ public class ClienteProfile : Profile
         CreateMap<Cliente, DetalhesClienteViewModel>();
 
         CreateMap<Cliente, ListarClienteViewModel>()
+            .ForMember(x => x.Cliente, opt => opt.MapFrom(cliente => cliente))
             .ForMember(vm => vm.tipoCliente, opt => opt.MapFrom(c => c.TipoPerfil ?  "Pessoa Física" : "Pessoa Jurídica" ));
     }
 }

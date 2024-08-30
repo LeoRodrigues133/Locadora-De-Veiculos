@@ -20,10 +20,13 @@ public class AluguelProfile : Profile
             .ForMember(vm => vm.Veiculos, opt => opt.MapFrom<Resolver>())
             .ForMember(vm => vm.Condutores, opt => opt.MapFrom<Resolver>());
 
+        CreateMap<Aluguel, FinalizarAluguelViewModel>();
+
         CreateMap<CadastroAluguelViewModel, Aluguel>();
 
         CreateMap<EditarAluguelViewModel, Aluguel>();
 
-        CreateMap<Aluguel, DetalhesAluguelViewModel>();
+        CreateMap<Aluguel, DetalhesAluguelViewModel>()
+            .ForMember(vm => vm.Taxas, opt => opt.MapFrom(c=>c.Taxas)); ;
     }
 }

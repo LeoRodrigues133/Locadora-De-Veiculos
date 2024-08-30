@@ -4,6 +4,10 @@ namespace LocadoraDeVeiculos.Dominio;
 
 public class Condutor : EntidadeBase
 {
+    public Condutor()
+    {
+        
+    }
     public Condutor(
         string cNH,
         DateTime validadeCNH,

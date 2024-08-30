@@ -4,11 +4,10 @@
     ViewBag.Title = "Lista de Clientes";
 }
 
-<h2>@ViewBag.Title</h2>
-
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Nome</th>
             <th>Valor</th>
             <th>Tipo de Cobrança</th>
@@ -16,16 +15,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var Taxa in Model)
+        @foreach (var taxa in Model)
         {
             <tr>
-                <td>@Taxa.Nome</td>
-                <td>@Taxa.Valor.ToString("C")</td>
-                <td>@(Taxa.TipoDeCobranca ? "Fixa" : "Diária")</td>
+                <td>@taxa.Id</td>
+                <td>@taxa.Nome</td>
+                <td>@taxa.Valor.ToString("C")</td>
+                <td>@(taxa.TipoDeCobranca ? "Fixa" : "Diária")</td>
                 <td>
-                    <a asp-action="Editar" asp-route-id="@Taxa.Id" class="btn btn-primary">Editar</a>
-                    <a asp-action="Detalhes" asp-route-id="@Taxa.Id" class="btn btn-info">Detalhes</a>
-                    <a asp-action="Excluir" asp-route-id="@Taxa.Id" class="btn btn-danger">Excluir</a>
+                    <a asp-action="Editar" asp-route-id="@taxa.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Detalhes" asp-route-id="@taxa.Id" class="btn btn-info">Detalhes</a>
+                    <a asp-action="Excluir" asp-route-id="@taxa.Id" class="btn btn-danger">Excluir</a>
                 </td>
             </tr>
         }

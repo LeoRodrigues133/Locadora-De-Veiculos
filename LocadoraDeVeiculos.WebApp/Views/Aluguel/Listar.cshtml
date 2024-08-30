@@ -8,9 +8,10 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>ID</th>
+            <th>Automóvel</th>
             <th>Condutor</th>
             <th>Grupo de Automóveis</th>
-            <th>Automóvel</th>
             <th>Data de Saída</th>
             <th>Retorno Previsto</th>
             <th>Valor de Entrada</th>
@@ -22,16 +23,18 @@
         @foreach (var aluguel in Model)
         {
             <tr>
+                <th>@aluguel.Id</th>
+                <td>@aluguel.Veiculo</td>
                 <td>@aluguel.Condutor</td>
                 <td>@aluguel.Grupo</td>
-                <td>@aluguel.Veiculo</td>
                 <td>@aluguel.DataLocacao.ToString("dd/MM/yyyy")</td>
                 <td>@aluguel.DateDevolucaoPrevista?.ToString("dd/MM/yyyy")</td>
                 <td>@aluguel.Entrada.ToString("C")</td>
                 <td>@aluguel.Plano</td>
                 <td>
                     <a asp-action="Editar" asp-route-id="@aluguel.Id" class="btn btn-warning">Editar</a>
-                    <a asp-action="Excluir" asp-route-id="@aluguel.Id" class="btn btn-danger">Excluir</a>
+                    <a asp-action="Finalizar" asp-route-id="@aluguel.Id" class="btn btn-success">Finalizar</a>
+                    <a asp-action="Detalhes" asp-route-id="@aluguel.Id" class="btn btn-primary">Detalhes</a>
                 </td>
             </tr>
         }

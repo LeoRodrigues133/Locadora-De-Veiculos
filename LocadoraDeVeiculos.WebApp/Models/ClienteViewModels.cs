@@ -16,7 +16,18 @@ public class FormClienteViewModel
 }
 public class ListarClienteViewModel : FormClienteViewModel
 {
+    public Cliente Cliente { get; set; }
     public string tipoCliente{ get; set; }
+    public string CpfOuCnpf(Cliente cliente)
+    {  
+        if (cliente == null)
+            return "Erro";
+
+        if (cliente.TipoPerfil == false)
+            return Cliente.CNPJ;
+
+        return cliente.CPF;
+    }
 }
 public class CadastroClienteViewModel : FormClienteViewModel { }
 public class EditarClienteViewModel : FormClienteViewModel { }

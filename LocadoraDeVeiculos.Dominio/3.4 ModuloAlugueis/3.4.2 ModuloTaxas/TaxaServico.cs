@@ -3,6 +3,9 @@
 namespace LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
 public class TaxaServico : EntidadeBase
 {
+    public TaxaServico()
+    {
+    }
     public TaxaServico(
         string nome,
         decimal valor,

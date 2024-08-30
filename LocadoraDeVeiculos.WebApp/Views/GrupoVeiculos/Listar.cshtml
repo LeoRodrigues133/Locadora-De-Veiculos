@@ -5,6 +5,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Nome do Grupo</th>
             <th>Quantidade de Carros</th>
             <th>Ações</th>
@@ -14,6 +15,7 @@
         @foreach (var grupo in Model)
         {
             <tr>
+                <th>@grupo.Id</th>
                 <td>@grupo.Nome</td>
                 <td>@grupo.Grupos</td>
                 <td class="d-flex gap-2">

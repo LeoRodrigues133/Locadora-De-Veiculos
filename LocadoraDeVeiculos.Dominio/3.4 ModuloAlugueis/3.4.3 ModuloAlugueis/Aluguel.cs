@@ -9,7 +9,7 @@ public class Aluguel : EntidadeBase
 {
     public Aluguel()
     {
-        
+        Taxas = new List<TaxaServico>();
     }
     public Aluguel(
         int entrada,
@@ -18,6 +18,7 @@ public class Aluguel : EntidadeBase
         int clienteId,
         int grupoId,
         int condutorId,
+        decimal valorFinal,
         DateTime dataLocacao,
         DateTime? dateDevolucaoPrevista)
     {
@@ -27,17 +28,19 @@ public class Aluguel : EntidadeBase
         VeiculoId = veiculoId;
         ClienteId = clienteId;
         CondutorId = condutorId;
+        ValorFinal = valorFinal;
         DataLocacao = dataLocacao;
         Taxas = new List<TaxaServico>();
         DateDevolucaoPrevista = dateDevolucaoPrevista;
     }
 
     public int Entrada { get; set; }
+    public decimal? ValorFinal { get; set; }
     public Plano Plano { get; set; }
     public Veiculo Veiculo { get; set; }
     public Cliente Cliente { get; set; }
     public Condutor Condutor { get; set; }
-    public GrupoVeiculos Grupo {  get; set; }
+    public GrupoVeiculos Grupo { get; set; }
     public DateTime DataLocacao { get; set; }
     public List<TaxaServico> Taxas { get; set; }
     public DateTime? DateDevolucaoPrevista { get; set; }

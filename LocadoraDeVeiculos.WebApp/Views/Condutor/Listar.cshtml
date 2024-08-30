@@ -4,15 +4,13 @@
     ViewBag.Title = "Listagem de Condutores";
 }
 
-<h2>Listagem de Condutores</h2>
-
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>CPF</th>
+            <th>ID</th>
+            <th>Condutor</th>
+            <th>Cliente</th>
+            <th>CPF/CNPJ</th>
             <th>CNH</th>
             <th>Validade CNH</th>
             <th>Ações</th>
@@ -22,10 +20,10 @@
         @foreach (var condutor in Model)
         {
             <tr>
+                <td>@condutor.Id</td>
                 <td>@condutor.Nome</td>
-                <td>@condutor.Email</td>
-                <td>@condutor.Telefone</td>
-                <td>@condutor.CPF</td>
+                <td>@condutor.testin(condutor.Nome,@condutor.Cliente)</td>
+                <td>@condutor.CpfOuCnpf(condutor.Cliente)</td>
                 <td>@condutor.CNH</td>
                 <td>@condutor.ValidadeCNH.ToString("dd/MM/yyyy")</td>
                 <td>

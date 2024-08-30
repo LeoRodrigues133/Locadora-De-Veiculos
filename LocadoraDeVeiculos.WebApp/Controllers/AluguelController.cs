@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using LocadoraDeVeiculos.Dominio;
 using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.WebApp.Extensions;
+using LocadoraDeVeiculos.Aplicacao.Services;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class AluguelController : WebController
@@ -14,6 +14,7 @@ public class AluguelController : WebController
     readonly TaxasService _taxasService;
     readonly VeiculoService _veiculoService;
     readonly AluguelService _aluguelService;
+    readonly ClienteService _clienteService;
     readonly CondutorService _condutorService;
     readonly GrupoVeiculosService _grupoVeiculosService;
 
@@ -23,6 +24,7 @@ public class AluguelController : WebController
         TaxasService taxasService,
         VeiculoService veiculoService,
         AluguelService aluguelService,
+        ClienteService clienteService,
         CondutorService condutorService,
         GrupoVeiculosService grupoVeiculosService)
     {
@@ -31,6 +33,7 @@ public class AluguelController : WebController
         _taxasService = taxasService;
         _veiculoService = veiculoService;
         _aluguelService = aluguelService;
+        _clienteService = clienteService;
         _condutorService = condutorService;
         _grupoVeiculosService = grupoVeiculosService;
     }
@@ -54,9 +57,22 @@ public class AluguelController : WebController
         return View(listarVM);
     }
 
-    public IActionResult Datalhes(int id)
+    public IActionResult Detalhes(int id)
     {
-        return View();
+        var resultado = _aluguelService.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var aluguel = resultado.Value;
+
+        var detalhesVm = _mapeador.Map<DetalhesAluguelViewModel>(aluguel);
+
+        return View(detalhesVm);
     }
 
     public IActionResult Cadastrar()
@@ -118,13 +134,23 @@ public class AluguelController : WebController
         return RedirectToAction(nameof(Listar));
     }
 
+
+
     private FormAluguelViewModel? CarregarDados(FormAluguelViewModel? model = null)
     {
         var resultadoGrupos = _grupoVeiculosService.SelecionarTodos();
         var resultadoVeiculos = _veiculoService.SelecionarTodos();
         var resultadoCondutores = _condutorService.SelecionarTodos();
+        var resultadoClientes = _clienteService.SelecionarTodos();
         var resultadoPlanos = _planoService.SelecionarTodos();
         var resultadoTaxas = _taxasService.SelecionarTodos();
+
+
+        if (resultadoClientes.IsFailed)
+        {
+            ApresentarMensagemFalha(resultadoClientes.ToResult());
+            return null;
+        }
 
         if (resultadoGrupos.IsFailed)
         {
@@ -148,7 +174,7 @@ public class AluguelController : WebController
             ApresentarMensagemFalha(resultadoVeiculos.ToResult());
             return null;
         }
-        if(resultadoTaxas.IsFailed)
+        if (resultadoTaxas.IsFailed)
         {
             ApresentarMensagemFalha(resultadoTaxas.ToResult());
             return null;
@@ -156,12 +182,14 @@ public class AluguelController : WebController
         var taxasD = resultadoTaxas.Value;
         var gruposD = resultadoGrupos.Value;
         var planosD = resultadoPlanos.Value;
+        var clientesD = resultadoClientes.Value;
         var veiculosD = resultadoVeiculos.Value;
         var condutoresD = resultadoCondutores.Value;
 
         model ??= new CadastroAluguelViewModel
         {
             Taxas = taxasD,
+            Clientes = clientesD.Select(x => new SelectListItem(x.Nome, x.Id.ToString())),
             Grupos = gruposD.Select(x => new SelectListItem(x.Nome, x.Id.ToString())),
             Veiculos = veiculosD.Select(x => new SelectListItem(x.Modelo, x.Id.ToString())),
             Condutores = condutoresD.Select(x => new SelectListItem(x.Nome, x.Id.ToString())),
@@ -171,5 +199,71 @@ public class AluguelController : WebController
         return model;
     }
 
+    [HttpGet]
+    public JsonResult CarregarCondutores(int clienteId)
+    {
+        var resultado = _condutorService.SelecionarTodos();
 
+        if (resultado.IsFailed)
+        {
+            return Json(new List<SelectListItem>());
+        }
+
+        var condutores = resultado.Value
+            .Where(c => c.ClienteId == clienteId)
+            .Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Nome
+            })
+            .ToList();
+
+        return Json(condutores);
+    }
+
+    [HttpGet]
+    public JsonResult CarregarVeiculos(int grupoId)
+    {
+        var resultado = _veiculoService.SelecionarTodos();
+
+        if (resultado.IsFailed)
+        {
+            return Json(new List<SelectListItem>());
+        }
+
+        var veiculos = resultado.Value
+            .Where(c => c.GrupoVeiculosId == grupoId)
+            .Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Modelo
+            })
+            .ToList();
+
+        return Json(veiculos);
+    }
+
+    public IActionResult Finalizar(int id)
+    {
+        var resultado = _aluguelService.SelecionarId(id);
+
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var aluguel = resultado.Value;
+
+        aluguel.ValorFinal += aluguel.Entrada;
+
+        foreach (var taxa in aluguel.Taxas)
+            aluguel.ValorFinal += taxa.Valor;
+
+        var finalizarVm = _mapeador.Map<FinalizarAluguelViewModel>(aluguel);
+
+        return View(finalizarVm);
+    }
 }
+

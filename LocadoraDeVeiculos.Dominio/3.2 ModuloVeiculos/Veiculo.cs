@@ -5,6 +5,10 @@ namespace LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 
 public class Veiculo : EntidadeBase
 {
+    public Veiculo()
+    {
+        
+    }
     public bool Alugado { get; set; }
     public Cor Cor { get; set; }
     public Marca Marca { get; set; }

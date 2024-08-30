@@ -42,10 +42,21 @@ public class AluguelService
         return Result.Ok(aluguel);
     }
 
+    public Result<Aluguel> SelecionarId(int id)
+    {
+        var aluguel = _repositorioAluguel.SelecionarPorId(id);
+
+        BuscarRegistros(aluguel);
+
+        if (aluguel is null)
+            return Result.Fail("Não foi encontrado o aluguel.");
+
+        return Result.Ok(aluguel);
+    }
+
     public Result<List<Aluguel>> SelecionarTodos()
     {
         var alugueis = _repositorioAluguel.SelecionarTodos();
-
         if (alugueis is null)
             return Result.Fail("Não foi possível encontrar nenhum registro.");
 
@@ -61,6 +72,7 @@ public class AluguelService
         var veiculo = _repositorioVeiculo.SelecionarPorId(aluguel.VeiculoId);
         var grupo = _repositorioGrupoVeiculos.SelecionarPorId(aluguel.GrupoId);
         var cliente = _repositorioCliente.SelecionarPorId(condutor.ClienteId);
+        
 
         aluguel.Plano = plano;
         aluguel.Grupo = grupo;

@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Dominio;
 using LocadoraDeVeiculos.WebApp.Models;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
+using FluentResults;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class ClienteController : WebController

@@ -1,0 +1,65 @@
+﻿@model DetalhesAluguelViewModel
+@{
+    ViewBag.Title = "Detalhes do Aluguel";
+}
+
+ <div class="form-group">
+    <label>Cliente:</label>
+    <input class="form-control" value="@Model.Cliente.Nome" disabled />
+</div>
+<div class="form-group">
+    <label>Condutor:</label>
+    <input class="form-control" value="@Model.Condutor.Nome" disabled />
+</div>
+<div class="form-group">
+    <label>Grupo de Veículos:</label>
+    <input class="form-control" value="@Model.Grupo.Nome" disabled />
+</div>
+
+<div class="form-group">
+    <label>Veículo:</label>
+    <input class="form-control" value="@Model.Veiculo.Modelo" disabled />
+</div>
+
+<div class="form-group">
+    <label>Plano:</label>
+    <input class="form-control" value="@Model.Plano.TipoPlano.ToString()" disabled />
+</div>
+
+<div class="form-group">
+    <label>Data de Locação:</label>
+    <input class="form-control" value="@Model.DataLocacao.ToString("dd/MM/yyyy")" disabled />
+</div>
+
+<div class="form-group">
+    <label>Data de Devolução Prevista:</label>
+    <input class="form-control" value="@(Model.DateDevolucaoPrevista.HasValue ? Model.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy") : "Não informada")" disabled />
+</div>
+
+<div class="form-group">
+    <label>Valor de Entrada:</label>
+    <input class="form-control" value="@Model.Entrada.ToString("C")" disabled />
+</div>
+
+<div class="form-group">
+    <label>Taxas:</label>
+    @if (Model.Taxas is not null)
+    {
+        <ul class="list-group">
+            @foreach (var taxa in Model.Taxas)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @taxa.Nome - @taxa.Valor.ToString("C")
+                    
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p class="form-control-static">Nenhuma taxa aplicada.</p>
+    }
+</div>
+<div class="form-group">
+    <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
+</div>

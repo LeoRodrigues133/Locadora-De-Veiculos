@@ -4,16 +4,13 @@
     ViewBag.Title = "Lista de Clientes";
 }
 
-<h2>Lista de Clientes</h2>
-
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>RG</th>
+            <th>ID</th>
             <th>Nome</th>
-            <th>Email</th>
             <th>Telefone</th>
-            <th>Endereço</th>
+            <th>CPF/CNPJ</th>
             <th>Perfil</th>
             <th>Ações</th>
         </tr>
@@ -22,11 +19,11 @@
         @foreach (var cliente in Model)
         {
             <tr>
-                <td>@cliente.RG</td>
+                <td>@cliente.Id</td>
                 <td>@cliente.Nome</td>
-                <td>@cliente.Email</td>
                 <td>@cliente.Telefone</td>
-                <td>@cliente.Endereco</td>
+                <td>@cliente.CpfOuCnpf(cliente.Cliente)</td>
+                
                 <td>@cliente.tipoCliente</td>
                 <td>
                     <a asp-action="Detalhes" asp-route-id="@cliente.Id" class="btn btn-info">Detalhes</a>
