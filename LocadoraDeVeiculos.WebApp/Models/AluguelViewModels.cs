@@ -9,6 +9,7 @@ namespace LocadoraDeVeiculos.WebApp.Models;
 public class FormAluguelViewModel
 {
     public int Id { get; set; }
+    public List<TaxaServico>? Taxas { get; set; }
     public int Entrada { get; set; } = 1000;
     public IEnumerable<SelectListItem>? Condutores { get; set; }
     public IEnumerable<SelectListItem>? Veiculos { get; set; }
@@ -24,6 +25,8 @@ public class FormAluguelViewModel
     public int ClienteId { get; set; }
     public int SeguroId { get; set; }
     public int TaxaServicoId { get; set; }
+    public int KmFinal { get; set; }
+
 }
 public class ListarAluguelViewModel : FormAluguelViewModel
 {
@@ -42,23 +45,41 @@ public class CadastroAluguelViewModel : FormAluguelViewModel
     public IEnumerable<SelectListItem>? Clientes { get; set; }
     public IEnumerable<SelectListItem>? Planos { get; set; }
     public IEnumerable<SelectListItem>? Grupos { get; set; }
-    public bool Checado { get; set; }
-    public List<TaxaServico>? Taxas { get; set; }
+    public decimal? ValorFinal { get; set; } = 0;
     public List<int> taxasSelecionadas { get; set; } = new List<int>();
 
 }
-public class ExcluirAluguelViewModel : FormAluguelViewModel { }
-public class EditarAluguelViewModel : FormAluguelViewModel { }
+public class ExcluirAluguelViewModel : FormAluguelViewModel
+{
+    public Cliente Cliente { get; set; }
+    public Condutor Condutor { get; set; }
+    public Veiculo Veiculo { get; set; }
+    public Plano Plano { get; set; }
+    public GrupoVeiculos Grupo { get; set; }
+}
+public class EditarAluguelViewModel : FormAluguelViewModel
+{
+    public IEnumerable<SelectListItem>? Condutores { get; set; }
+    public IEnumerable<SelectListItem>? Clientes { get; set; }
+    public IEnumerable<SelectListItem>? Veiculos { get; set; }
+    public IEnumerable<SelectListItem>? Planos { get; set; }
+    public IEnumerable<SelectListItem>? Grupos { get; set; }
+    public decimal? ValorFinal { get; set; } = 0;
+    public List<int> taxasSelecionadas { get; set; } = new List<int>();
+}
 public class FinalizarAluguelViewModel : FormAluguelViewModel
 {
-    public string Condutor { get; set; }
-    public string Veiculo { get; set; }
-    public string Cliente { get; set; }
-    public string Plano { get; set; }
-    public string Seguro { get; set; }
-    public string Grupo { get; set; }
+    public List<int> taxasSelecionadas { get; set; } = new List<int>();
     public List<TaxaServico> Taxas { get; set; }
+    public List<int> TaxasId { get; set; }
     public decimal? ValorFinal { get; set; }
+    public int KmFinal {  get; set; }
+    public Cliente Cliente { get; set; }
+    public Condutor Condutor { get; set; }
+    public Veiculo Veiculo { get; set; }
+    public Aluguel Aluguel { get; set; }
+    public Plano Plano { get; set; }
+    public GrupoVeiculos Grupo { get; set; }
 }
 public class DetalhesAluguelViewModel : FormAluguelViewModel
 {
@@ -68,4 +89,11 @@ public class DetalhesAluguelViewModel : FormAluguelViewModel
     public Plano Plano { get; set; }
     public GrupoVeiculos Grupo { get; set; }
     public List<TaxaServico> Taxas { get; set; }
+}
+
+public class PrefinalizarAluguelViewModel
+{
+    public int id { get; set; }
+    public int KmFinal {  set; get; }
+    public Aluguel Aluguel { get; set; }
 }

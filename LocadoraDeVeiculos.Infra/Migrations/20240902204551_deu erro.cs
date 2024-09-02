@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class FullmigrationwData : Migration
+    public partial class deuerro : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -95,7 +95,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TipoPlano = table.Column<int>(type: "int", nullable: false),
                     ValorDiaria = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
-                    PrecoKM = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
+                    PrecoKm = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
                     ValorExtrapolado = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
                     KmDisponivel = table.Column<int>(type: "int", nullable: true),
                     GrupoVeiculosId = table.Column<int>(type: "int", nullable: false)
@@ -145,7 +145,10 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Encerrado = table.Column<bool>(type: "bit", nullable: false),
                     Entrada = table.Column<int>(type: "int", nullable: false),
+                    ValorFinal = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
+                    KmFinal = table.Column<int>(type: "int", nullable: true),
                     DataLocacao = table.Column<DateTime>(type: "datetime", nullable: false),
                     DateDevolucaoPrevista = table.Column<DateTime>(type: "datetime", nullable: true),
                     GrupoId = table.Column<int>(type: "int", nullable: false),
@@ -161,32 +164,27 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         name: "FK_TBAluguel_TBCliente_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "TBCliente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TBAluguel_TBCondutor_CondutorId",
                         column: x => x.CondutorId,
                         principalTable: "TBCondutor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TBAluguel_TBGrupo_GrupoId",
                         column: x => x.GrupoId,
                         principalTable: "TBGrupo",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TBAluguel_TBPlano_PlanoId",
                         column: x => x.PlanoId,
                         principalTable: "TBPlano",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TBAluguel_TBVeiculos_VeiculoId",
                         column: x => x.VeiculoId,
                         principalTable: "TBVeiculos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -297,7 +295,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
             migrationBuilder.InsertData(
                 table: "TBPlano",
-                columns: new[] { "Id", "GrupoVeiculosId", "KmDisponivel", "PrecoKM", "TipoPlano", "ValorDiaria", "ValorExtrapolado" },
+                columns: new[] { "Id", "GrupoVeiculosId", "KmDisponivel", "PrecoKm", "TipoPlano", "ValorDiaria", "ValorExtrapolado" },
                 values: new object[,]
                 {
                     { 1, 1, 300, null, 0, 100m, 20m },

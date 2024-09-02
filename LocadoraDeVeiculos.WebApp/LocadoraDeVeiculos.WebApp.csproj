@@ -26,4 +26,12 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Aluguel\_ListaDeTaxas.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Aluguel\_ListaDeTaxas.cshtml" />
+  </ItemGroup>
+
 </Project>

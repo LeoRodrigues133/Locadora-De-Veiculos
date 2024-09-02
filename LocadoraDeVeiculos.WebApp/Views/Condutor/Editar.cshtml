@@ -4,7 +4,6 @@
     ViewBag.Title = "Edição de Condutor";
 }
 
-@* //Perguntar sobre como colocar o valor dos atributos no input *@
 
 <form asp-action="Editar" method="post">
     <div class="form-group">
@@ -58,6 +57,7 @@
         <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
     </div>
 </form>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var cpfInput = document.getElementById('cpf');

@@ -35,7 +35,7 @@ public class PlanoService
         if(planoSelecionado is null)
             return Result.Fail("O plano não foi encontrado!");
         #region Edit
-        planoSelecionado.PrecoKM = planoEditado.PrecoKM;
+        planoSelecionado.PrecoKm = planoEditado.PrecoKm;
         planoSelecionado.ValorDiaria= planoEditado.ValorDiaria;
         planoSelecionado.ValorExtrapolado= planoEditado.ValorExtrapolado;
         planoSelecionado.KmDisponivel= planoEditado.KmDisponivel;

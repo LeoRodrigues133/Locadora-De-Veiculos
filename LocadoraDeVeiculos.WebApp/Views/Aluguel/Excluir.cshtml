@@ -1,24 +1,33 @@
-﻿@model DetalhesAluguelViewModel
+﻿@model ExcluirAluguelViewModel
+
 @{
-    ViewBag.Title = "Detalhes do Aluguel";
+    ViewBag.Title = "Excluir Aluguel";
 }
 
- <div class="form-group">
+<h2>@ViewBag.Title</h2>
+
+<div class="alert alert-danger" role="alert">
+    <strong>Tem certeza que deseja excluir este aluguel?</strong>
+</div>
+
+<div class="form-group">
     <label>Cliente:</label>
     <input class="form-control" value="@Model.Cliente.Nome" disabled />
 </div>
+
 <div class="form-group">
     <label>Condutor:</label>
     <input class="form-control" value="@Model.Condutor.Nome" disabled />
-</div>
-<div class="form-group">
-    <label>Grupo de Veículos:</label>
-    <input class="form-control" value="@Model.Grupo.Nome" disabled />
 </div>
 
 <div class="form-group">
     <label>Veículo:</label>
     <input class="form-control" value="@Model.Veiculo.Modelo" disabled />
+</div>
+
+<div class="form-group">
+    <label>Grupo de Veículos:</label>
+    <input class="form-control" value="@Model.Grupo.Nome" disabled />
 </div>
 
 <div class="form-group">
@@ -33,24 +42,18 @@
 
 <div class="form-group">
     <label>Data de Devolução Prevista:</label>
-    <input class="form-control" value="@Model.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy")" disabled />
+    <input class="form-control" value="@Model.DateDevolucaoPrevista?.ToString("dd/MM/yyyy")" disabled />
 </div>
 
 <div class="form-group">
-    <label>Valor de Entrada:</label>
-    <input class="form-control" value="@Model.Entrada.ToString("C")" disabled />
-</div>
-
-<div class="form-group">
-    <label>Taxas:</label>
-    @if (Model.Taxas is not null)
+    <label>Taxas Aplicadas:</label>
+    @if (Model.Taxas != null && Model.Taxas.Any())
     {
         <ul class="list-group">
             @foreach (var taxa in Model.Taxas)
             {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li class="list-group-item">
                     @taxa.Nome - @taxa.Valor.ToString("C")
-                    
                 </li>
             }
         </ul>
@@ -60,6 +63,11 @@
         <p class="form-control-static">Nenhuma taxa aplicada.</p>
     }
 </div>
-<div class="form-group">
-    <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
-</div>
+
+<form asp-action="Excluir" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

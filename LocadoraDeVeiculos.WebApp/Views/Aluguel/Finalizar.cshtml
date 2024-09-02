@@ -3,38 +3,47 @@
     ViewBag.Title = "Detalhes do Aluguel";
 }
 
- <div class="form-group">
+<div class="form-group">
     <label>Cliente:</label>
-    <input class="form-control" value="@Model.Cliente" disabled />
+    <input class="form-control" value="@Model.Aluguel.Cliente.Nome" disabled />
 </div>
 <div class="form-group">
     <label>Condutor:</label>
-    <input class="form-control" value="@Model.Condutor" disabled />
+    <input class="form-control" value="@Model.Aluguel.Condutor.Nome" disabled />
 </div>
 <div class="form-group">
     <label>Grupo de Veículos:</label>
-    <input class="form-control" value="@Model.Grupo" disabled />
+    <input class="form-control" value="@Model.Aluguel.Grupo.Nome" disabled />
 </div>
-
 <div class="form-group">
     <label>Veículo:</label>
-    <input class="form-control" value="@Model.Veiculo" disabled />
+    <input class="form-control" value="@Model.Aluguel.Veiculo.Modelo" disabled />
 </div>
-
 <div class="form-group">
     <label>Plano:</label>
-    <input class="form-control" value="@Model.Plano" disabled />
+    <input class="form-control" value="@Model.Aluguel.Plano.TipoPlano.ToString()" disabled />
 </div>
-
 <div class="form-group">
     <label>Data de Locação:</label>
-    <input class="form-control" value="@Model.DataLocacao.ToString("dd/MM/yyyy")" disabled />
+    <input class="form-control" value="@Model.Aluguel.DataLocacao.ToString("dd/MM/yyyy")" disabled />
+</div>
+
+<div class="form-group d-flex gap-4">
+    <div>
+        <label>Km Inicial:</label>
+        <input type="number" class="form-control" value="@Model.Aluguel.Veiculo.Quilometragem" disabled />
+    </div>
+    <div>
+        <label>Km Final:</label>
+        <input type="number" class="form-control" value="@Model.Aluguel.KmFinal" min="@Model.Veiculo.Quilometragem" disabled />
+    </div>
 </div>
 
 <div class="form-group">
     <label>Data de Devolução Prevista:</label>
     <input class="form-control"
- value="@(Model.DateDevolucaoPrevista.HasValue ? Model.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy") : "Não informada")" disabled />
+           value="@(Model.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy"))"
+           disabled />
 </div>
 
 <div class="form-group">
@@ -43,15 +52,14 @@
 </div>
 
 <div class="form-group">
-    <label>Taxas:</label>
-    @if (Model.Taxas is not null)
+    <label>Serviços:</label>
+    @if (Model.Aluguel.Taxas is not null)
     {
         <ul class="list-group">
-            @foreach (var taxa in Model.Taxas)
+            @foreach (var taxa in Model.Aluguel.Taxas)
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     @taxa.Nome - @taxa.Valor.ToString("C")
-                    
                 </li>
             }
         </ul>
@@ -63,9 +71,11 @@
 
     <div>
         <label>Valor final:</label>
-        <input type="type" name="name" value="@Model.ValorFinal" disabled/>
+        <input type="text" class="form-control" value="@Model.ValorFinal" disabled />
     </div>
 </div>
+
 <div class="form-group">
+    <button type="submit" class="btn btn-primary">Salvar Km Final</button>
     <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
 </div>

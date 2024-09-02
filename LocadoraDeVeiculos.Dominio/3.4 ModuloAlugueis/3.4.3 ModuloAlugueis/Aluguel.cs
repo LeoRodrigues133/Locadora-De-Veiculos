@@ -18,6 +18,7 @@ public class Aluguel : EntidadeBase
         int clienteId,
         int grupoId,
         int condutorId,
+        int? kmFinal,
         decimal valorFinal,
         DateTime dataLocacao,
         DateTime? dateDevolucaoPrevista)
@@ -28,14 +29,17 @@ public class Aluguel : EntidadeBase
         VeiculoId = veiculoId;
         ClienteId = clienteId;
         CondutorId = condutorId;
-        ValorFinal = valorFinal;
+        ValorFinal = valorFinal ;
         DataLocacao = dataLocacao;
+        KmFinal = kmFinal;
         Taxas = new List<TaxaServico>();
         DateDevolucaoPrevista = dateDevolucaoPrevista;
+        Encerrado = false;
     }
-
+    public bool Encerrado {  get; set; }
     public int Entrada { get; set; }
     public decimal? ValorFinal { get; set; }
+    public int? KmFinal { get; set; }
     public Plano Plano { get; set; }
     public Veiculo Veiculo { get; set; }
     public Cliente Cliente { get; set; }
@@ -49,4 +53,9 @@ public class Aluguel : EntidadeBase
     public int VeiculoId { get; set; }
     public int ClienteId { get; set; }
     public int CondutorId { get; set; }
+
+    public void FinalizarLocacao()
+    {
+        Encerrado = true;
+    }
 }

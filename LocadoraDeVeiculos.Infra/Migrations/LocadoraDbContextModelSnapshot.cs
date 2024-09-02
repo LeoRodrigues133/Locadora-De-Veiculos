@@ -57,10 +57,16 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<DateTime?>("DateDevolucaoPrevista")
                         .HasColumnType("datetime");
 
+                    b.Property<bool>("Encerrado")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Entrada")
                         .HasColumnType("int");
 
                     b.Property<int>("GrupoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("KmFinal")
                         .HasColumnType("int");
 
                     b.Property<int>("PlanoId")
@@ -949,7 +955,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int?>("KmDisponivel")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("PrecoKM")
+                    b.Property<decimal?>("PrecoKm")
                         .HasColumnType("decimal");
 
                     b.Property<int>("TipoPlano")
@@ -982,7 +988,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                             Id = 2,
                             GrupoVeiculosId = 2,
                             KmDisponivel = 500,
-                            PrecoKM = 10m,
+                            PrecoKm = 10m,
                             TipoPlano = 1,
                             ValorDiaria = 150m,
                             ValorExtrapolado = 30m
@@ -992,7 +998,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                             Id = 3,
                             GrupoVeiculosId = 3,
                             KmDisponivel = 700,
-                            PrecoKM = 15m,
+                            PrecoKm = 15m,
                             TipoPlano = 2,
                             ValorDiaria = 200m,
                             ValorExtrapolado = 40m
@@ -1011,7 +1017,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                             Id = 5,
                             GrupoVeiculosId = 5,
                             KmDisponivel = 400,
-                            PrecoKM = 12m,
+                            PrecoKm = 12m,
                             TipoPlano = 1,
                             ValorDiaria = 120m,
                             ValorExtrapolado = 25m
@@ -1021,7 +1027,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                             Id = 6,
                             GrupoVeiculosId = 6,
                             KmDisponivel = 600,
-                            PrecoKM = 18m,
+                            PrecoKm = 18m,
                             TipoPlano = 2,
                             ValorDiaria = 180m,
                             ValorExtrapolado = 35m
@@ -1040,7 +1046,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                             Id = 8,
                             GrupoVeiculosId = 8,
                             KmDisponivel = 1100,
-                            PrecoKM = 20m,
+                            PrecoKm = 20m,
                             TipoPlano = 1,
                             ValorDiaria = 270m,
                             ValorExtrapolado = 55m
@@ -1050,7 +1056,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                             Id = 9,
                             GrupoVeiculosId = 9,
                             KmDisponivel = 350,
-                            PrecoKM = 25m,
+                            PrecoKm = 25m,
                             TipoPlano = 2,
                             ValorDiaria = 130m,
                             ValorExtrapolado = 30m
@@ -1086,31 +1092,31 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.HasOne("LocadoraDeVeiculos.Dominio.Cliente", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("LocadoraDeVeiculos.Dominio.Condutor", "Condutor")
                         .WithMany()
                         .HasForeignKey("CondutorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", "Grupo")
                         .WithMany()
                         .HasForeignKey("GrupoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("LocadoraDeVeiculos.Dominio.Plano", "Plano")
                         .WithMany()
                         .HasForeignKey("PlanoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.Veiculo", "Veiculo")
                         .WithMany()
                         .HasForeignKey("VeiculoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Cliente");

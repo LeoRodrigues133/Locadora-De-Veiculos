@@ -1,21 +1,22 @@
-﻿@model CadastroAluguelViewModel
+﻿@model EditarAluguelViewModel
+
 @{
-    ViewBag.Title = "Cadastro de aluguel";
+    ViewBag.Title = "Editar Aluguel";
 }
 
-<form asp-action="Cadastrar">
+<form asp-action="Editar" method="post">
     <div class="form-group">
         <label asp-for="ClienteId" class="control-label">Cliente:</label>
-        <select asp-for="ClienteId" class="form-control" asp-items="Model.Clientes" id="clienteSelect">
-            <option value="" disabled selected>Selecione um Cliente</option>
+        <select asp-for="ClienteId" class="form-control" asp-items="@Model.Clientes" id="clienteSelect" disabled>
+            <option value="" disabled>Selecione um Cliente</option>
         </select>
         <span asp-validation-for="ClienteId" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="CondutorId" class="control-label">Condutor:</label>
-        <select asp-for="CondutorId" class="form-control" id="condutorSelect" disabled>
-            <option value="" disabled selected>Selecione um Cliente</option>
+        <select asp-for="CondutorId" class="form-control" id="condutorSelect">
+            <option value="" disabled>Selecione um Condutor</option>
         </select>
         <span asp-validation-for="CondutorId" class="text-danger"></span>
     </div>
@@ -23,23 +24,22 @@
     <div class="form-group">
         <label asp-for="GrupoId" class="control-label">Grupo de Automóveis:</label>
         <select asp-for="GrupoId" class="form-control" asp-items="Model.Grupos" id="grupoSelect">
-            <option value="" disabled selected>Selecione um Grupo Veículo</option>
+            <option value="" disabled>Selecione um Grupo Veículo</option>
         </select>
         <span asp-validation-for="GrupoId" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="VeiculoId" class="control-label">Automóvel:</label>
-        <select asp-for="VeiculoId" class="form-control" asp-items="Model.Veiculos" id="veiculoSelect" disabled>
-            <option value="" disabled selected>Selecione um Grupo de Veículos</option>
-
+        <select asp-for="VeiculoId" class="form-control" asp-items="Model.Veiculos" id="veiculoSelect">
+            <option value="" disabled>Selecione um Veículo</option>
         </select>
         <span asp-validation-for="VeiculoId" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="DataLocacao" class="control-label">Data de Saída:</label>
-        <input asp-for="DataLocacao" class="form-control" type="date" />
+        <input asp-for="DataLocacao" class="form-control" type="date" disabled />
         <span asp-validation-for="DataLocacao" class="text-danger"></span>
     </div>
 
@@ -51,22 +51,45 @@
 
     <div class="form-group">
         <label asp-for="Entrada" class="control-label">Valor de Entrada:</label>
-        <input asp-for="Entrada" value="1000" class="form-control" type="text" disabled />
+        <input asp-for="Entrada" class="form-control" type="text" />
         <span asp-validation-for="Entrada" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="PlanoId" class="control-label">Plano:</label>
-        <select asp-for="PlanoId" class="form-control" asp-items="Model.Planos" id="planoSelect" disabled>
-            <option value="" disabled selected>Selecione um Grupo de Veículos</option>
+        <select asp-for="PlanoId" class="form-control" asp-items="Model.Planos" id="planoSelect">
+            <option value="" disabled>Selecione um Plano</option>
         </select>
         <span asp-validation-for="PlanoId" class="text-danger"></span>
-   <partial name="_ListaDeTaxas" model="Model" />
+    </div>
+
+    <partial name="_ListaDeTaxas" model="Model" /> 
 
     <div class="form-group">
-        <input type="submit" value="Salvar" class="btn btn-primary" />
-        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+        <label>Taxas:</label>
+        @if (Model.Taxas is not null)
+        {
+            <ul class="list-group">
+                @foreach (var taxa in Model.Taxas)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @taxa.Nome - @taxa.Valor.ToString("C")
+
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="form-control-static">Nenhuma taxa aplicada.</p>
+        }
     </div>
+
+  
+<div class="form-group">
+    <input type="submit" class="btn btn-primary" value="Editar" />
+    <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+</div>
 </form>
 
 @section Scripts {
@@ -81,14 +104,16 @@
 
                 if (clienteId) {
                     $.get('@Url.Action("CarregarCondutores", "Aluguel")', { clienteId: clienteId }, function (data) {
-                        $condutorSelect.empty().append('<option value="" disabled selected>Selecione</option>');
+                        $condutorSelect.empty().append('<option value="" disabled>Selecione</option>');
                         $.each(data, function (_, condutor) {
                             $condutorSelect.append($('<option>', { value: condutor.value, text: condutor.text }));
                         });
                         $condutorSelect.prop('disabled', false);
+
+                        $condutorSelect.val('@Model.CondutorId');
                     });
                 } else {
-                    $condutorSelect.empty().append('<option value="" disabled selected>Selecione</option>').prop('disabled', true);
+                    $condutorSelect.empty().append('<option value="" disabled>Selecione</option>').prop('disabled', true);
                 }
             });
 
@@ -98,14 +123,16 @@
 
                 if (grupoId) {
                     $.get('@Url.Action("CarregarVeiculos", "Aluguel")', { grupoId: grupoId }, function (data) {
-                        $veiculoSelect.empty().append('<option value="">Selecione</option>');
+                        $veiculoSelect.empty().append('<option value="" disabled>Selecione</option>');
                         $.each(data, function (_, veiculo) {
                             $veiculoSelect.append($('<option>', { value: veiculo.value, text: veiculo.text }));
                         });
                         $veiculoSelect.prop('disabled', false);
+
+                        $veiculoSelect.val('@Model.VeiculoId');
                     });
                 } else {
-                    $veiculoSelect.empty().append('<option value="">Selecione</option>').prop('disabled', true);
+                    $veiculoSelect.empty().append('<option value="" disabled>Selecione</option>').prop('disabled', true);
                 }
             });
 
@@ -115,15 +142,23 @@
 
                 if (grupoId) {
                     $.get('@Url.Action("CarregarPlanos", "Aluguel")', { grupoId: grupoId }, function (data) {
-                        $planoSelect.empty().append('<option value="">Selecione</option>');
+                        $planoSelect.empty().append('<option value="" disabled>Selecione</option>');
                         $.each(data, function (_, plano) {
                             $planoSelect.append($('<option>', { value: plano.value, text: plano.text }));
                         });
                         $planoSelect.prop('disabled', false);
+
+                        $planoSelect.val('@Model.PlanoId');
                     });
                 } else {
-                    $planoSelect.empty().append('<option value="">Selecione</option>').prop('disabled', true);
+                    $planoSelect.empty().append('<option value="" disabled>Selecione</option>').prop('disabled', true);
                 }
+            });
+
+            $(document).ready(function () {
+                $('#clienteSelect').val('@Model.ClienteId').change();
+
+                $('#grupoSelect').val('@Model.GrupoId').change();
             });
         });
     </script>

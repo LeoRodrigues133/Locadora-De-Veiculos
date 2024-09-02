@@ -15,7 +15,7 @@ public class Plano : EntidadeBase
     {
         TipoPlano = tipoPlano;
         ValorDiaria = valorDiaria;
-        PrecoKM = precoKM;
+        PrecoKm = precoKM;
         ValorExtrapolado = valorExtrapolado;
         KmDisponivel = kmDisponivel;
         GrupoVeiculosId = grupoVeiculosId;
@@ -26,7 +26,7 @@ public class Plano : EntidadeBase
     }
     public TipoPlano TipoPlano {  get; set; }
     public decimal? ValorDiaria { get; set; }
-    public decimal? PrecoKM { get; set; }
+    public decimal? PrecoKm { get; set; }
     public decimal? ValorExtrapolado { get; set; }
     public int? KmDisponivel {  get; set; }
     public GrupoVeiculos GrupoVeiculos { get; set; }

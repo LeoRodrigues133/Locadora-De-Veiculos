@@ -125,6 +125,9 @@ public class CondutorController : WebController
     [HttpPost]
     public IActionResult Editar(EditarCondutorViewModel editarVm)
     {
+        if (!ModelState.IsValid)
+            return View(editarVm);
+
         var condutor = _mapeador.Map<Condutor>(editarVm);
 
         var resultado = _serviceCondutor.Editar(condutor);
@@ -135,6 +138,7 @@ public class CondutorController : WebController
 
             return RedirectToAction(nameof(Editar));
         }
+
         ApresentarMensagemSucesso($"O registro ID [{condutor.Id}] foi editado com sucesso!");
 
         return RedirectToAction(nameof(Listar));
@@ -157,9 +161,9 @@ public class CondutorController : WebController
     }
 
     [HttpPost]
-    public IActionResult Excluir(ExcluirCondutorViewModel detalhesVm)
+    public IActionResult Excluir(ExcluirCondutorViewModel excluirVm)
     {
-        var resultado = _serviceCondutor.Excluir(detalhesVm.Id);
+        var resultado = _serviceCondutor.Excluir(excluirVm.Id);
 
         if (resultado.IsFailed)
         {
