@@ -49,10 +49,14 @@ public class FormVeiculoViewModel
 
     [DisplayName("Grupo de Veículos")]
     public IEnumerable<SelectListItem>? GrupoVeiculos { get; set; }
+
+    //[Required(ErrorMessage = "A foto é obrigatória")]
+    //public IFormFile Foto { get; set; }
 }
 
 public class CadastroVeiculoViewModel : FormVeiculoViewModel
 {
+
 }
 
 public class EditarVeiculoViewModel : FormVeiculoViewModel

@@ -22,7 +22,12 @@
     <tbody>
         @foreach (var aluguel in Model)
         {
-            <tr>
+            var ativo = "";
+            if (aluguel.encerrado == true)
+                ativo = "disabled";
+
+
+            <tr >
                 <th>@aluguel.Id</th>
                 <td>@aluguel.Veiculo</td>
                 <td>@aluguel.Condutor</td>
@@ -32,10 +37,9 @@
                 <td>@aluguel.Entrada.ToString("C")</td>
                 <td>@aluguel.Plano</td>
                 <td>
-                    <a asp-action="Editar" asp-route-id="@aluguel.Id" class="btn btn-warning">Editar</a>
-                    <a asp-action="Excluir" asp-route-id="@aluguel.Id" class="btn btn-danger">Excluir</a>
-                    <a asp-action="PreFinalizacao" asp-route-id="@aluguel.Id" class="btn btn-success">Devolucao</a>
-                    <a asp-action="Detalhes" asp-route-id="@aluguel.Id" class="btn btn-primary">Detalhes</a>
+                    <a asp-action="PreFinalizacao" asp-route-id="@aluguel.Id" class="btn btn-success @ativo">Devolução</a>
+                    <a asp-action="Excluir" asp-route-id="@aluguel.Id" class="btn btn-danger @ativo">Excluir</a>
+                    <a asp-action="Detalhes" asp-route-id="@aluguel.Id" class="btn btn-primary @ativo">Detalhes</a>
                 </td>
             </tr>
         }

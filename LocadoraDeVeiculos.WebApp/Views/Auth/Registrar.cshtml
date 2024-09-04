@@ -1,0 +1,42 @@
+﻿@model RegistrarEmpresaViewModel
+
+@{
+    ViewBag.Title = "Registro de Usuário";
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <form class="d-grid gap-3" asp-action="Registrar">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Usuario" class="control-label"></label>
+                <input asp-for="Usuario" class="form-control" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Senha" class="control-label"></label>
+                <input asp-for="Senha" type="password" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmarSenha" class="control-label"></label>
+                <input asp-for="ConfirmarSenha" type="password" class="form-control" />
+                <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Registrar" class="btn btn-primary mt-3" />
+                <a asp-action="Login" class="btn btn-secondary mt-3">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

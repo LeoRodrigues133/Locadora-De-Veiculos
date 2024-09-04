@@ -2,80 +2,106 @@
 @{
     ViewBag.Title = "Detalhes do Aluguel";
 }
+<form asp-action="Finalizar" method="post">
 
-<div class="form-group">
-    <label>Cliente:</label>
-    <input class="form-control" value="@Model.Aluguel.Cliente.Nome" disabled />
-</div>
-<div class="form-group">
-    <label>Condutor:</label>
-    <input class="form-control" value="@Model.Aluguel.Condutor.Nome" disabled />
-</div>
-<div class="form-group">
-    <label>Grupo de Veículos:</label>
-    <input class="form-control" value="@Model.Aluguel.Grupo.Nome" disabled />
-</div>
-<div class="form-group">
-    <label>Veículo:</label>
-    <input class="form-control" value="@Model.Aluguel.Veiculo.Modelo" disabled />
-</div>
-<div class="form-group">
-    <label>Plano:</label>
-    <input class="form-control" value="@Model.Aluguel.Plano.TipoPlano.ToString()" disabled />
-</div>
-<div class="form-group">
-    <label>Data de Locação:</label>
-    <input class="form-control" value="@Model.Aluguel.DataLocacao.ToString("dd/MM/yyyy")" disabled />
-</div>
-
-<div class="form-group d-flex gap-4">
-    <div>
-        <label>Km Inicial:</label>
-        <input type="number" class="form-control" value="@Model.Aluguel.Veiculo.Quilometragem" disabled />
+    <div class="form-group">
+        <label>Cliente:</label>
+        <input class="form-control" value="@Model.Aluguel.Cliente.Nome" disabled />
     </div>
-    <div>
-        <label>Km Final:</label>
-        <input type="number" class="form-control" value="@Model.Aluguel.KmFinal" min="@Model.Veiculo.Quilometragem" disabled />
+    <div class="form-group">
+        <label>Condutor:</label>
+        <input class="form-control" value="@Model.Aluguel.Condutor.Nome" disabled />
     </div>
-</div>
+    <div class="form-group">
+        <label>Grupo de Veículos:</label>
+        <input class="form-control" value="@Model.Aluguel.Grupo.Nome" disabled />
+    </div>
+    <div class="form-group">
+        <label>Veículo:</label>
+        <input class="form-control" value="@Model.Aluguel.Veiculo.Modelo" disabled />
+    </div>
+    <div class="form-group">
+        <label>Plano:</label>
+        <input class="form-control" value="@Model.Aluguel.Plano.TipoPlano.ToString()" disabled />
+    </div>
+    <div class="form-group">
+        <label>Data de Locação:</label>
+        <input class="form-control" value="@Model.Aluguel.DataLocacao.ToString("dd/MM/yyyy")" disabled />
+    </div>
 
-<div class="form-group">
-    <label>Data de Devolução Prevista:</label>
-    <input class="form-control"
-           value="@(Model.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy"))"
-           disabled />
-</div>
+    <div class="form-group d-flex gap-4">
+        <div>
+            <label>Km Inicial:</label>
+            <input type="number" class="form-control" value="@Model.Aluguel.Veiculo.Quilometragem" disabled />
+        </div>
+        <div>
+            <label>Km Final:</label>
+            <input type="number" class="form-control" value="@Model.KmFinal" disabled />
+        </div>
+    </div>
 
-<div class="form-group">
-    <label>Valor de Entrada:</label>
-    <input class="form-control" value="@Model.Entrada.ToString("C")" disabled />
-</div>
+    <div class="form-group">
+        <label>Data de Devolução Prevista:</label>
+        <input class="form-control"
+               value="@Model.Aluguel.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy")"
+               disabled />
+    </div>
 
-<div class="form-group">
-    <label>Serviços:</label>
-    @if (Model.Aluguel.Taxas is not null)
-    {
-        <ul class="list-group">
-            @foreach (var taxa in Model.Aluguel.Taxas)
-            {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    @taxa.Nome - @taxa.Valor.ToString("C")
-                </li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p class="form-control-static">Nenhuma taxa aplicada.</p>
+    <div class="form-group">
+        <label>Data de Devolução:</label>
+        <input class="form-control"
+               value="@DateTime.Now.ToString("dd/MM/yyyy")" disabled />
+    </div>
+
+    @{
+        var diasdeatraso = 0;
+        var mostrardias = "";
+
+        if (Model.Aluguel.DateDevolucaoPrevista.Value != DateTime.Now)
+            diasdeatraso = Model.Aluguel.DateDevolucaoPrevista.Value.DayOfYear - DateTime.Now.DayOfYear;
+
+        if (diasdeatraso < 0)
+            mostrardias = "";
+        else
+            mostrardias = "hidden";
     }
 
-    <div>
-        <label>Valor final:</label>
-        <input type="text" class="form-control" value="@Model.ValorFinal" disabled />
+    <div class="form-group" @mostrardias>
+        <label>Dias de Atraso:</label>
+        <input class="form-control text-danger" value="@Math.Abs(diasdeatraso)" disabled/>
     </div>
-</div>
 
-<div class="form-group">
-    <button type="submit" class="btn btn-primary">Salvar Km Final</button>
-    <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
-</div>
+    <div class="form-group">
+        <label>Valor de Entrada:</label>
+        <input class="form-control" value="@Model.Entrada.ToString("C")" disabled />
+    </div>
+
+    <div class="form-group">
+        <label>Serviços:</label>
+        @if (Model.Aluguel.Taxas is not null)
+        {
+            <ul class="list-group">
+                @foreach (var taxa in Model.Aluguel.Taxas)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @taxa.Nome - @taxa.Valor.ToString("C")
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="form-control-static">Nenhuma taxa aplicada.</p>
+        }
+
+        <div>
+            <label>Valor final:</label>
+            <input type="text" class="form-control" value="@Model.Aluguel.ValorFinal" disabled />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Finalizar Aluguel</button>
+        <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
+    </div>
+</form>

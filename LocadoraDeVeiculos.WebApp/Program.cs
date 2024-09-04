@@ -14,6 +14,9 @@ using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloCondutores;
 using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloCondutores;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloAlugueis;
+using LocadoraDeVeiculos.Dominio.ModuloUsuario;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 
 namespace LocadoraDeVeiculos.WebApp
 {
@@ -42,11 +45,43 @@ namespace LocadoraDeVeiculos.WebApp
             builder.Services.AddScoped<ClienteService>();
             builder.Services.AddScoped<VeiculoService>();
             builder.Services.AddScoped<CondutorService>();
+            //builder.Services.AddScoped<FotoValueResolver>();
             builder.Services.AddScoped<GrupoVeiculosService>();
 
             builder.Services.AddAutoMapper(config =>
             {
                 config.AddMaps(Assembly.GetExecutingAssembly());
+            });
+
+
+            builder.Services.AddScoped<AuthService>();
+
+            builder.Services.AddIdentity<Usuario, Perfil>()
+                .AddEntityFrameworkStores<LocadoraDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequiredUniqueChars = 1;
+            });
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.Cookie.Name = "AspNetCore.Cookies";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                    options.SlidingExpiration = true;
+                });
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Auth/Login";
+                options.AccessDeniedPath = "/Auth/AcessoNegado";
             });
 
             #endregion

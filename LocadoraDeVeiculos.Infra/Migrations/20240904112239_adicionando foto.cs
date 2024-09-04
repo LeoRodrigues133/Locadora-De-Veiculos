@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class deuerro : Migration
+    public partial class adicionandofoto : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -308,28 +308,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     { 8, 8, 1100, 20m, 1, 270m, 55m },
                     { 9, 9, 350, 25m, 2, 130m, 30m },
                     { 10, 10, 650, null, 0, 190m, 40m }
-                });
-
-            migrationBuilder.InsertData(
-                table: "TBVeiculos",
-                columns: new[] { "Id", "Alugado", "Ano", "CapacidadeTanqueDeCombustivel", "Combustivel", "Cor", "GrupoVeiculosId", "Marca", "Modelo", "Placa", "Quilometragem" },
-                values: new object[,]
-                {
-                    { 1, false, 2022, 50, 0, 0, 1, 0, "Gol", "ABC1D23", 10000 },
-                    { 2, false, 2021, 55, 4, 1, 1, 0, "Virtus", "DEF4G56", 5000 },
-                    { 3, true, 2020, 60, 2, 2, 2, 0, "Tiguan", "GHI7J89", 25000 },
-                    { 4, false, 2019, 50, 1, 4, 2, 0, "Polo", "JKL0M12", 30000 },
-                    { 5, false, 2023, 48, 4, 5, 3, 1, "Uno", "MNO3P45", 5000 },
-                    { 6, false, 2022, 45, 0, 3, 3, 1, "Argo", "PQR6S78", 10000 },
-                    { 7, true, 2021, 60, 1, 1, 4, 1, "Toro", "STU9V01", 20000 },
-                    { 8, false, 2020, 70, 2, 0, 4, 1, "Freemont", "VWX2Y34", 35000 },
-                    { 9, false, 2022, 45, 0, 4, 5, 2, "Onix", "XYZ5Z67", 12000 },
-                    { 10, false, 2021, 50, 4, 2, 5, 2, "Tracker", "ABC8D90", 8000 },
-                    { 11, true, 2020, 60, 2, 3, 6, 2, "S10", "DEF1G23", 22000 },
-                    { 12, false, 2019, 55, 1, 5, 6, 2, "Cruze", "GHI4J56", 40000 },
-                    { 13, false, 2023, 40, 0, 1, 7, 3, "Ka", "JKL7M89", 7000 },
-                    { 14, false, 2022, 50, 4, 0, 7, 3, "EcoSport", "MNO8P01", 15000 },
-                    { 15, true, 2021, 70, 2, 3, 8, 3, "Ranger", "PQR9S23", 30000 }
                 });
 
             migrationBuilder.CreateIndex(

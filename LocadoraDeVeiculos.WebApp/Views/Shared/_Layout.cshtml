@@ -23,6 +23,8 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (User.Identity is not null && User.Identity.IsAuthenticated)
+                        {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -47,6 +49,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Aluguel" asp-action="Listar">Alugueis</a>
                         </li>
+
+                        <form asp-controller="Auth" asp-action="Logout" class="d-flex gap-1 ms-4">
+                            <a href="#" class="btn btn-outline-primary px-5">
+                                <i class="bi bi-person-vcard-fill"></i>
+                                @User.Identity.Name
+                            </a>
+
+                            <button class="btn btn-primary px-3">
+                                <i class="bi bi-box-arrow-right"></i>
+                                Logout
+                            </button>
+                        </form>
+                        }
+                        else
+                        {
+                        <div class="col-md-3 text-end">
+                            <a asp-controller="Auth" asp-action="Login" class="btn btn-outline-primary me-2 px-4">Login</a>
+                            <a asp-controller="Auth" asp-action="Registrar" class="btn btn-outline-primary px-4">Registro</a>
+                        </div>
+                        }
+
                     </ul>
                 </div>
             </div>

@@ -5,10 +5,12 @@ using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Dominio;
 using LocadoraDeVeiculos.Infra.ModuloPessoas;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
+using LocadoraDeVeiculos.Dominio.ModuloUsuario;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado;
 
-public class LocadoraDbContext : DbContext
+public class LocadoraDbContext : IdentityDbContext<Usuario, Perfil, int>
 {
     public DbSet<Plano> Planos { get; set; }
     public DbSet<Veiculo> Veiculos { get; set; }

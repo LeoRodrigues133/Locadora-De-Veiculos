@@ -116,7 +116,6 @@ public class AluguelController : WebController
         return RedirectToAction(nameof(Listar));
     }
 
-
     public IActionResult PreFinalizacao(int id)
     {
         var resultado = _aluguelService.SelecionarId(id);
@@ -132,28 +131,35 @@ public class AluguelController : WebController
 
         var finalizarVm = _mapeador.Map<PrefinalizarAluguelViewModel>(aluguel);
 
+        aluguel.KmFinal = aluguel.Veiculo.Quilometragem;
+
         finalizarVm.Aluguel = aluguel;
+
+        _aluguelService.CalcularValor(id);
 
         return View(finalizarVm);
     }
 
     [HttpPost]
-    public IActionResult SalvarKmFinal(PrefinalizarAluguelViewModel km)
+    public IActionResult CalcularValorFinal(PrefinalizarAluguelViewModel preFinalizacaoVm)
     {
-        var resultado = _aluguelService.SelecionarId(km.id);
+        var resultado = _aluguelService.SelecionarId(preFinalizacaoVm.id);
 
         var aluguel = resultado.Value;
 
-        km.Aluguel = aluguel; 
+        preFinalizacaoVm.Aluguel = aluguel;
 
-        aluguel.KmFinal = km.KmFinal;
+        aluguel.KmFinal = preFinalizacaoVm.KmFinal;
 
-        var salvar = _aluguelService.Editar(aluguel);
+        _aluguelService.SalvarKM(aluguel);
 
-        return RedirectToAction(nameof(Finalizar), new { id = km.id });
+        return RedirectToAction(nameof(Finalizar), new { id = preFinalizacaoVm.id, KmFinal = aluguel.KmFinal });
     }
-    public IActionResult Finalizar(int id)
+
+    public IActionResult Finalizar(int id, int KmFinal)
     {
+        int ZeraValor = 0;
+
         var resultado = _aluguelService.SelecionarId(id);
 
         if (resultado.IsFailed)
@@ -167,13 +173,9 @@ public class AluguelController : WebController
         var valorFinal = _aluguelService.CalcularValor(aluguel.Id);
 
         if (valorFinal.HasValue)
-        {
             aluguel.ValorFinal = valorFinal.Value;
-        }
         else
-        {
-            return RedirectToAction(nameof(PreFinalizacao), new { id = id });
-        }
+            aluguel.ValorFinal = ZeraValor;
 
         var fVM = _mapeador.Map<FinalizarAluguelViewModel>(aluguel);
 
@@ -181,64 +183,16 @@ public class AluguelController : WebController
 
         return View(fVM);
     }
-    public IActionResult Editar(int id)
+
+    [HttpPost]
+    public IActionResult Finalizar(FinalizarAluguelViewModel finalizarVm)
     {
-        var resultado = _aluguelService.SelecionarId(id);
 
-        if(resultado.IsFailed)
-        {
-            ApresentarMensagemFalha(resultado.ToResult());
-
-            return RedirectToAction(nameof(Listar));
-        }
+        var resultado = _aluguelService.SelecionarId(finalizarVm.Id);
 
         var aluguel = resultado.Value;
 
-        var resultadoClientes = _clienteService.SelecionarTodos();
-
-        var ClientesElegiveis = resultadoClientes.Value;
-
-        var clientes = ClientesElegiveis.Select(c => new SelectListItem
-        {
-            Value = c.Id.ToString(),
-            Text = c.Nome
-        });
-
-        var editarVm = _mapeador.Map<EditarAluguelViewModel>(aluguel);
-
-        editarVm.Clientes = clientes;
-
-        return View(CarregarDados(editarVm));
-    }
-
-    [HttpPost]
-    public IActionResult Editar(EditarAluguelViewModel editarVm)
-    {
-        if (!ModelState.IsValid)
-            return View(CarregarDados(editarVm));
-
-        var aluguel = _mapeador.Map<Aluguel>(editarVm);
-
-        foreach (var taxaId in editarVm.taxasSelecionadas)
-        {
-            var result = _taxasService.SelecionarId(taxaId);
-
-            var taxa = result.Value;
-
-            if (taxa is not null )
-                aluguel.Taxas.Add(taxa);
-        }
-
-        var resultado = _aluguelService.Editar(aluguel);
-
-        if (resultado.IsFailed)
-        {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
-
-            return RedirectToAction(nameof(Editar));
-        }
-
-        ApresentarMensagemSucesso($"O registro ID [{aluguel.Id}] foi editado com sucesso!");
+        _aluguelService.Finalizar(aluguel);
 
         return RedirectToAction(nameof(Listar));
     }

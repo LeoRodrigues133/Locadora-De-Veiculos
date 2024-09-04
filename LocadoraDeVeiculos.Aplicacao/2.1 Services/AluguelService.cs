@@ -42,21 +42,6 @@ public class AluguelService
         return Result.Ok(aluguel);
     }
 
-    public Result<Aluguel> Editar (Aluguel aluguelEditado)
-    {
-        var aluguelSelecionado = _repositorioAluguel.SelecionarPorId(aluguelEditado.Id);
-
-        #region edit
-
-        aluguelSelecionado.DateDevolucaoPrevista = aluguelEditado.DateDevolucaoPrevista;
-        aluguelSelecionado.KmFinal = aluguelEditado.KmFinal;
-
-        #endregion
-        _repositorioAluguel.Editar(aluguelSelecionado);
-
-        return Result.Ok(aluguelSelecionado);
-    }
-
     public Result<Aluguel> Excluir(int id)
     {
         var aluguel = _repositorioAluguel.SelecionarPorId(id);
@@ -68,6 +53,20 @@ public class AluguelService
 
         return Result.Ok(aluguel);
     }
+
+    public Result<Aluguel> Finalizar (Aluguel aluguel)
+    {
+        var QuilometragemDeSaida = aluguel.Veiculo.Quilometragem;
+        aluguel.Veiculo.Quilometragem += QuilometrosPercorrido(aluguel);
+
+        aluguel.FinalizarLocacao();
+        
+        _repositorioVeiculo.Editar(aluguel.Veiculo);
+        _repositorioAluguel.Editar(aluguel);
+
+        return Result.Ok(aluguel);
+    }
+
     public Result<Aluguel> SelecionarId(int id)
     {
         var aluguel = _repositorioAluguel.SelecionarPorId(id);
@@ -89,31 +88,6 @@ public class AluguelService
         return Result.Ok(alugueis);
     }
 
-    public Result<Aluguel> Finalizar (Aluguel aluguel)
-    {
-
-
-        return Result.Ok(aluguel);
-    }
-
-    public decimal? CalcularValor(int id)
-    {
-        var aluguel = _repositorioAluguel.SelecionarPorId(id);
-
-        foreach (var taxa in aluguel.Taxas)
-            if (!taxa.TipoDeCobranca)
-                aluguel.ValorFinal += taxa.Valor * CalcularDiasAlocado(aluguel);
-            else
-                aluguel.ValorFinal += taxa.Valor;
-
-        var teste = CalcularDiaria(aluguel, CalcularDiasAlocado(aluguel));
-
-        for (int i = 0; i < CalcularDiasDeAtraso(aluguel); i++)
-            aluguel.ValorFinal += teste / 2 * 4;
-
-        return aluguel.ValorFinal;
-    }
-
     private decimal CalcularDiaria(Aluguel aluguel, int Diarias)
     {
         var PlanoDeCobranca = aluguel.Plano.TipoPlano;
@@ -131,7 +105,7 @@ public class AluguelService
 
 
                 aluguel.ValorFinal += Diarias * valorDiaria;
-                aluguel.ValorFinal += valorKm * CalcularKm(aluguel);
+                aluguel.ValorFinal += valorKm * QuilometrosPercorrido(aluguel);
 
                 return (decimal)aluguel.ValorFinal;
                 break;
@@ -150,7 +124,7 @@ public class AluguelService
                 valorKmExtrapolado = aluguel.Plano.ValorExtrapolado!;
                 KmDisponivel = aluguel.Plano.KmDisponivel;
 
-                int? KmExtrapolado = Math.Abs((int)KmDisponivel )- CalcularKm(aluguel);
+                int? KmExtrapolado = Math.Abs((int)KmDisponivel )- QuilometrosPercorrido(aluguel);
 
                 if ((int)KmExtrapolado <= 0)
                     aluguel.ValorFinal += 0;
@@ -167,34 +141,28 @@ public class AluguelService
         return (decimal)aluguel.ValorFinal!;
     }
 
-    private int CalcularDiasDeAtraso(Aluguel aluguel)
+    private int DiasDeAtraso(Aluguel aluguel)
     {
         var DataDeDevolucaoPrevista = aluguel.DateDevolucaoPrevista!.Value.DayOfYear;
 
-        var DataDeDevolucao = aluguel.DateDevolucaoPrevista.Value.DayOfYear;
+        var DataDeDevolucao = DateTime.Now.DayOfYear;
 
-        var DiasDeAtraso = DataDeDevolucaoPrevista - DataDeDevolucao;
+        var DiasDeAtraso = DataDeDevolucao - DataDeDevolucaoPrevista;
 
         return DiasDeAtraso;
     }
 
-    private int CalcularKm(Aluguel aluguel)
+    private int QuilometrosPercorrido(Aluguel aluguel)
     {
         var KmInicial = aluguel.Veiculo.Quilometragem;
         var KmFinal = (int)aluguel.KmFinal!;
 
         var KmPercorrido = KmFinal - KmInicial;
 
-        var veiculo = aluguel.Veiculo;
-
-        veiculo.Quilometragem += KmPercorrido;
-
-        _repositorioVeiculo.Editar(veiculo);
-
         return KmPercorrido;
     }
 
-    private int CalcularDiasAlocado(Aluguel aluguel)
+    private int DiasLocado(Aluguel aluguel)
     {
         var DataDeLocacao = aluguel.DataLocacao.DayOfYear;
 
@@ -203,6 +171,26 @@ public class AluguelService
         var DiasAlugado = DataDeDevolucao - DataDeLocacao;
 
         return DiasAlugado;
+    }
+
+    public decimal? CalcularValor(int id)
+    {
+        decimal MultiplicadorDeMulta = .1m;
+
+        var aluguel = _repositorioAluguel.SelecionarPorId(id);
+
+        foreach (var taxa in aluguel.Taxas)
+            if (!taxa.TipoDeCobranca)
+                aluguel.ValorFinal += taxa.Valor * DiasLocado(aluguel);
+            else
+                aluguel.ValorFinal += taxa.Valor;
+
+        var ValorTotalDiaria = CalcularDiaria(aluguel, DiasLocado(aluguel));
+
+        for (int i = 0; i < DiasDeAtraso(aluguel); i++)
+            aluguel.ValorFinal += ValorTotalDiaria * MultiplicadorDeMulta;
+
+        return aluguel.ValorFinal;
     }
 
     private void BuscarRegistros(Aluguel aluguel)
@@ -223,12 +211,8 @@ public class AluguelService
         aluguel.Cliente = cliente;
     }
 
-    public void salvarTaxas(Aluguel aluguel)
+    public void SalvarKM(Aluguel aluguel)
     {
-        var aluguelSelecionado = _repositorioAluguel.SelecionarPorId(aluguel.Id);
-
-        aluguelSelecionado.Taxas = aluguel.Taxas;
-
-        _repositorioAluguel.Editar(aluguelSelecionado);
+        _repositorioAluguel.Editar(aluguel);
     }
 }

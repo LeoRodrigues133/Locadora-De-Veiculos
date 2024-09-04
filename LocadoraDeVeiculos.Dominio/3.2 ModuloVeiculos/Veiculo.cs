@@ -9,6 +9,7 @@ public class Veiculo : EntidadeBase
     {
         
     }
+    //public byte[] Foto { get; set; }
     public bool Alugado { get; set; }
     public Cor Cor { get; set; }
     public Marca Marca { get; set; }
