@@ -5,8 +5,6 @@ using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
-using Microsoft.EntityFrameworkCore;
-using LocadoraDeVeiculos.Infra.ModuloAlugueis;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class AluguelController : WebController
@@ -119,6 +117,8 @@ public class AluguelController : WebController
 
     public IActionResult PreFinalizacao(int id)
     {
+        decimal ZeraConta = 0;
+
         var resultado = _aluguelService.SelecionarId(id);
 
         if (resultado.IsFailed)
@@ -134,11 +134,15 @@ public class AluguelController : WebController
 
         finalizarVm.Aluguel = aluguel;
 
+        aluguel.ValorFinal = ZeraConta;
+
+        _aluguelService.CalcularValor(finalizarVm.id);
+
         return View(finalizarVm);
     }
 
     [HttpPost]
-    public IActionResult SalvarKmFinal(PrefinalizarAluguelViewModel km)
+    public IActionResult CalcularValorFinal(PrefinalizarAluguelViewModel km)
     {
         var resultado = _aluguelService.SelecionarId(km.id);
 
@@ -148,12 +152,14 @@ public class AluguelController : WebController
 
         aluguel.KmFinal = km.KmFinal;
 
-        var salvar = _aluguelService.Editar(aluguel);
+        //var salvar = _aluguelService.Editar(aluguel);
 
-        return RedirectToAction(nameof(Finalizar), new { id = km.id });
+        return RedirectToAction(nameof(Finalizar), new { id = km.id , Km = km.KmFinal});
     }
-    public IActionResult Finalizar(int id)
+    public IActionResult Finalizar(int id, int Km)
     {
+        decimal ZeraConta = 0;
+
         var resultado = _aluguelService.SelecionarId(id);
 
         if (resultado.IsFailed)
@@ -164,16 +170,14 @@ public class AluguelController : WebController
 
         var aluguel = resultado.Value;
 
+        aluguel.KmFinal = Km;
+
         var valorFinal = _aluguelService.CalcularValor(aluguel.Id);
 
         if (valorFinal.HasValue)
-        {
             aluguel.ValorFinal = valorFinal.Value;
-        }
         else
-        {
-            return RedirectToAction(nameof(PreFinalizacao), new { id = id });
-        }
+            aluguel.ValorFinal = ZeraConta;
 
         var fVM = _mapeador.Map<FinalizarAluguelViewModel>(aluguel);
 

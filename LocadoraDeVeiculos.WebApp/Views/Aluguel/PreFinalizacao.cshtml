@@ -31,7 +31,7 @@
     <input class="form-control" value="@Model.Aluguel.DataLocacao.ToString("dd/MM/yyyy")" disabled />
 </div>
 
-<form asp-action="SalvarKmFinal" asp-route-id="@Model.Aluguel.Id" method="post">
+<form asp-action="CalcularValorFinal" asp-route-id="@Model.Aluguel.Id" method="post">
     <div class="form-group d-flex gap-4">
         <div>
             <label>Km Inicial:</label>
@@ -39,7 +39,7 @@
         </div>
         <div>
             <label>Km Final:</label>
-            <input type="number" class="form-control" asp-for="@Model.KmFinal" placeholder="Insira a quilometragem atual do veículo" required />
+            <input type="number" class="form-control" asp-for="@Model.KmFinal" value="@Model.Aluguel.Veiculo.Quilometragem" min="@Model.Aluguel.Veiculo.Quilometragem" required />
         </div>
     </div>
    
@@ -47,7 +47,7 @@
     <div class="form-group">
         <label>Data de Devolução Prevista:</label>
         <input class="form-control"
-               value="Model.Aluguel.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy"))"
+               value="@Model.Aluguel.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy")"
                disabled />
     </div>
 

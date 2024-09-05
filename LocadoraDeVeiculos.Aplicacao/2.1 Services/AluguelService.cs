@@ -92,6 +92,12 @@ public class AluguelService
     public Result<Aluguel> Finalizar (Aluguel aluguel)
     {
 
+        var veiculo = aluguel.Veiculo;
+
+        veiculo.Quilometragem += CalcularKm(aluguel);
+
+        _repositorioVeiculo.Editar(veiculo);
+
 
         return Result.Ok(aluguel);
     }
@@ -106,10 +112,12 @@ public class AluguelService
             else
                 aluguel.ValorFinal += taxa.Valor;
 
+        decimal multiplicadorMulta = 1.1M;
+
         var teste = CalcularDiaria(aluguel, CalcularDiasAlocado(aluguel));
 
         for (int i = 0; i < CalcularDiasDeAtraso(aluguel); i++)
-            aluguel.ValorFinal += teste / 2 * 4;
+            aluguel.ValorFinal += teste * multiplicadorMulta;
 
         return aluguel.ValorFinal;
     }
@@ -184,12 +192,6 @@ public class AluguelService
         var KmFinal = (int)aluguel.KmFinal!;
 
         var KmPercorrido = KmFinal - KmInicial;
-
-        var veiculo = aluguel.Veiculo;
-
-        veiculo.Quilometragem += KmPercorrido;
-
-        _repositorioVeiculo.Editar(veiculo);
 
         return KmPercorrido;
     }
