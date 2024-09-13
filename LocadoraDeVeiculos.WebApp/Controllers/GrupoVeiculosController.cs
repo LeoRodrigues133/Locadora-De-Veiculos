@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.WebApp.Models;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.WebApp.Controllers.Shared;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class GrupoVeiculosController : WebController
@@ -11,14 +12,14 @@ public class GrupoVeiculosController : WebController
     readonly IMapper _mapeador;
     readonly GrupoVeiculosService _serviceGrupo;
 
-    public GrupoVeiculosController(IMapper mapeador, GrupoVeiculosService grupoService)
+    public GrupoVeiculosController(IMapper mapeador, GrupoVeiculosService grupoService, AuthService authService) : base(authService)
     {
         _mapeador = mapeador;
         _serviceGrupo = grupoService;
     }
     public IActionResult Listar()
     {
-        var resultado = _serviceGrupo.SelecionarTodos();
+        var resultado = _serviceGrupo.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {

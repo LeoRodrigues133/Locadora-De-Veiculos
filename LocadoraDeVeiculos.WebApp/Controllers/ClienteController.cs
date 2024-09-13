@@ -5,6 +5,7 @@ using LocadoraDeVeiculos.WebApp.Models;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using FluentResults;
+using LocadoraDeVeiculos.WebApp.Controllers.Shared;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class ClienteController : WebController
@@ -12,7 +13,8 @@ public class ClienteController : WebController
     readonly IMapper _mapeador;
     readonly ClienteService _serviceCliente;
 
-    public ClienteController(IMapper mapeador, ClienteService serviceCliente)
+    public ClienteController(IMapper mapeador, ClienteService serviceCliente,
+        AuthService authService) : base(authService)
     {
         _mapeador = mapeador;
         _serviceCliente = serviceCliente;
@@ -20,7 +22,7 @@ public class ClienteController : WebController
 
     public IActionResult Listar()
     {
-        var resultado = _serviceCliente.SelecionarTodos();
+        var resultado = _serviceCliente.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {

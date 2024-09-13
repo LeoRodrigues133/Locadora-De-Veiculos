@@ -62,10 +62,10 @@ public class ClienteService
 
         return Result.Ok(cliente);
     }
-    public Result<List<Cliente>> SelecionarTodos()
+    public Result<List<Cliente>> SelecionarTodos(int id)
     {
 
-        var clientes = _repositorioClientes.SelecionarTodos();
+        var clientes = _repositorioClientes.Filtrar(x => x.EmpresaId == id);
 
         return Result.Ok(clientes);
     }

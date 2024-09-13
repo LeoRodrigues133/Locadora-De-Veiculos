@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LocadoraDeVeiculos.WebApp.Models;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.WebApp.Mapping.Resolvers;
 
 namespace LocadoraDeVeiculos.WebApp.Mapping;
 
@@ -13,7 +14,8 @@ public class GrupoVeiculosProfile : Profile
 
         CreateMap<GrupoVeiculos, EditarGrupoViewModel>();
 
-        CreateMap<CadastroGrupoViewModel, GrupoVeiculos>();
+        CreateMap<CadastroGrupoViewModel, GrupoVeiculos>()
+            .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
 
         CreateMap<EditarGrupoViewModel, GrupoVeiculos>();
 

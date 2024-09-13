@@ -7,6 +7,7 @@ using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using FluentResults;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using LocadoraDeVeiculos.WebApp.Controllers.Shared;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class PlanoController : WebController
@@ -15,7 +16,7 @@ public class PlanoController : WebController
     readonly PlanoService _servicePlano;
     readonly GrupoVeiculosService _serviceGrupo;
 
-    public PlanoController(IMapper mapeador, PlanoService servicePlano, GrupoVeiculosService serviceGrupo)
+    public PlanoController(IMapper mapeador, PlanoService servicePlano, GrupoVeiculosService serviceGrupo, AuthService authService) : base(authService)
     {
         _mapeador = mapeador;
         _servicePlano = servicePlano;
@@ -24,7 +25,7 @@ public class PlanoController : WebController
 
     public IActionResult Listar()
     {
-        var resultado = _servicePlano.SelecionarTodos();
+        var resultado = _servicePlano.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {
@@ -98,7 +99,7 @@ public class PlanoController : WebController
             return RedirectToAction(nameof(Listar));
         }
 
-        var resultadoGrupos = _serviceGrupo.SelecionarTodos();
+        var resultadoGrupos = _serviceGrupo.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultadoGrupos.IsFailed)
         {
@@ -167,7 +168,7 @@ public class PlanoController : WebController
     [HttpPost]
     public IActionResult Excluir(DetalhesPlanoViewModel excluirVm)
     {
-        var resultado = _servicePlano.Excluir(excluirVm.Id); 
+        var resultado = _servicePlano.Excluir(excluirVm.Id);
 
         if (resultado.IsFailed)
         {
@@ -183,7 +184,7 @@ public class PlanoController : WebController
     private FormPlanoViewModels? CarregarDadosFormulario(
        FormPlanoViewModels? dadosPrevios = null)
     {
-        var resultadoGrupos = _serviceGrupo.SelecionarTodos();
+        var resultadoGrupos = _serviceGrupo.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultadoGrupos.IsFailed)
         {

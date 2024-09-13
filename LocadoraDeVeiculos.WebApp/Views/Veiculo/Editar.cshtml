@@ -28,7 +28,7 @@
 
     <div class="form-group">
         <label asp-for="Combustivel" class="control-label"></label>
-        <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<Combustivel>()"></select>
+        <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<EnumCombustivel>()"></select>
         <span asp-validation-for="Combustivel" class="text-danger"></span>
     </div>
 

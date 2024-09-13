@@ -9,6 +9,16 @@ public class MapeadorGrupoVeiculos : IEntityTypeConfiguration<GrupoVeiculos>
     {
         builderGrupo.ToTable("TBGrupo");
 
+        builderGrupo.Property(x => x.EmpresaId)
+            .IsRequired()
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id");
+
+        builderGrupo.HasOne(x => x.Empresa)
+            .WithMany()
+            .HasForeignKey(x => x.EmpresaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builderGrupo.Property(v => v.Id)
             .IsRequired()
             .HasColumnType("int")
@@ -17,8 +27,9 @@ public class MapeadorGrupoVeiculos : IEntityTypeConfiguration<GrupoVeiculos>
         builderGrupo.Property(g => g.Nome)
             .IsRequired()
             .HasColumnType("varchar(25)");
+
         // Adiciona dados iniciais
-        builderGrupo.HasData(DefaultDataGrupos());
+        //builderGrupo.HasData(DefaultDataGrupos());
     }
 
     private GrupoVeiculos[] DefaultDataGrupos()

@@ -54,9 +54,9 @@ public class TaxasService
         return Result.Ok(taxa);
     }
 
-    public Result<List<TaxaServico>> SelecionarTodos()
+    public Result<List<TaxaServico>> SelecionarTodos(int id)
         {
-        var taxas = _repositorioTaxa.SelecionarTodos();
+        var taxas = _repositorioTaxa.Filtrar(x=>x.EmpresaId == id);
     
         if(taxas is null)
             return Result.Fail("Não foi possível encontrar nenhuma taxa.");

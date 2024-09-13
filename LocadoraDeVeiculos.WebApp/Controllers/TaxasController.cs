@@ -3,6 +3,7 @@ using FluentResults;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using LocadoraDeVeiculos.WebApp.Controllers.Shared;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,8 @@ public class TaxasController : WebController
 
     public TaxasController(
         IMapper mapeador,
-        TaxasService serviceTaxas)
+        TaxasService serviceTaxas,
+        AuthService authService) : base(authService)
     {
         _mapeador = mapeador;
         _serviceTaxas = serviceTaxas;
@@ -24,7 +26,7 @@ public class TaxasController : WebController
 
     public IActionResult Listar()
     {
-        var resultado = _serviceTaxas.SelecionarTodos();
+        var resultado = _serviceTaxas.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {
@@ -46,7 +48,7 @@ public class TaxasController : WebController
     {
         var resultado = _serviceTaxas.SelecionarId(id);
 
-        if(resultado.IsFailed)
+        if (resultado.IsFailed)
         {
             ApresentarMensagemFalha(resultado.ToResult());
 
@@ -75,7 +77,7 @@ public class TaxasController : WebController
 
         var resultado = _serviceTaxas.Cadastrar(taxa);
 
-        if(resultado.IsFailed)
+        if (resultado.IsFailed)
         {
             ApresentarMensagemFalha(resultado.ToResult());
 
@@ -91,7 +93,7 @@ public class TaxasController : WebController
     {
         var resultado = _serviceTaxas.SelecionarId(id);
 
-        if(resultado.IsFailed)
+        if (resultado.IsFailed)
         {
             ApresentarMensagemFalha(resultado.ToResult());
 

@@ -12,7 +12,9 @@ public class RepositorioPlanoEmOrm : RepositorioBaseEmOrm<Plano>, IRepositorioPl
 
     public List<Plano> Filtrar(Func<Plano, bool> predicate)
     {
-        throw new NotImplementedException();
+        return _dbContext.Planos
+            .Where(predicate)
+            .ToList();
     }
 
     protected override DbSet<Plano> ObterRegistros()

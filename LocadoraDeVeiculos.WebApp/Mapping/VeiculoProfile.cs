@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using LocadoraDeVeiculos.WebApp.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.WebApp.Mapping.Resolvers;
 
 namespace LocadoraDeVeiculos.WebApp.Mapping;
 
@@ -17,11 +16,32 @@ public class VeiculoProfile : Profile
         CreateMap<Veiculo, EditarVeiculoViewModel>()
             .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom<Resolver>());
 
-        CreateMap<CadastroVeiculoViewModel, Veiculo>();
+        CreateMap<CadastroVeiculoViewModel, Veiculo>()
+            .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
+            //.ForMember(vm => vm.Foto, opt => opt.MapFrom<FotoValueResolver>());
+
 
         CreateMap<EditarVeiculoViewModel, Veiculo>();
 
+
         CreateMap<Veiculo, DetalhesVeiculoViewModel>();
     }
-
 }
+//public class FotoValueResolver : IValueResolver<FormVeiculoViewModel, Veiculo, byte[]>
+//{
+//    public byte[] Resolve(
+//        FormVeiculoViewModel source,
+//        Veiculo destination,
+//        byte[] destMember,
+//        ResolutionContext context)
+//    {
+//        if (source.Foto == null)
+//            return null;
+
+//        using (var memoryStream = new MemoryStream())
+//        {
+//            source.Foto.CopyTo(memoryStream);
+//            return memoryStream.ToArray();
+//        }
+//    }
+//}

@@ -1,7 +1,7 @@
 ﻿using LocadoraDeVeiculos.Dominio;
-using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloAlugueis;
-using LocadoraDeVeiculos.Infra.Compartilhado;
 using Microsoft.EntityFrameworkCore;
+using LocadoraDeVeiculos.Infra.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloAlugueis;
 
 namespace LocadoraDeVeiculos.Infra.ModuloAlugueis;
 public class RepositorioAluguelEmOrm : RepositorioBaseEmOrm<Aluguel>, IRepositorioAluguel
@@ -12,7 +12,15 @@ public class RepositorioAluguelEmOrm : RepositorioBaseEmOrm<Aluguel>, IRepositor
 
     public List<Aluguel> Filtrar(Func<Aluguel, bool> predicate)
     {
-        throw new NotImplementedException();
+        return _dbContext.Alugueis
+            .Include(c => c.Condutor)
+                .ThenInclude(c => c.Cliente)
+            .Include(c => c.Veiculo)
+            .Include(v => v.Grupo)
+            .Include(c => c.Plano)
+            .Include(c => c.Taxas)
+            .Where(predicate)
+            .ToList();
     }
 
     protected override DbSet<Aluguel> ObterRegistros()
@@ -24,11 +32,11 @@ public class RepositorioAluguelEmOrm : RepositorioBaseEmOrm<Aluguel>, IRepositor
     {
         return _dbContext.Alugueis
             .Include(c => c.Condutor)
-            .ThenInclude(c=>c.Cliente)
+            .ThenInclude(c => c.Cliente)
             .Include(c => c.Veiculo)
             .Include(v => v.Grupo)
             .Include(c => c.Plano)
-            .Include(c=>c.Taxas)
+            .Include(c => c.Taxas)
             .FirstOrDefault(c => c.Id == id)!;
     }
     public override List<Aluguel> SelecionarTodos()
@@ -37,7 +45,7 @@ public class RepositorioAluguelEmOrm : RepositorioBaseEmOrm<Aluguel>, IRepositor
             .Include(c => c.Veiculo)
             .Include(v => v.Grupo)
             .Include(c => c.Plano)
-            .Include(c=>c.Taxas)
+            .Include(c => c.Taxas)
             .ToList();
     }
 }

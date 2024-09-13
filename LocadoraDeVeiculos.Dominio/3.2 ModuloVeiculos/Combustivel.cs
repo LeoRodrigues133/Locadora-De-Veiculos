@@ -1,10 +1,16 @@
-﻿namespace LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 
-public enum Combustivel
+namespace LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
+public class Combustivel : EntidadeBase
 {
-    Gasolina,
-    Etanol,
-    Diesel,
-    GNV,
-    Flex
+    public EnumCombustivel Nome {  get; set; }
+    public decimal Preco { get; set; }
+
+    public Combustivel(){}
+
+    public Combustivel(EnumCombustivel nome, decimal preco)
+    {
+        Nome = nome;
+        Preco = preco;
+    }
 }

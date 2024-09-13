@@ -8,4 +8,5 @@ public interface IRepositorioBase<Generico> where Generico : EntidadeBase
     Generico? SelecionarPorId(int idSelecionado);
     List<Generico> SelecionarTodos();
     List<Generico> Filtrar(Func<Generico, bool> predicate);
+    
 }

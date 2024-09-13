@@ -10,7 +10,9 @@ public class RepositorioGrupoVeiculosOrm : RepositorioBaseEmOrm<GrupoVeiculos>, 
 
     public List<GrupoVeiculos> Filtrar(Func<GrupoVeiculos, bool> predicate)
     {
-        throw new NotImplementedException();
+        return _dbContext.GrupoVeiculos
+            .Where(predicate)
+            .ToList();
     }
 
     protected override DbSet<GrupoVeiculos> ObterRegistros()

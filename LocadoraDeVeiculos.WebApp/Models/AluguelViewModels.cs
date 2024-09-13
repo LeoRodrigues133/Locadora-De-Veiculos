@@ -36,6 +36,7 @@ public class ListarAluguelViewModel : FormAluguelViewModel
     public string Plano { get; set; }
     public string Seguro { get; set; }
     public string Grupo { get; set; }
+    public bool encerrado {  get; set; }
 }
 
 public class CadastroAluguelViewModel : FormAluguelViewModel

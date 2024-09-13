@@ -51,6 +51,7 @@
                disabled />
     </div>
 
+
     <div class="form-group">
         <label>Valor de Entrada:</label>
         <input class="form-control" value="@Model.Aluguel.Entrada.ToString("C")" disabled />
@@ -75,12 +76,12 @@
 
         <div>
             <label>Valor final:</label>
-            <input type="text" class="form-control" value="@Model.Aluguel.ValorFinal" disabled />
+            <input type="text" class="form-control" value="@Model.Aluguel.Entrada + @Model.Aluguel.ValorFinal" disabled />
         </div>
     </div>
  
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Salvar Km Final</button>
+        <button type="submit" class="btn btn-primary">Prosseguir</button>
         <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
     </div>
 </form>

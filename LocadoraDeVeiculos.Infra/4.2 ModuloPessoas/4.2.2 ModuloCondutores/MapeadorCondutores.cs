@@ -8,6 +8,17 @@ public class MapeadorCondutores : IEntityTypeConfiguration<Condutor>
     {
         builderCondutor.ToTable("TBCondutor");
 
+        builderCondutor.Property(x => x.EmpresaId)
+            .IsRequired()
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id");
+
+        builderCondutor.HasOne(x => x.Empresa)
+            .WithMany()
+            .HasForeignKey(x => x.EmpresaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
         builderCondutor.Property(c => c.Id)
             .IsRequired()
             .ValueGeneratedOnAdd();
@@ -51,7 +62,7 @@ public class MapeadorCondutores : IEntityTypeConfiguration<Condutor>
             .OnDelete(DeleteBehavior.Restrict);
 
         // Adiciona dados iniciais
-        builderCondutor.HasData(DefaultDataCondutores());
+        //builderCondutor.HasData(DefaultDataCondutores());
     }
 
     private Condutor[] DefaultDataCondutores()

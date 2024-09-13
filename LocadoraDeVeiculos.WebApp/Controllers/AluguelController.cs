@@ -5,6 +5,9 @@ using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
+using Microsoft.EntityFrameworkCore;
+using LocadoraDeVeiculos.Infra.ModuloAlugueis;
+using LocadoraDeVeiculos.WebApp.Controllers.Shared;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class AluguelController : WebController
@@ -20,13 +23,14 @@ public class AluguelController : WebController
 
     public AluguelController(
         IMapper mapeador,
+        AuthService authService,
         PlanoService planoService,
         TaxasService taxasService,
         VeiculoService veiculoService,
         AluguelService aluguelService,
         ClienteService clienteService,
         CondutorService condutorService,
-        GrupoVeiculosService grupoVeiculosService)
+        GrupoVeiculosService grupoVeiculosService) : base(authService)
     {
         _mapeador = mapeador;
         _planoService = planoService;
@@ -114,11 +118,8 @@ public class AluguelController : WebController
         return RedirectToAction(nameof(Listar));
     }
 
-
     public IActionResult PreFinalizacao(int id)
     {
-        decimal ZeraConta = 0;
-
         var resultado = _aluguelService.SelecionarId(id);
 
         if (resultado.IsFailed)
@@ -132,33 +133,34 @@ public class AluguelController : WebController
 
         var finalizarVm = _mapeador.Map<PrefinalizarAluguelViewModel>(aluguel);
 
+        aluguel.KmFinal = aluguel.Veiculo.Quilometragem;
+
         finalizarVm.Aluguel = aluguel;
 
-        aluguel.ValorFinal = ZeraConta;
-
-        _aluguelService.CalcularValor(finalizarVm.id);
+        _aluguelService.CalcularValor(id);
 
         return View(finalizarVm);
     }
 
     [HttpPost]
-    public IActionResult CalcularValorFinal(PrefinalizarAluguelViewModel km)
+    public IActionResult CalcularValorFinal(PrefinalizarAluguelViewModel preFinalizacaoVm)
     {
-        var resultado = _aluguelService.SelecionarId(km.id);
+        var resultado = _aluguelService.SelecionarId(preFinalizacaoVm.id);
 
         var aluguel = resultado.Value;
 
-        km.Aluguel = aluguel; 
+        preFinalizacaoVm.Aluguel = aluguel;
 
-        aluguel.KmFinal = km.KmFinal;
+        aluguel.KmFinal = preFinalizacaoVm.KmFinal;
 
-        //var salvar = _aluguelService.Editar(aluguel);
+        _aluguelService.SalvarKM(aluguel);
 
-        return RedirectToAction(nameof(Finalizar), new { id = km.id , Km = km.KmFinal});
+        return RedirectToAction(nameof(Finalizar), new { id = preFinalizacaoVm.id, KmFinal = aluguel.KmFinal });
     }
-    public IActionResult Finalizar(int id, int Km)
+
+    public IActionResult Finalizar(int id, int KmFinal)
     {
-        decimal ZeraConta = 0;
+        int ZeraValor = 0;
 
         var resultado = _aluguelService.SelecionarId(id);
 
@@ -170,14 +172,12 @@ public class AluguelController : WebController
 
         var aluguel = resultado.Value;
 
-        aluguel.KmFinal = Km;
-
         var valorFinal = _aluguelService.CalcularValor(aluguel.Id);
 
         if (valorFinal.HasValue)
             aluguel.ValorFinal = valorFinal.Value;
         else
-            aluguel.ValorFinal = ZeraConta;
+            aluguel.ValorFinal = ZeraValor;
 
         var fVM = _mapeador.Map<FinalizarAluguelViewModel>(aluguel);
 
@@ -185,64 +185,16 @@ public class AluguelController : WebController
 
         return View(fVM);
     }
-    public IActionResult Editar(int id)
+
+    [HttpPost]
+    public IActionResult Finalizar(FinalizarAluguelViewModel finalizarVm)
     {
-        var resultado = _aluguelService.SelecionarId(id);
 
-        if(resultado.IsFailed)
-        {
-            ApresentarMensagemFalha(resultado.ToResult());
-
-            return RedirectToAction(nameof(Listar));
-        }
+        var resultado = _aluguelService.SelecionarId(finalizarVm.Id);
 
         var aluguel = resultado.Value;
 
-        var resultadoClientes = _clienteService.SelecionarTodos();
-
-        var ClientesElegiveis = resultadoClientes.Value;
-
-        var clientes = ClientesElegiveis.Select(c => new SelectListItem
-        {
-            Value = c.Id.ToString(),
-            Text = c.Nome
-        });
-
-        var editarVm = _mapeador.Map<EditarAluguelViewModel>(aluguel);
-
-        editarVm.Clientes = clientes;
-
-        return View(CarregarDados(editarVm));
-    }
-
-    [HttpPost]
-    public IActionResult Editar(EditarAluguelViewModel editarVm)
-    {
-        if (!ModelState.IsValid)
-            return View(CarregarDados(editarVm));
-
-        var aluguel = _mapeador.Map<Aluguel>(editarVm);
-
-        foreach (var taxaId in editarVm.taxasSelecionadas)
-        {
-            var result = _taxasService.SelecionarId(taxaId);
-
-            var taxa = result.Value;
-
-            if (taxa is not null )
-                aluguel.Taxas.Add(taxa);
-        }
-
-        var resultado = _aluguelService.Editar(aluguel);
-
-        if (resultado.IsFailed)
-        {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
-
-            return RedirectToAction(nameof(Editar));
-        }
-
-        ApresentarMensagemSucesso($"O registro ID [{aluguel.Id}] foi editado com sucesso!");
+        _aluguelService.Finalizar(aluguel);
 
         return RedirectToAction(nameof(Listar));
     }
@@ -284,12 +236,12 @@ public class AluguelController : WebController
 
     private FormAluguelViewModel? CarregarDados(FormAluguelViewModel? model = null)
     {
-        var resultadoGrupos = _grupoVeiculosService.SelecionarTodos();
-        var resultadoVeiculos = _veiculoService.SelecionarTodos();
-        var resultadoCondutores = _condutorService.SelecionarTodos();
-        var resultadoClientes = _clienteService.SelecionarTodos();
-        var resultadoPlanos = _planoService.SelecionarTodos();
-        var resultadoTaxas = _taxasService.SelecionarTodos();
+        var resultadoGrupos = _grupoVeiculosService.SelecionarTodos(EmpresaId.GetValueOrDefault());
+        var resultadoVeiculos = _veiculoService.SelecionarTodos(EmpresaId.GetValueOrDefault());
+        var resultadoCondutores = _condutorService.SelecionarTodos(EmpresaId.GetValueOrDefault());
+        var resultadoClientes = _clienteService.SelecionarTodos(EmpresaId.GetValueOrDefault());
+        var resultadoPlanos = _planoService.SelecionarTodos(EmpresaId.GetValueOrDefault());
+        var resultadoTaxas = _taxasService.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
 
         if (resultadoClientes.IsFailed)
@@ -348,7 +300,7 @@ public class AluguelController : WebController
     [HttpGet]
     public JsonResult CarregarCondutores(int clienteId)
     {
-        var resultado = _condutorService.SelecionarTodos();
+        var resultado = _condutorService.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {
@@ -370,7 +322,7 @@ public class AluguelController : WebController
     [HttpGet]
     public JsonResult CarregarVeiculos(int grupoId)
     {
-        var resultado = _veiculoService.SelecionarTodos();
+        var resultado = _veiculoService.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {
@@ -392,7 +344,7 @@ public class AluguelController : WebController
     [HttpGet]
     public JsonResult CarregarPlanos(int grupoId)
     {
-        var resultado = _planoService.SelecionarTodos();
+        var resultado = _planoService.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {

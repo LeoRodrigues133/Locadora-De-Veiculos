@@ -5,6 +5,7 @@ using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.WebApp.Extensions;
+using LocadoraDeVeiculos.WebApp.Controllers.Shared;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class CondutorController : WebController
@@ -13,7 +14,7 @@ public class CondutorController : WebController
     readonly ClienteService _serviceCliente;
     readonly CondutorService _serviceCondutor;
 
-    public CondutorController(IMapper mapeador, ClienteService serviceCliente, CondutorService condutorService)
+    public CondutorController(IMapper mapeador, ClienteService serviceCliente, CondutorService condutorService, AuthService authService) : base(authService)
     {
         _mapeador = mapeador;
         _serviceCliente = serviceCliente;
@@ -22,7 +23,7 @@ public class CondutorController : WebController
 
     public IActionResult Listar()
     {
-        var resultado = _serviceCondutor.SelecionarTodos();
+        var resultado = _serviceCondutor.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {
@@ -96,7 +97,7 @@ public class CondutorController : WebController
             return RedirectToAction(nameof(Listar));
         }
 
-        var clientes = _serviceCliente.SelecionarTodos();
+        var clientes = _serviceCliente.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (clientes.IsFailed)
         {
@@ -181,7 +182,7 @@ public class CondutorController : WebController
     private FormCondutorViewModel? CarregarDadosFormulario(
       CadastroCondutorViewModel? dadosPrevios = null)
     {
-        var resultadoClientes = _serviceCliente.SelecionarTodos();
+        var resultadoClientes = _serviceCliente.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultadoClientes.IsFailed)
         {

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ListarFuncionarioViewModel>
+
+@{
+    ViewBag.Title = "Lista de Funcionários";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Salário</th>
+            <th>Data de Admissão</th>
+            <th>Login</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var funcionario in Model)
+        {
+            <tr>
+                <td>@funcionario.Id</td>
+                <td>@funcionario.Nome</td>
+                <td>@funcionario.Salario.ToString("C")</td>
+                <td>@funcionario.Adimissao.ToString("dd/MM/yyyy")</td>
+                <td>@funcionario.LoginUsuario</td>
+                <td>
+                    <a asp-action="Detalhes" asp-route-id="@funcionario.Id" class="btn btn-info">Detalhes</a>
+                    <a asp-action="Editar" asp-route-id="@funcionario.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Excluir" asp-route-id="@funcionario.Id" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Cadastrar" class="btn btn-primary">Novo Funcionário</a>

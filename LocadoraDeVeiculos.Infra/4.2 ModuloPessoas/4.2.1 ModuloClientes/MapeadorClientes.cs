@@ -9,8 +9,19 @@ public class MapeadorClientes : IEntityTypeConfiguration<Cliente>
     {
         builderCliente.ToTable("TBCliente");
 
+        builderCliente.Property(x => x.EmpresaId)
+            .IsRequired()
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id");
+
+        builderCliente.HasOne(x => x.Empresa)
+            .WithMany()
+            .HasForeignKey(x => x.EmpresaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builderCliente.Property(c => c.Id)
             .IsRequired()
+            .HasColumnType("int")
             .ValueGeneratedOnAdd();
 
         builderCliente.Property(c => c.RG)
@@ -46,7 +57,7 @@ public class MapeadorClientes : IEntityTypeConfiguration<Cliente>
             .HasColumnType("bit");
 
         // Adiciona dados iniciais
-        builderCliente.HasData(DefaultDataClientes());
+        //builderCliente.HasData(DefaultDataClientes());
     }
 
     private Cliente[] DefaultDataClientes()
@@ -56,6 +67,7 @@ public class MapeadorClientes : IEntityTypeConfiguration<Cliente>
                 new Cliente
                 {
                     Id = 1,
+                    EmpresaId = 1,
                     RG = "1.456.789",
                     Nome = "João Silva",
                     Email = "joao.silva@example.com",
@@ -69,6 +81,7 @@ public class MapeadorClientes : IEntityTypeConfiguration<Cliente>
                 new Cliente
                 {
                     Id = 2,
+                    EmpresaId = 1,
                     RG = "9.654.321",
                     Nome = "Maria Oliveira",
                     Email = "maria.oliveira@example.com",

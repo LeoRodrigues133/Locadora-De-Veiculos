@@ -11,7 +11,9 @@ public class RepositorioTaxasEmOrm : RepositorioBaseEmOrm<TaxaServico>, IReposit
 
     public List<TaxaServico> Filtrar(Func<TaxaServico, bool> predicate)
     {
-        throw new NotImplementedException();
+        return _dbContext.Taxas
+            .Where(predicate)
+            .ToList();
     }
 
     protected override DbSet<TaxaServico> ObterRegistros()

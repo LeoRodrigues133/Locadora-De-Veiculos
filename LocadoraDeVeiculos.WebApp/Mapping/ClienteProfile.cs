@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LocadoraDeVeiculos.Dominio;
+using LocadoraDeVeiculos.WebApp.Mapping.Resolvers;
 using LocadoraDeVeiculos.WebApp.Models;
 
 namespace LocadoraDeVeiculos.WebApp.Mapping;
@@ -8,7 +9,8 @@ public class ClienteProfile : Profile
 {
     public ClienteProfile()
     {
-        CreateMap<CadastroClienteViewModel, Cliente>();
+        CreateMap<CadastroClienteViewModel, Cliente>()
+            .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
 
         CreateMap<Cliente, EditarClienteViewModel>();
 

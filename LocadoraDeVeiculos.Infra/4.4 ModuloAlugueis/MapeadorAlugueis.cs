@@ -3,11 +3,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado;
-internal class MapeadorAlugueis : IEntityTypeConfiguration<Aluguel>
+public class MapeadorAlugueis : IEntityTypeConfiguration<Aluguel>
 {
     public void Configure(EntityTypeBuilder<Aluguel> builderAluguel)
     {
         builderAluguel.ToTable("TBAluguel");
+
+        builderAluguel.Property(x => x.EmpresaId)
+            .IsRequired()
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id");
+
+        builderAluguel.HasOne(x => x.Empresa)
+            .WithMany()
+            .HasForeignKey(x => x.EmpresaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
 
         builderAluguel.Property(a => a.Id)
             .IsRequired()

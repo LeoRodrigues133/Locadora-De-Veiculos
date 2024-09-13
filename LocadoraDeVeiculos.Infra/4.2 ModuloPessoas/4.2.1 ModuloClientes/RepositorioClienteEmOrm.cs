@@ -1,7 +1,7 @@
 ﻿using LocadoraDeVeiculos.Dominio;
-using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
-using LocadoraDeVeiculos.Infra.Compartilhado;
 using Microsoft.EntityFrameworkCore;
+using LocadoraDeVeiculos.Infra.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
 
 namespace LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloClientes;
 public class RepositorioClienteEmOrm : RepositorioBaseEmOrm<Cliente>, IRepositorioCliente
@@ -12,7 +12,9 @@ public class RepositorioClienteEmOrm : RepositorioBaseEmOrm<Cliente>, IRepositor
 
     public List<Cliente> Filtrar(Func<Cliente, bool> predicate)
     {
-        throw new NotImplementedException();
+        return _dbContext.Clientes
+                .Where(predicate)
+                .ToList();
     }
 
     protected override DbSet<Cliente> ObterRegistros()

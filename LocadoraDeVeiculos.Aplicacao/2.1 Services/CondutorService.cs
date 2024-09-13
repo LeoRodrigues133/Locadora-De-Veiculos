@@ -86,7 +86,7 @@ public class CondutorService
     {
         var condutor = _repositorioCondutor.SelecionarPorId(id);
 
-        if(condutor is null)
+        if (condutor is null)
             return Result.Fail("O Condutor não foi encontrado.");
 
         _repositorioCondutor.Excluir(condutor);
@@ -103,9 +103,9 @@ public class CondutorService
 
         return Result.Ok(condutor);
     }
-    public Result<List<Condutor>> SelecionarTodos()
+    public Result<List<Condutor>> SelecionarTodos(int id)
     {
-        var condutores = _repositorioCondutor.SelecionarTodos();
+        var condutores = _repositorioCondutor.Filtrar(x => x.EmpresaId == id);
 
         if (condutores is null)
             return Result.Fail("Não foi encontrado condutores.");

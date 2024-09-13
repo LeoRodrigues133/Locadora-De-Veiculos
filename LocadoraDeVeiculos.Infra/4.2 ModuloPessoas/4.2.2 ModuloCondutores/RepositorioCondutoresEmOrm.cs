@@ -12,7 +12,10 @@ public class RepositorioCondutoresEmOrm : RepositorioBaseEmOrm<Condutor>, IRepos
 
     public List<Condutor> Filtrar(Func<Condutor, bool> predicate)
     {
-        throw new NotImplementedException();
+        return _dbContext.Condutores
+            .Include(c=>c.Cliente)
+            .Where(predicate)
+            .ToList();
     }
     
     protected override DbSet<Condutor> ObterRegistros()

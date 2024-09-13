@@ -2,11 +2,28 @@
 using Microsoft.AspNetCore.Mvc;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.WebApp.Models;
+using LocadoraDeVeiculos.Aplicacao.Services;
 
-namespace LocadoraDeVeiculos.WebApp.Controllers;
+namespace LocadoraDeVeiculos.WebApp.Controllers.Shared;
 
 public class WebController : Controller
 {
+
+    protected readonly AuthService _authService;
+
+    protected int? EmpresaId
+    {
+        get
+        {
+            var empresaId = _authService.ObterIdEmpresaAsync(User).Result;
+
+            return empresaId;
+        }
+    }
+    protected WebController(AuthService authService)
+    {
+        _authService = authService;
+    }
 
     protected IActionResult MensagemRegistroNaoEncontrado(int idRegistro)
     {

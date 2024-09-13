@@ -9,6 +9,17 @@ public class MapeadorPlanos : IEntityTypeConfiguration<Plano>
     {
         builderPlano.ToTable("TBPlano");
 
+        builderPlano.Property(x => x.EmpresaId)
+            .IsRequired()
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id");
+
+        builderPlano.HasOne(x => x.Empresa)
+            .WithMany()
+            .HasForeignKey(x => x.EmpresaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
         builderPlano.Property(p => p.Id)
             .IsRequired()
             .ValueGeneratedOnAdd();
@@ -45,7 +56,7 @@ public class MapeadorPlanos : IEntityTypeConfiguration<Plano>
             .OnDelete(DeleteBehavior.Restrict);
 
         // Adiciona dados iniciais
-        builderPlano.HasData(DefaultDataPlanos());
+        //builderPlano.HasData(DefaultDataPlanos());
     }
 
     private Plano[] DefaultDataPlanos()

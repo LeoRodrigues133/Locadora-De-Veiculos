@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using LocadoraDeVeiculos.WebApp.Controllers.Shared;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 
@@ -14,7 +15,8 @@ public class VeiculoController : WebController
     readonly VeiculoService _serviceVeiculo;
     readonly GrupoVeiculosService _serviceGrupo;
 
-    public VeiculoController(VeiculoService serviceVeiculo, GrupoVeiculosService serviceGrupo, IMapper mapeador)
+    public VeiculoController(VeiculoService serviceVeiculo, GrupoVeiculosService serviceGrupo, IMapper mapeador,
+        AuthService authService) : base(authService)
     {
         _mapeador = mapeador;
         _serviceGrupo = serviceGrupo;
@@ -23,7 +25,7 @@ public class VeiculoController : WebController
 
     public IActionResult Listar()
     {
-        var resultado = _serviceVeiculo.SelecionarTodos();
+        var resultado = _serviceVeiculo.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {
@@ -97,7 +99,7 @@ public class VeiculoController : WebController
             return RedirectToAction(nameof(Listar));
         }
 
-        var resultadoGrupos = _serviceGrupo.SelecionarTodos();
+        var resultadoGrupos = _serviceGrupo.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultadoGrupos.IsFailed)
         {
@@ -189,7 +191,7 @@ public class VeiculoController : WebController
     private FormVeiculoViewModel? CarregarDadosFormulario(
        FormVeiculoViewModel? dadosPrevios = null)
     {
-        var resultadoGrupos = _serviceGrupo.SelecionarTodos();
+        var resultadoGrupos = _serviceGrupo.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultadoGrupos.IsFailed)
         {

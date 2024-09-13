@@ -5,18 +5,23 @@ using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Dominio;
 using LocadoraDeVeiculos.Infra.ModuloPessoas;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
+using LocadoraDeVeiculos.Dominio.ModuloUsuario;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using LocadoraDeVeiculos.Dominio.ModuloPessoas;
+using LocadoraDeVeiculos.Infra.Orm.ModuloFuncionario;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado;
 
-public class LocadoraDbContext : DbContext
+public class LocadoraDbContext : IdentityDbContext<Usuario, Perfil, int>
 {
     public DbSet<Plano> Planos { get; set; }
     public DbSet<Veiculo> Veiculos { get; set; }
-    public DbSet<Cliente> Clientes { get;  set; }
-    public DbSet<GrupoVeiculos> GrupoVeiculos { get; set; }
-    public DbSet<Condutor> Condutores { get; set; }
-    public DbSet<TaxaServico> Taxas { get; set; }
     public DbSet<Aluguel> Alugueis { get; set; }
+    public DbSet<Cliente> Clientes { get;  set; }
+    public DbSet<TaxaServico> Taxas { get; set; }
+    public DbSet<Condutor> Condutores { get; set; }
+    public DbSet<Funcionario> Funcionarios { get; set; }
+    public DbSet<GrupoVeiculos> GrupoVeiculos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -37,14 +42,17 @@ public class LocadoraDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new MapeadorTaxas());
-        modelBuilder.ApplyConfiguration(new MapeadorPlanos());
-        modelBuilder.ApplyConfiguration(new MapeadorAlugueis());
-        modelBuilder.ApplyConfiguration(new MapeadorVeiculos());
-        modelBuilder.ApplyConfiguration(new MapeadorClientes());
-        modelBuilder.ApplyConfiguration(new MapeadorCondutores());
-        modelBuilder.ApplyConfiguration(new MapeadorGrupoVeiculos());
+        //modelBuilder.ApplyConfiguration(new MapeadorTaxas());
+        //modelBuilder.ApplyConfiguration(new MapeadorPlanos());
+        //modelBuilder.ApplyConfiguration(new MapeadorAlugueis());
+        //modelBuilder.ApplyConfiguration(new MapeadorVeiculos());
+        //modelBuilder.ApplyConfiguration(new MapeadorClientes());
+        //modelBuilder.ApplyConfiguration(new MapeadorCondutores());
+        //modelBuilder.ApplyConfiguration(new MapeadorFuncionario());
+        //modelBuilder.ApplyConfiguration(new MapeadorGrupoVeiculos());
+        var assembly = typeof(LocadoraDbContext).Assembly;
 
+        modelBuilder.ApplyConfigurationsFromAssembly(assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

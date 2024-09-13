@@ -64,9 +64,9 @@ public class GrupoVeiculosService
         return Result.Ok(grupo);
     }
 
-    public Result<List<GrupoVeiculos>> SelecionarTodos()
+    public Result<List<GrupoVeiculos>> SelecionarTodos(int empresaId)
     {
-        var grupo = _repositorioGrupo.SelecionarTodos();
+        var grupo = _repositorioGrupo.Filtrar(x => x.EmpresaId == empresaId);
 
         return Result.Ok(grupo);
     }

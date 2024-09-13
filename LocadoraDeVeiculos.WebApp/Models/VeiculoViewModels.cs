@@ -20,7 +20,7 @@ public class FormVeiculoViewModel
     public Marca Marca { get; set; }
 
     [Required(ErrorMessage = "O Combustível é obrigatório.")]
-    public Combustivel Combustivel { get; set; }
+    public EnumCombustivel Combustivel { get; set; }
 
     [Required(ErrorMessage = "O Ano é obrigatório.")]
     [Range(1900, 2100, ErrorMessage = $"O Ano deve estar entre 1900 e 2100.")]
@@ -49,10 +49,14 @@ public class FormVeiculoViewModel
 
     [DisplayName("Grupo de Veículos")]
     public IEnumerable<SelectListItem>? GrupoVeiculos { get; set; }
+
+    //[Required(ErrorMessage = "A foto é obrigatória")]
+    //public IFormFile Foto { get; set; }
 }
 
 public class CadastroVeiculoViewModel : FormVeiculoViewModel
 {
+
 }
 
 public class EditarVeiculoViewModel : FormVeiculoViewModel

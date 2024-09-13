@@ -57,6 +57,10 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<DateTime?>("DateDevolucaoPrevista")
                         .HasColumnType("datetime");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
+
                     b.Property<bool>("Encerrado")
                         .HasColumnType("bit");
 
@@ -83,6 +87,8 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("CondutorId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("GrupoId");
 
@@ -111,6 +117,10 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
+
                     b.Property<string>("Endereco")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
@@ -132,119 +142,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TBCliente", (string)null);
+                    b.HasIndex("EmpresaId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CPF = "123.456.789-00",
-                            Email = "joao.silva@example.com",
-                            Endereco = "Rua A, 123",
-                            Nome = "João Silva",
-                            RG = "1.456.789",
-                            Telefone = "(11) 91234-5678",
-                            TipoPerfil = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CPF = "987.654.321-00",
-                            Email = "maria.oliveira@example.com",
-                            Endereco = "Rua B, 456",
-                            Nome = "Maria Oliveira",
-                            RG = "9.654.321",
-                            Telefone = "(11) 99876-5432",
-                            TipoPerfil = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CPF = "567.891.234-56",
-                            Email = "carlos.santos@example.com",
-                            Endereco = "Rua E, 202",
-                            Nome = "Carlos Santos",
-                            RG = "7.891.234",
-                            Telefone = "(11) 91234-0000",
-                            TipoPerfil = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CPF = "101.010.101-01",
-                            Email = "ana.paula@example.com",
-                            Endereco = "Rua G, 404",
-                            Nome = "Ana Paula",
-                            RG = "1.010.101",
-                            Telefone = "(11) 91234-5679",
-                            TipoPerfil = true
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CPF = "111.111.111-11",
-                            Email = "pedro.almeida@example.com",
-                            Endereco = "Rua H, 505",
-                            Nome = "Pedro Almeida",
-                            RG = "1.111.111",
-                            Telefone = "(11) 97777-1111",
-                            TipoPerfil = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CNPJ = "00.111.222/0001-33",
-                            Email = "comercial@abc.com",
-                            Endereco = "Rua F, 303",
-                            Nome = "Comercial ABC",
-                            RG = "5.448.489",
-                            Telefone = "(11) 98888-7777",
-                            TipoPerfil = false
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CNPJ = "22.333.444/0001-55",
-                            Email = "contato@lmn.com",
-                            Endereco = "Rua J, 707",
-                            Nome = "Construtora LMN",
-                            RG = "4.894.984",
-                            Telefone = "(11) 94444-5555",
-                            TipoPerfil = false
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CNPJ = "11.222.333/0001-44",
-                            Email = "contato@tecnologiaxyz.com",
-                            Endereco = "Avenida I, 606",
-                            Nome = "Tecnologia XYZ",
-                            RG = "5.654.321",
-                            Telefone = "(11) 92222-4444",
-                            TipoPerfil = false
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CNPJ = "12.345.678/0001-99",
-                            Email = "contato@empresax.com",
-                            Endereco = "Avenida C, 789",
-                            Nome = "Empresa X",
-                            RG = "1.156.854",
-                            Telefone = "(11) 93456-7890",
-                            TipoPerfil = false
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CNPJ = "98.765.432/0001-88",
-                            Email = "contato@empresay.com",
-                            Endereco = "Avenida D, 101",
-                            Nome = "Empresa Y",
-                            RG = "4.984.888",
-                            Telefone = "(11) 97654-3210",
-                            TipoPerfil = false
-                        });
+                    b.ToTable("TBCliente", (string)null);
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Condutor", b =>
@@ -271,6 +171,10 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("varchar(100))");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
+
                     b.Property<string>("Nome")
                         .HasColumnType("varchar(100))");
 
@@ -284,168 +188,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.ToTable("TBCondutor", (string)null);
+                    b.HasIndex("EmpresaId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CNH = "CNH12345678",
-                            CPF = "123.456.789-00",
-                            ClienteCondutor = true,
-                            ClienteId = 1,
-                            Email = "joao.silva@example.com",
-                            Nome = "João Silva",
-                            Telefone = "(11) 91234-5678",
-                            ValidadeCNH = new DateTime(2025, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CNH = "CNH23456789",
-                            CPF = "987.654.321-00",
-                            ClienteCondutor = true,
-                            ClienteId = 2,
-                            Email = "maria.oliveira@example.com",
-                            Nome = "Maria Oliveira",
-                            Telefone = "(11) 99876-5432",
-                            ValidadeCNH = new DateTime(2024, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CNH = "CNH34567890",
-                            CPF = "567.891.234-56",
-                            ClienteCondutor = true,
-                            ClienteId = 5,
-                            Email = "carlos.santos@example.com",
-                            Nome = "Carlos Santos",
-                            Telefone = "(11) 91234-0000",
-                            ValidadeCNH = new DateTime(2026, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CNH = "CNH45678901",
-                            CPF = "101.010.101-01",
-                            ClienteCondutor = true,
-                            ClienteId = 7,
-                            Email = "ana.paula@example.com",
-                            Nome = "Ana Paula",
-                            Telefone = "(11) 91234-5679",
-                            ValidadeCNH = new DateTime(2024, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CNH = "CNH56789012",
-                            CPF = "111.111.111-11",
-                            ClienteCondutor = true,
-                            ClienteId = 8,
-                            Email = "pedro.almeida@example.com",
-                            Nome = "Pedro Almeida",
-                            Telefone = "(11) 97777-1111",
-                            ValidadeCNH = new DateTime(2025, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CNH = "CNH67890123",
-                            ClienteCondutor = false,
-                            ClienteId = 6,
-                            Email = "condutor1@abc.com",
-                            Nome = "Condutor Comercial ABC 1",
-                            Telefone = "(11) 98888-7777",
-                            ValidadeCNH = new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CNH = "CNH78901234",
-                            ClienteCondutor = false,
-                            ClienteId = 6,
-                            Email = "condutor2@abc.com",
-                            Nome = "Condutor Comercial ABC 2",
-                            Telefone = "(11) 98888-7778",
-                            ValidadeCNH = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CNH = "CNH89012345",
-                            ClienteCondutor = false,
-                            ClienteId = 6,
-                            Email = "condutor3@abc.com",
-                            Nome = "Condutor Comercial ABC 3",
-                            Telefone = "(11) 98888-7779",
-                            ValidadeCNH = new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CNH = "CNH90123456",
-                            ClienteCondutor = false,
-                            ClienteId = 10,
-                            Email = "condutor1@lmn.com",
-                            Nome = "Condutor Construtora LMN 1",
-                            Telefone = "(11) 94444-5555",
-                            ValidadeCNH = new DateTime(2024, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CNH = "CNH01234567",
-                            ClienteCondutor = false,
-                            ClienteId = 10,
-                            Email = "condutor2@lmn.com",
-                            Nome = "Condutor Construtora LMN 2",
-                            Telefone = "(11) 94444-5556",
-                            ValidadeCNH = new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CNH = "CNH12345678",
-                            ClienteCondutor = false,
-                            ClienteId = 10,
-                            Email = "condutor3@lmn.com",
-                            Nome = "Condutor Construtora LMN 3",
-                            Telefone = "(11) 94444-5557",
-                            ValidadeCNH = new DateTime(2024, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CNH = "CNH23456789",
-                            ClienteCondutor = false,
-                            ClienteId = 9,
-                            Email = "condutor1@tecnologiaxyz.com",
-                            Nome = "Condutor Tecnologia XYZ 1",
-                            Telefone = "(11) 92222-4444",
-                            ValidadeCNH = new DateTime(2025, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CNH = "CNH34567890",
-                            ClienteCondutor = false,
-                            ClienteId = 9,
-                            Email = "condutor2@tecnologiaxyz.com",
-                            Nome = "Condutor Tecnologia XYZ 2",
-                            Telefone = "(11) 92222-4445",
-                            ValidadeCNH = new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CNH = "CNH45678901",
-                            ClienteCondutor = false,
-                            ClienteId = 9,
-                            Email = "condutor3@tecnologiaxyz.com",
-                            Nome = "Condutor Tecnologia XYZ 3",
-                            Telefone = "(11) 92222-4446",
-                            ValidadeCNH = new DateTime(2025, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
+                    b.ToTable("TBCondutor", (string)null);
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas.TaxaServico", b =>
@@ -455,6 +200,10 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -468,149 +217,168 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TBTaxasEServicos", (string)null);
+                    b.HasIndex("EmpresaId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Nome = "Taxa de Limpeza",
-                            TipoDeCobranca = true,
-                            Valor = 50m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Nome = "Taxa de Seguro",
-                            TipoDeCobranca = true,
-                            Valor = 150m
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Nome = "Taxa de Cancelamento",
-                            TipoDeCobranca = true,
-                            Valor = 100m
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Nome = "Taxa de Administração",
-                            TipoDeCobranca = true,
-                            Valor = 200m
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Nome = "Taxa de Entrega Especial",
-                            TipoDeCobranca = true,
-                            Valor = 120m
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Nome = "Taxa de Reservas Especiais",
-                            TipoDeCobranca = true,
-                            Valor = 75m
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Nome = "Taxa de Retorno Antecipado",
-                            TipoDeCobranca = true,
-                            Valor = 60m
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Nome = "Taxa de Condução Adicional",
-                            TipoDeCobranca = true,
-                            Valor = 40m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Nome = "Taxa de Atendimento Noturno",
-                            TipoDeCobranca = true,
-                            Valor = 80m
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Nome = "Taxa de Expedição de Documentos",
-                            TipoDeCobranca = true,
-                            Valor = 90m
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Nome = "Taxa de GPS",
-                            TipoDeCobranca = false,
-                            Valor = 15m
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Nome = "Taxa de Pedágio",
-                            TipoDeCobranca = false,
-                            Valor = 10m
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Nome = "Taxa de Seguro Adicional",
-                            TipoDeCobranca = false,
-                            Valor = 40m
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Nome = "Taxa de Assento Infantil",
-                            TipoDeCobranca = false,
-                            Valor = 20m
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Nome = "Taxa de Combustível Extra",
-                            TipoDeCobranca = false,
-                            Valor = 30m
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Nome = "Taxa de Seguro contra Danos",
-                            TipoDeCobranca = false,
-                            Valor = 50m
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Nome = "Taxa de Adicional de Condutor",
-                            TipoDeCobranca = false,
-                            Valor = 25m
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Nome = "Taxa de Trajeto Internacional",
-                            TipoDeCobranca = false,
-                            Valor = 60m
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Nome = "Taxa de Equipamento de Segurança",
-                            TipoDeCobranca = false,
-                            Valor = 35m
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Nome = "Taxa de Kit de Primeiros Socorros",
-                            TipoDeCobranca = false,
-                            Valor = 18m
-                        });
+                    b.ToTable("TBTaxasEServicos", (string)null);
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloPessoas.Funcionario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DataAdimissao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("Salario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("TBFuncionario", (string)null);
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloUsuario.Perfil", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis.Combustivel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
+
+                    b.Property<int>("Nome")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("TBCombustivel", (string)null);
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", b =>
@@ -621,65 +389,19 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(25)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TBGrupo", (string)null);
+                    b.HasIndex("EmpresaId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Nome = "SUV"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Nome = "Coupe"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Nome = "Sedan"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Nome = "Pickup"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Nome = "Minivan"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Nome = "Hatchback"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Nome = "Esportivo"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Nome = "Elétrico"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Nome = "Utilitário"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Nome = "Conversível"
-                        });
+                    b.ToTable("TBGrupo", (string)null);
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.Veiculo", b =>
@@ -705,6 +427,10 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("Cor")
                         .HasColumnType("int");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
+
                     b.Property<int>("GrupoVeiculosId")
                         .HasColumnType("int");
 
@@ -724,221 +450,11 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("GrupoVeiculosId");
 
                     b.ToTable("TBVeiculos", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Alugado = false,
-                            Ano = 2022,
-                            CapacidadeTanqueDeCombustivel = 50,
-                            Combustivel = 0,
-                            Cor = 0,
-                            GrupoVeiculosId = 1,
-                            Marca = 0,
-                            Modelo = "Gol",
-                            Placa = "ABC1D23",
-                            Quilometragem = 10000
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Alugado = false,
-                            Ano = 2021,
-                            CapacidadeTanqueDeCombustivel = 55,
-                            Combustivel = 4,
-                            Cor = 1,
-                            GrupoVeiculosId = 1,
-                            Marca = 0,
-                            Modelo = "Virtus",
-                            Placa = "DEF4G56",
-                            Quilometragem = 5000
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Alugado = true,
-                            Ano = 2020,
-                            CapacidadeTanqueDeCombustivel = 60,
-                            Combustivel = 2,
-                            Cor = 2,
-                            GrupoVeiculosId = 2,
-                            Marca = 0,
-                            Modelo = "Tiguan",
-                            Placa = "GHI7J89",
-                            Quilometragem = 25000
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Alugado = false,
-                            Ano = 2019,
-                            CapacidadeTanqueDeCombustivel = 50,
-                            Combustivel = 1,
-                            Cor = 4,
-                            GrupoVeiculosId = 2,
-                            Marca = 0,
-                            Modelo = "Polo",
-                            Placa = "JKL0M12",
-                            Quilometragem = 30000
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Alugado = false,
-                            Ano = 2023,
-                            CapacidadeTanqueDeCombustivel = 48,
-                            Combustivel = 4,
-                            Cor = 5,
-                            GrupoVeiculosId = 3,
-                            Marca = 1,
-                            Modelo = "Uno",
-                            Placa = "MNO3P45",
-                            Quilometragem = 5000
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Alugado = false,
-                            Ano = 2022,
-                            CapacidadeTanqueDeCombustivel = 45,
-                            Combustivel = 0,
-                            Cor = 3,
-                            GrupoVeiculosId = 3,
-                            Marca = 1,
-                            Modelo = "Argo",
-                            Placa = "PQR6S78",
-                            Quilometragem = 10000
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Alugado = true,
-                            Ano = 2021,
-                            CapacidadeTanqueDeCombustivel = 60,
-                            Combustivel = 1,
-                            Cor = 1,
-                            GrupoVeiculosId = 4,
-                            Marca = 1,
-                            Modelo = "Toro",
-                            Placa = "STU9V01",
-                            Quilometragem = 20000
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Alugado = false,
-                            Ano = 2020,
-                            CapacidadeTanqueDeCombustivel = 70,
-                            Combustivel = 2,
-                            Cor = 0,
-                            GrupoVeiculosId = 4,
-                            Marca = 1,
-                            Modelo = "Freemont",
-                            Placa = "VWX2Y34",
-                            Quilometragem = 35000
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Alugado = false,
-                            Ano = 2022,
-                            CapacidadeTanqueDeCombustivel = 45,
-                            Combustivel = 0,
-                            Cor = 4,
-                            GrupoVeiculosId = 5,
-                            Marca = 2,
-                            Modelo = "Onix",
-                            Placa = "XYZ5Z67",
-                            Quilometragem = 12000
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Alugado = false,
-                            Ano = 2021,
-                            CapacidadeTanqueDeCombustivel = 50,
-                            Combustivel = 4,
-                            Cor = 2,
-                            GrupoVeiculosId = 5,
-                            Marca = 2,
-                            Modelo = "Tracker",
-                            Placa = "ABC8D90",
-                            Quilometragem = 8000
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Alugado = true,
-                            Ano = 2020,
-                            CapacidadeTanqueDeCombustivel = 60,
-                            Combustivel = 2,
-                            Cor = 3,
-                            GrupoVeiculosId = 6,
-                            Marca = 2,
-                            Modelo = "S10",
-                            Placa = "DEF1G23",
-                            Quilometragem = 22000
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Alugado = false,
-                            Ano = 2019,
-                            CapacidadeTanqueDeCombustivel = 55,
-                            Combustivel = 1,
-                            Cor = 5,
-                            GrupoVeiculosId = 6,
-                            Marca = 2,
-                            Modelo = "Cruze",
-                            Placa = "GHI4J56",
-                            Quilometragem = 40000
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Alugado = false,
-                            Ano = 2023,
-                            CapacidadeTanqueDeCombustivel = 40,
-                            Combustivel = 0,
-                            Cor = 1,
-                            GrupoVeiculosId = 7,
-                            Marca = 3,
-                            Modelo = "Ka",
-                            Placa = "JKL7M89",
-                            Quilometragem = 7000
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Alugado = false,
-                            Ano = 2022,
-                            CapacidadeTanqueDeCombustivel = 50,
-                            Combustivel = 4,
-                            Cor = 0,
-                            GrupoVeiculosId = 7,
-                            Marca = 3,
-                            Modelo = "EcoSport",
-                            Placa = "MNO8P01",
-                            Quilometragem = 15000
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Alugado = true,
-                            Ano = 2021,
-                            CapacidadeTanqueDeCombustivel = 70,
-                            Combustivel = 2,
-                            Cor = 3,
-                            GrupoVeiculosId = 8,
-                            Marca = 3,
-                            Modelo = "Ranger",
-                            Placa = "PQR9S23",
-                            Quilometragem = 30000
-                        });
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Plano", b =>
@@ -948,6 +464,10 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int")
+                        .HasColumnName("Empresa_Id");
 
                     b.Property<int>("GrupoVeiculosId")
                         .HasColumnType("int");
@@ -969,107 +489,114 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("GrupoVeiculosId");
 
                     b.ToTable("TBPlano", (string)null);
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GrupoVeiculosId = 1,
-                            KmDisponivel = 300,
-                            TipoPlano = 0,
-                            ValorDiaria = 100m,
-                            ValorExtrapolado = 20m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GrupoVeiculosId = 2,
-                            KmDisponivel = 500,
-                            PrecoKm = 10m,
-                            TipoPlano = 1,
-                            ValorDiaria = 150m,
-                            ValorExtrapolado = 30m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            GrupoVeiculosId = 3,
-                            KmDisponivel = 700,
-                            PrecoKm = 15m,
-                            TipoPlano = 2,
-                            ValorDiaria = 200m,
-                            ValorExtrapolado = 40m
-                        },
-                        new
-                        {
-                            Id = 4,
-                            GrupoVeiculosId = 4,
-                            KmDisponivel = 1000,
-                            TipoPlano = 0,
-                            ValorDiaria = 250m,
-                            ValorExtrapolado = 50m
-                        },
-                        new
-                        {
-                            Id = 5,
-                            GrupoVeiculosId = 5,
-                            KmDisponivel = 400,
-                            PrecoKm = 12m,
-                            TipoPlano = 1,
-                            ValorDiaria = 120m,
-                            ValorExtrapolado = 25m
-                        },
-                        new
-                        {
-                            Id = 6,
-                            GrupoVeiculosId = 6,
-                            KmDisponivel = 600,
-                            PrecoKm = 18m,
-                            TipoPlano = 2,
-                            ValorDiaria = 180m,
-                            ValorExtrapolado = 35m
-                        },
-                        new
-                        {
-                            Id = 7,
-                            GrupoVeiculosId = 7,
-                            KmDisponivel = 800,
-                            TipoPlano = 0,
-                            ValorDiaria = 230m,
-                            ValorExtrapolado = 45m
-                        },
-                        new
-                        {
-                            Id = 8,
-                            GrupoVeiculosId = 8,
-                            KmDisponivel = 1100,
-                            PrecoKm = 20m,
-                            TipoPlano = 1,
-                            ValorDiaria = 270m,
-                            ValorExtrapolado = 55m
-                        },
-                        new
-                        {
-                            Id = 9,
-                            GrupoVeiculosId = 9,
-                            KmDisponivel = 350,
-                            PrecoKm = 25m,
-                            TipoPlano = 2,
-                            ValorDiaria = 130m,
-                            ValorExtrapolado = 30m
-                        },
-                        new
-                        {
-                            Id = 10,
-                            GrupoVeiculosId = 10,
-                            KmDisponivel = 650,
-                            TipoPlano = 0,
-                            ValorDiaria = 190m,
-                            ValorExtrapolado = 40m
-                        });
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("AluguelTaxaServico", b =>
@@ -1101,6 +628,12 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", "Grupo")
                         .WithMany()
                         .HasForeignKey("GrupoId")
@@ -1123,11 +656,24 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.Navigation("Condutor");
 
+                    b.Navigation("Empresa");
+
                     b.Navigation("Grupo");
 
                     b.Navigation("Plano");
 
                     b.Navigation("Veiculo");
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Cliente", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Condutor", b =>
@@ -1137,29 +683,148 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Cliente");
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas.TaxaServico", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloPessoas.Funcionario", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis.Combustivel", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.Veiculo", b =>
                 {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", "GrupoVeiculos")
                         .WithMany("Veiculos")
                         .HasForeignKey("GrupoVeiculosId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Empresa");
+
                     b.Navigation("GrupoVeiculos");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.Plano", b =>
                 {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", "GrupoVeiculos")
                         .WithMany()
                         .HasForeignKey("GrupoVeiculosId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Empresa");
+
                     b.Navigation("GrupoVeiculos");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Perfil", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Perfil", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloUsuario.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos.GrupoVeiculos", b =>

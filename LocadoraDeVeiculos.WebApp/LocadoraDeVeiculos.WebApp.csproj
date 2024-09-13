@@ -7,6 +7,55 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\Aluguel\Cadastrar.cshtml" />
+    <None Include="Views\Aluguel\Detalhes.cshtml" />
+    <None Include="Views\Aluguel\Editar.cshtml" />
+    <None Include="Views\Aluguel\Excluir.cshtml" />
+    <None Include="Views\Aluguel\Finalizar.cshtml" />
+    <None Include="Views\Aluguel\Listar.cshtml" />
+    <None Include="Views\Aluguel\PreFinalizacao.cshtml" />
+    <None Include="Views\Aluguel\_ListaDeTaxas.cshtml" />
+    <None Include="Views\Auth\AcessoNegado.cshtml" />
+    <None Include="Views\Auth\Login.cshtml" />
+    <None Include="Views\Auth\Registrar.cshtml" />
+    <None Include="Views\Cliente\Cadastrar.cshtml" />
+    <None Include="Views\Cliente\Detalhes.cshtml" />
+    <None Include="Views\Cliente\Editar.cshtml" />
+    <None Include="Views\Cliente\Excluir.cshtml" />
+    <None Include="Views\Cliente\Listar.cshtml" />
+    <None Include="Views\Condutor\Cadastrar.cshtml" />
+    <None Include="Views\Condutor\Detalhes.cshtml" />
+    <None Include="Views\Condutor\Editar.cshtml" />
+    <None Include="Views\Condutor\Excluir.cshtml" />
+    <None Include="Views\Condutor\Listar.cshtml" />
+    <None Include="Views\GrupoVeiculos\Cadastrar.cshtml" />
+    <None Include="Views\GrupoVeiculos\Detalhes.cshtml" />
+    <None Include="Views\GrupoVeiculos\Editar.cshtml" />
+    <None Include="Views\GrupoVeiculos\Excluir.cshtml" />
+    <None Include="Views\GrupoVeiculos\Listar.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Plano\Cadastrar.cshtml" />
+    <None Include="Views\Plano\Detalhes.cshtml" />
+    <None Include="Views\Plano\Editar.cshtml" />
+    <None Include="Views\Plano\Excluir.cshtml" />
+    <None Include="Views\Plano\Listar.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_Mensagem.cshtml" />
+    <None Include="Views\Taxas\Cadastrar.cshtml" />
+    <None Include="Views\Taxas\Detalhes.cshtml" />
+    <None Include="Views\Taxas\Editar.cshtml" />
+    <None Include="Views\Taxas\Excluir.cshtml" />
+    <None Include="Views\Taxas\Listar.cshtml" />
+    <None Include="Views\Veiculo\Cadastrar.cshtml" />
+    <None Include="Views\Veiculo\Detalhes.cshtml" />
+    <None Include="Views\Veiculo\Editar.cshtml" />
+    <None Include="Views\Veiculo\Excluir.cshtml" />
+    <None Include="Views\Veiculo\Listar.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
@@ -24,14 +73,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Aluguel\_ListaDeTaxas.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Aluguel\_ListaDeTaxas.cshtml" />
   </ItemGroup>
 
 </Project>

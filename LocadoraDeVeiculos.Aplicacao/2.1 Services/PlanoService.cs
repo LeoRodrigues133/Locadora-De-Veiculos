@@ -69,9 +69,9 @@ public class PlanoService
         return Result.Ok(plano);
     }
 
-    public Result<List<Plano>> SelecionarTodos()
+    public Result<List<Plano>> SelecionarTodos(int id)
     {
-        var planos = _repositorioPlano.SelecionarTodos();
+        var planos = _repositorioPlano.Filtrar(x=>x.EmpresaId == id);
 
         return Result.Ok(planos);
     }

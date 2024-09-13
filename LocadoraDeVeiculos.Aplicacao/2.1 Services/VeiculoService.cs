@@ -17,27 +17,12 @@ public class VeiculoService
 
     public Result<Veiculo> Cadastrar(Veiculo veiculo)
     {
-        #region Erros
-        if (veiculo.Ano < 1900 || veiculo.Ano > DateTime.Now.Year)
-            return Result.Fail("Ano do veículo inválido.");
 
-        if (string.IsNullOrWhiteSpace(veiculo.Placa) || veiculo.Placa.Length > 10)
-            return Result.Fail("Placa inválida.");
-
-        if (string.IsNullOrWhiteSpace(veiculo.Modelo) || veiculo.Modelo.Length > 20)
-            return Result.Fail("Modelo inválido.");
-
-        if (veiculo.Quilometragem < 0)
-            return Result.Fail("Quilometragem não pode ser negativa.");
-
-        if (veiculo.CapacidadeTanqueDeCombustivel <= 0)
-            return Result.Fail("Capacidade do tanque de combustível deve ser maior que zero.");
-        #endregion
 
         var id = veiculo.GrupoVeiculosId;
 
         var grupo = _repositorioGrupo.SelecionarPorId(id);
-        
+
         veiculo.GrupoVeiculos = grupo;
 
         _repositorioVeiculo.Cadastrar(veiculo);
@@ -102,10 +87,9 @@ public class VeiculoService
         return Result.Ok(veiculoSelecionado);
     }
 
-    public Result<List<Veiculo>> SelecionarTodos()
+    public Result<List<Veiculo>> SelecionarTodos(int id)
     {
-        var veiculos = _repositorioVeiculo.SelecionarTodos();
-
+        var veiculos = _repositorioVeiculo.Filtrar(x => x.EmpresaId == id);
 
         return Result.Ok(veiculos);
     }

@@ -9,6 +9,17 @@ public class MapeadorTaxas : IEntityTypeConfiguration<TaxaServico>
     {
         builderTaxas.ToTable("TBTaxasEServicos");
 
+        builderTaxas.Property(x => x.EmpresaId)
+            .IsRequired()
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id");
+
+        builderTaxas.HasOne(x => x.Empresa)
+            .WithMany()
+            .HasForeignKey(x => x.EmpresaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
         builderTaxas.Property(t => t.Id)
             .IsRequired()
             .ValueGeneratedOnAdd();
@@ -27,7 +38,7 @@ public class MapeadorTaxas : IEntityTypeConfiguration<TaxaServico>
 
 
         // Adiciona dados iniciais
-        builderTaxas.HasData(DefaultDataTaxas());
+        //builderTaxas.HasData(DefaultDataTaxas());
     }
 
     private TaxaServico[] DefaultDataTaxas()

@@ -1,6 +1,6 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+﻿using Microsoft.EntityFrameworkCore;
 using LocadoraDeVeiculos.Infra.Compartilhado;
-using Microsoft.EntityFrameworkCore;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 
 namespace LocadoraDeVeiculos.Infra.ModuloVeiculos;
 
@@ -30,7 +30,10 @@ public class RepositorioVeiculosEmOrm : RepositorioBaseEmOrm<Veiculo>, IReposito
 
     public List<Veiculo> Filtrar(Func<Veiculo, bool> predicate)
     {
-        throw new NotImplementedException();
+        return _dbContext.Veiculos
+            .Include(v=>v.GrupoVeiculos)
+            .Where(predicate)
+            .ToList();
     }
 
 }
