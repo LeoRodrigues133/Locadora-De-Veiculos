@@ -4,35 +4,40 @@ using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 
 namespace LocadoraDeVeiculos.Infra.ModuloVeiculos.ModuloCombustivel;
 
-public class MapeadorAlugueis : IEntityTypeConfiguration<Combustivel>
+public class MapeadorCombustivel : IEntityTypeConfiguration<Combustivel>
 {
     public void Configure(EntityTypeBuilder<Combustivel> builderCombustivel)
     {
         builderCombustivel.ToTable("TBCombustivel");
 
-        builderCombustivel.Property(x => x.EmpresaId)
-            .IsRequired()
+        builderCombustivel.Property(c => c.DataCriacao)
+           .HasColumnType("datetime2")
+           .IsRequired();
+
+        builderCombustivel.Property(c => c.ValorGasolina)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builderCombustivel.Property(c => c.ValorGas)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builderCombustivel.Property(c => c.ValorDiesel)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builderCombustivel.Property(c => c.ValorAlcool)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builderCombustivel.Property(s => s.EmpresaId)
             .HasColumnType("int")
-            .HasColumnName("Empresa_Id");
+            .HasColumnName("Empresa_Id")
+            .IsRequired();
 
-        builderCombustivel.HasOne(x => x.Empresa)
+        builderCombustivel.HasOne(g => g.Empresa)
             .WithMany()
-            .HasForeignKey(x => x.EmpresaId)
+            .HasForeignKey(s => s.EmpresaId)
             .OnDelete(DeleteBehavior.Restrict);
-
-
-        builderCombustivel.Property(c => c.Id)
-            .IsRequired()
-            .ValueGeneratedOnAdd();
-
-        builderCombustivel.Property(c => c.Preco)
-            .IsRequired()
-            .HasColumnType("decimal");
-
-        builderCombustivel.Property(c => c.Nome)
-            .IsRequired()
-            .HasColumnType("int");
-
-
     }
 }

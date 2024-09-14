@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloVeiculos;
@@ -79,7 +80,7 @@ public class Veiculo : EntidadeBase
         if (Cor == null)
             erros.Add("A cor é obrigatória.");
 
-        if (!Enum.IsDefined(typeof(EnumCombustivel), Combustivel))
+        if (Combustivel == null)
             erros.Add("O tipo de combustível é inválido.");
 
         return erros;

@@ -38,4 +38,8 @@ public class Condutor : EntidadeBase
     public string? Telefone {  get; set; }
     public string? CPF {  get; set; }
 
+    public override List<string> Validar()
+    {
+        throw new NotImplementedException();
+    }
 }

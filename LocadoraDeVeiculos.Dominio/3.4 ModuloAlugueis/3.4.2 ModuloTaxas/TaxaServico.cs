@@ -22,4 +22,9 @@ public class TaxaServico : EntidadeBase
     public decimal Valor    { get; set; }
     public List<Aluguel> Alugueis { get; set; }
     public bool TipoDeCobranca {  get; set; }
+
+    public override List<string> Validar()
+    {
+        throw new NotImplementedException();
+    }
 }

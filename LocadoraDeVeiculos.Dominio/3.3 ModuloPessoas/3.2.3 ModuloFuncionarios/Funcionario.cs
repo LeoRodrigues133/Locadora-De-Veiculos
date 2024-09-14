@@ -24,4 +24,9 @@ public class Funcionario : EntidadeBase
     public int UsuarioId { get; set; }
     public decimal Salario { get; set; }
     public DateTime DataAdimissao { get; set; }
+
+    public override List<string> Validar()
+    {
+        throw new NotImplementedException();
+    }
 }

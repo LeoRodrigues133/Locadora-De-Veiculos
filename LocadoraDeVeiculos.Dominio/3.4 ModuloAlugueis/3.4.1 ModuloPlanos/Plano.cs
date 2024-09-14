@@ -32,4 +32,8 @@ public class Plano : EntidadeBase
     public GrupoVeiculos GrupoVeiculos { get; set; }
     public int GrupoVeiculosId { get; set; }
 
+    public override List<string> Validar()
+    {
+        throw new NotImplementedException();
+    }
 }

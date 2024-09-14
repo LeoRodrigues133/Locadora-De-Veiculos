@@ -7,6 +7,7 @@ using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloAlugueis;
 using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloCondutores;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 
 namespace LocadoraDeVeiculos.Aplicacao.Services;
 public class AluguelService
@@ -17,13 +18,14 @@ public class AluguelService
     readonly IRepositorioVeiculo _repositorioVeiculo;
     readonly IRepositorioCondutor _repositorioCondutor;
     readonly IRepositorioTaxaEServicos _repositorioTaxa;
+    readonly IRepositorioCombustivel _repositorioCombustivel;
     readonly IRepositorioGrupoVeiculos _repositorioGrupoVeiculos;
 
     public AluguelService(
         IRepositorioPlano repositorioPlano, IRepositorioVeiculo repositorioVeiculo,
         IRepositorioAluguel repositorioAluguel, IRepositorioCliente repositorioCliente,
         IRepositorioCondutor repositorioCondutor, IRepositorioTaxaEServicos repositorioTaxa,
-        IRepositorioGrupoVeiculos repositorioGrupoVeiculos)
+        IRepositorioGrupoVeiculos repositorioGrupoVeiculos, IRepositorioCombustivel repositioCombustivel)
     {
         _repositorioTaxa = repositorioTaxa;
         _repositorioPlano = repositorioPlano;
@@ -31,10 +33,13 @@ public class AluguelService
         _repositorioCliente = repositorioCliente;
         _repositorioAluguel = repositorioAluguel;
         _repositorioCondutor = repositorioCondutor;
+        _repositorioCombustivel = repositioCombustivel;
         _repositorioGrupoVeiculos = repositorioGrupoVeiculos;
     }
     public Result<Aluguel> Cadastrar(Aluguel aluguel)
     {
+        var ValorCombustivelEmpres = _repositorioCombustivel.SelecionarPorId(aluguel.EmpresaId);
+
         BuscarRegistros(aluguel);
 
         _repositorioAluguel.Cadastrar(aluguel);

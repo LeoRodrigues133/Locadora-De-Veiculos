@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.Aplicacao.Services;
@@ -8,11 +9,13 @@ public class VeiculoService
 {
     readonly IRepositorioVeiculo _repositorioVeiculo;
     readonly IRepositorioGrupoVeiculos _repositorioGrupo;
+    readonly IRepositorioCombustivel _repositorioCombustivel;
 
-    public VeiculoService(IRepositorioVeiculo repositorioVeiculo, IRepositorioGrupoVeiculos repositorioGrupo)
+    public VeiculoService(IRepositorioVeiculo repositorioVeiculo, IRepositorioGrupoVeiculos repositorioGrupo, IRepositorioCombustivel repositorioCombustivel)
     {
         _repositorioVeiculo = repositorioVeiculo;
         _repositorioGrupo = repositorioGrupo;
+        _repositorioCombustivel = repositorioCombustivel;
     }
 
     public Result<Veiculo> Cadastrar(Veiculo veiculo)
@@ -72,7 +75,7 @@ public class VeiculoService
         #region Edit
         veiculoSelecionado.Cor = veiculoEditado.Cor;
         veiculoSelecionado.Marca = veiculoEditado.Marca;
-        veiculoSelecionado.Combustivel = veiculoEditado.Combustivel;
+        veiculoSelecionado.Combustivel= veiculoEditado.Combustivel;
         veiculoSelecionado.GrupoVeiculosId = veiculoEditado.GrupoVeiculosId;
         veiculoSelecionado.Ano = veiculoEditado.Ano;
         veiculoSelecionado.Placa = veiculoEditado.Placa;
