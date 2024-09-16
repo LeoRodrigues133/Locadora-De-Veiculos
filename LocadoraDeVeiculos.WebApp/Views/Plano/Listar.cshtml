@@ -17,10 +17,10 @@
     </thead>
     <tbody>
         @foreach (var plano in Model)
-        {
+          {
             <tr>
                 <th>@plano.Id</th>
-                <td>@plano.GrupoVeiculos.Nome</td>
+                <td>@plano.GrupoVeiculos</td>
                 <td>@plano.testin(plano.ValorDiaria)</td>
                 <td>@plano.testin(plano.PrecoKm)</td>
                 <td>@plano.testin(plano.kmDisponivel)</td>

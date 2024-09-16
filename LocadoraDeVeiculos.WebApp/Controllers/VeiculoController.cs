@@ -29,7 +29,7 @@ public class VeiculoController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult());
 
             return View("Index", "Home");
         }

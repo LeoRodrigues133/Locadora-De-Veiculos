@@ -9,18 +9,20 @@ using LocadoraDeVeiculos.Dominio.ModuloUsuario;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using LocadoraDeVeiculos.WebApp.Mapping.Resolvers;
+using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario;
 using LocadoraDeVeiculos.Infra.ModuloAlugueis.ModuloTaxas;
 using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloClientes;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
 using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloClientes;
 using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloCondutores;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloAlugueis;
-using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloCondutores;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
-using LocadoraDeVeiculos.WebApp.Mapping.Resolvers;
-using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario;
-using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloFuncionario;
 using LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloFuncionarios;
+using LocadoraDeVeiculos.Infra.ModuloVeiculos.ModuloCombustivel;
+using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloCondutores;
+using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloFuncionario;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.WebApp
 {
@@ -38,8 +40,9 @@ namespace LocadoraDeVeiculos.WebApp
             builder.Services.AddScoped<IRepositorioAluguel, RepositorioAluguelEmOrm>();
             builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
             builder.Services.AddScoped<IRepositorioVeiculo, RepositorioVeiculosEmOrm>();
-            builder.Services.AddScoped<IRepositorioCondutor, RepositorioCondutoresEmOrm>();
             builder.Services.AddScoped<IRepositorioTaxaEServicos, RepositorioTaxasEmOrm>();
+            builder.Services.AddScoped<IRepositorioCondutor, RepositorioCondutoresEmOrm>();
+            builder.Services.AddScoped<IRepositorioCombustivel, RepositorioCombustivelEmOrm>();
             builder.Services.AddScoped<IRepositorioFuncionario, RepositorioFuncionarioEmOrm>();
             builder.Services.AddScoped<IRepositorioGrupoVeiculos, RepositorioGrupoVeiculosOrm>();
 
@@ -50,6 +53,7 @@ namespace LocadoraDeVeiculos.WebApp
             builder.Services.AddScoped<ClienteService>();
             builder.Services.AddScoped<VeiculoService>();
             builder.Services.AddScoped<CondutorService>();
+            builder.Services.AddScoped<CombustivelService>();
             builder.Services.AddScoped<FuncionarioService>();
             builder.Services.AddScoped<EmpresaIdValueResolver>();
             builder.Services.AddScoped<GrupoVeiculosService>();

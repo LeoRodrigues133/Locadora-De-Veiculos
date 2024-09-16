@@ -59,6 +59,7 @@ public class Aluguel : EntidadeBase
         Encerrado = true;
     }
 
+
     public override List<string> Validar()
     {
         throw new NotImplementedException();

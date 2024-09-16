@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LocadoraDeVeiculos.Dominio;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
-using LocadoraDeVeiculos.Dominio;
-using LocadoraDeVeiculos.Infra.ModuloPessoas;
-using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
-using LocadoraDeVeiculos.Dominio.ModuloUsuario;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LocadoraDeVeiculos.Dominio.ModuloPessoas;
-using LocadoraDeVeiculos.Infra.Orm.ModuloFuncionario;
+using LocadoraDeVeiculos.Dominio.ModuloUsuario;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado;
 
@@ -18,6 +17,7 @@ public class LocadoraDbContext : IdentityDbContext<Usuario, Perfil, int>
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<Aluguel> Alugueis { get; set; }
     public DbSet<Cliente> Clientes { get;  set; }
+    public DbSet<Combustivel> Combustiveis { get;  set; }
     public DbSet<TaxaServico> Taxas { get; set; }
     public DbSet<Condutor> Condutores { get; set; }
     public DbSet<Funcionario> Funcionarios { get; set; }

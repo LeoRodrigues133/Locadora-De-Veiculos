@@ -13,6 +13,7 @@ public class RepositorioPlanoEmOrm : RepositorioBaseEmOrm<Plano>, IRepositorioPl
     public List<Plano> Filtrar(Func<Plano, bool> predicate)
     {
         return _dbContext.Planos
+            .Include(p => p.GrupoVeiculos)
             .Where(predicate)
             .ToList();
     }
@@ -31,6 +32,8 @@ public class RepositorioPlanoEmOrm : RepositorioBaseEmOrm<Plano>, IRepositorioPl
 
     public override List<Plano> SelecionarTodos()
     {
-        return _dbContext.Planos.Include(p => p.GrupoVeiculos).ToList();
+        return _dbContext.Planos
+            .Include(p => p.GrupoVeiculos)
+            .ToList();
     }
 }

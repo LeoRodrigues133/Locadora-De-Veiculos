@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
-using LocadoraDeVeiculos.WebApp.Mapping.Resolvers;
 using LocadoraDeVeiculos.WebApp.Models;
+using LocadoraDeVeiculos.WebApp.Mapping.Resolvers;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 
 namespace LocadoraDeVeiculos.WebApp.Mapping;
 

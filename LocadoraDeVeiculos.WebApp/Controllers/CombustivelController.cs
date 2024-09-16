@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
-using LocadoraDeVeiculos.Aplicacao.Services;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
-using LocadoraDeVeiculos.WebApp.Controllers.Shared;
+using Microsoft.AspNetCore.Mvc;
 using LocadoraDeVeiculos.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using LocadoraDeVeiculos.Aplicacao.Services;
+using LocadoraDeVeiculos.WebApp.Controllers.Shared;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 [Authorize(Roles = "Empresa,Funcionario")]
 public class CombustivelController : WebController
 {
-    private readonly ServicoCombustivel servicoCombustivel;
+    private readonly CombustivelService servicoCombustivel;
     private readonly IMapper mapeador;
 
     public CombustivelController(
         AuthService _servicoAuth,
-        ServicoCombustivel servicoCombustivel,
+        CombustivelService servicoCombustivel,
         IMapper mapeador
     ) : base(_servicoAuth)
     {
@@ -24,7 +23,7 @@ public class CombustivelController : WebController
         this.mapeador = mapeador;
     }
 
-    public IActionResult Configurar()
+    public IActionResult Configuracao()
     {
         var resultado = servicoCombustivel
             .ObterConfiguracao(EmpresaId.GetValueOrDefault());
@@ -40,7 +39,7 @@ public class CombustivelController : WebController
     }
 
     [HttpPost]
-    public IActionResult Configurar(FormCombustivelViewModel formularioVm)
+    public IActionResult Configuracao(FormCombustivelViewModel formularioVm)
     {
         var config = mapeador.Map<Combustivel>(formularioVm);
 

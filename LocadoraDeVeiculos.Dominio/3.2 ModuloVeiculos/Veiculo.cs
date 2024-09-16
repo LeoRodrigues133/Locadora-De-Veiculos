@@ -47,6 +47,15 @@ public class Veiculo : EntidadeBase
         CapacidadeTanqueDeCombustivel = capacidadeTanqueDeCombustivel;
     }
 
+    public void Alocar()
+    {
+        Alugado = true;
+    }
+
+    public void Desalocar()
+    {
+        Alugado = false;
+    }
     public override List<string> Validar()
     {
         var erros = new List<string>();

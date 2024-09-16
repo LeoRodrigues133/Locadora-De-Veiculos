@@ -2,7 +2,6 @@
 using LocadoraDeVeiculos.Infra.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloPessoas;
 using LocadoraDeVeiculos.Dominio.ModuloPessoas.ModuloFuncionario;
-using System.Linq;
 
 namespace LocadoraDeVeiculos.Infra.ModuloPessoas.ModuloFuncionarios;
 public class RepositorioFuncionarioEmOrm : RepositorioBaseEmOrm<Funcionario>, IRepositorioFuncionario, ISelecionarIdPorEmpresa

@@ -38,9 +38,11 @@ public class AluguelService
     }
     public Result<Aluguel> Cadastrar(Aluguel aluguel)
     {
-        var ValorCombustivelEmpres = _repositorioCombustivel.SelecionarPorId(aluguel.EmpresaId);
+        var ValorCombustivelEmpres = _repositorioCombustivel.SelecionarIdPorEmpresa(aluguel.EmpresaId);
 
         BuscarRegistros(aluguel);
+
+        aluguel.Veiculo.Alocar();
 
         _repositorioAluguel.Cadastrar(aluguel);
 
@@ -54,6 +56,7 @@ public class AluguelService
         if( aluguel is null)
             return Result.Fail("Não foi encontrado o aluguel.");
 
+        aluguel.Veiculo.Desalocar();
         _repositorioAluguel.Excluir(aluguel);
 
         return Result.Ok(aluguel);
@@ -64,6 +67,7 @@ public class AluguelService
         var QuilometragemDeSaida = aluguel.Veiculo.Quilometragem;
         aluguel.Veiculo.Quilometragem += QuilometrosPercorrido(aluguel);
 
+        aluguel.Veiculo.Desalocar();
         aluguel.FinalizarLocacao();
         
         _repositorioVeiculo.Editar(aluguel.Veiculo);

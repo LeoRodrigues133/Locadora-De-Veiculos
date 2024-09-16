@@ -331,6 +331,7 @@ public class AluguelController : WebController
 
         var veiculos = resultado.Value
             .Where(c => c.GrupoVeiculosId == grupoId)
+            .Where(x => x.Alugado == false)
             .Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),

@@ -2,7 +2,6 @@
 public interface IRepositorioCombustivel
 {
     void Gravar(Combustivel entidade);
-    void Editar(Combustivel entidadeAtualizada);
-    Combustivel? SelecionarPorId(int idSelecionado);
+    Combustivel? SelecionarIdPorEmpresa(int idEmpresa);
 
 }

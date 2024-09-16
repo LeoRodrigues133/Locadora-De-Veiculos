@@ -5,6 +5,7 @@ namespace LocadoraDeVeiculos.Dominio;
 
 public class Plano : EntidadeBase
 {
+    public Plano() { }
     public Plano(
         TipoPlano tipoPlano,
         decimal valorDiaria,
@@ -20,15 +21,11 @@ public class Plano : EntidadeBase
         KmDisponivel = kmDisponivel;
         GrupoVeiculosId = grupoVeiculosId;
     }
-    public Plano()
-    {
-        
-    }
-    public TipoPlano TipoPlano {  get; set; }
+    public TipoPlano TipoPlano { get; set; }
     public decimal? ValorDiaria { get; set; }
     public decimal? PrecoKm { get; set; }
     public decimal? ValorExtrapolado { get; set; }
-    public int? KmDisponivel {  get; set; }
+    public int? KmDisponivel { get; set; }
     public GrupoVeiculos GrupoVeiculos { get; set; }
     public int GrupoVeiculosId { get; set; }
 

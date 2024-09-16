@@ -1,16 +1,13 @@
-﻿
-using FluentResults;
-
-namespace LocadoraDeVeiculos.Aplicacao.Services;
+﻿namespace LocadoraDeVeiculos.Aplicacao.Services;
 
 using FluentResults;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 
-public class ServicoCombustivel
+public class CombustivelService
 {
     private readonly IRepositorioCombustivel _repositorioCombustivel;
 
-    public ServicoCombustivel(IRepositorioCombustivel repositorioCombustivel)
+    public CombustivelService(IRepositorioCombustivel repositorioCombustivel)
     {
         _repositorioCombustivel = repositorioCombustivel;
     }
@@ -26,7 +23,7 @@ public class ServicoCombustivel
 
     public Result<Combustivel> ObterConfiguracao(int idEmpresa)
     {
-        var config = _repositorioCombustivel.SelecionarPorId(idEmpresa);
+        var config = _repositorioCombustivel.SelecionarIdPorEmpresa(idEmpresa);
 
         if (config is null)
         {
