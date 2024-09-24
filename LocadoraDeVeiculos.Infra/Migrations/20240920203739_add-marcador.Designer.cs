@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    [Migration("20240916155839_combustivel")]
-    partial class combustivel
+    [Migration("20240920203739_add-marcador")]
+    partial class addmarcador
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CombustivelId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CondutorId")
                         .HasColumnType("int");
 
@@ -85,9 +88,14 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("VeiculoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("marcadorCombustivel")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("CombustivelId");
 
                     b.HasIndex("CondutorId");
 
@@ -634,6 +642,12 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis.Combustivel", "Combustivel")
+                        .WithMany()
+                        .HasForeignKey("CombustivelId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.Condutor", "Condutor")
                         .WithMany()
                         .HasForeignKey("CondutorId")
@@ -665,6 +679,8 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
+
+                    b.Navigation("Combustivel");
 
                     b.Navigation("Condutor");
 

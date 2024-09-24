@@ -17,18 +17,26 @@ public class AluguelProfile : Profile
 
 
         CreateMap<Aluguel, FinalizarAluguelViewModel>()
-            .ForMember(vm => vm.Clientes, opt => opt.MapFrom<Resolver>())
+            .ForMember(vm => vm.Aluguel, opt => opt.MapFrom(c => c))
+            .ForMember(vm => vm.Id, opt => opt.MapFrom(c => c.Id))
             .ForMember(vm => vm.Grupos, opt => opt.MapFrom<Resolver>())
             .ForMember(vm => vm.Planos, opt => opt.MapFrom<Resolver>())
             .ForMember(vm => vm.Veiculos, opt => opt.MapFrom<Resolver>())
-            .ForMember(vm => vm.Condutores, opt => opt.MapFrom<Resolver>()); ;
+            .ForMember(vm => vm.Clientes, opt => opt.MapFrom<Resolver>())
+            .ForMember(vm => vm.Condutores, opt => opt.MapFrom<Resolver>());
 
         CreateMap<CadastroAluguelViewModel, Aluguel>()
             .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
 
-        CreateMap<Aluguel, PrefinalizarAluguelViewModel>();
-        
-        CreateMap<PrefinalizarAluguelViewModel, Aluguel>();
+        CreateMap<Aluguel, PrefinalizarAluguelViewModel>()
+            .ForMember(vm => vm.Aluguel, opt => opt.MapFrom(c => c))
+            .ForMember(vm => vm.KmFinal, opt => opt.MapFrom(c => c.Veiculo.Quilometragem))
+            .ForMember(vm => vm.Taxas, opt => opt.MapFrom(c => c.Taxas)) ;
+
+        CreateMap<PrefinalizarAluguelViewModel, Aluguel>()
+            .ForMember(vm => vm.Id, opt => opt.MapFrom(c => c.Aluguel.Id))
+            .ForMember(vm => vm.KmFinal, opt => opt.MapFrom(c => c.Aluguel.KmFinal))
+            .ForMember(vm => vm.Taxas, opt => opt.MapFrom(c => c.Taxas));
 
         CreateMap<Aluguel, ExcluirAluguelViewModel>();
 

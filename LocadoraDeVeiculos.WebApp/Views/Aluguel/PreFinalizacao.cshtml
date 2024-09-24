@@ -1,9 +1,10 @@
-﻿@model PrefinalizarAluguelViewModel
+﻿@using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis
+@model PrefinalizarAluguelViewModel
 @{
     ViewBag.Title = "Detalhes do Aluguel";
 }
 
- <div class="form-group">
+<div class="form-group">
     <label>Cliente:</label>
     <input class="form-control" value="@Model.Aluguel.Cliente.Nome" disabled />
 </div>
@@ -31,7 +32,7 @@
     <input class="form-control" value="@Model.Aluguel.DataLocacao.ToString("dd/MM/yyyy")" disabled />
 </div>
 
-<form asp-action="CalcularValorFinal" asp-route-id="@Model.Aluguel.Id" method="post">
+<form asp-action="CalcularValorFinal" asp-route-id="@Model.Id" method="post">
     <div class="form-group d-flex gap-4">
         <div>
             <label>Km Inicial:</label>
@@ -39,11 +40,17 @@
         </div>
         <div>
             <label>Km Final:</label>
-            <input type="number" class="form-control" asp-for="@Model.KmFinal" value="@Model.Aluguel.Veiculo.Quilometragem" min="@Model.Aluguel.Veiculo.Quilometragem" required />
+            <input type="number" class="form-control" asp-for="@Model.KmFinal" value="@Model.KmFinal" min="@Model.Aluguel.Veiculo.Quilometragem" required />
         </div>
     </div>
-   
 
+    <div class="form-group">
+        <label asp-for="QuantiaCombustivel" class="control-label">Cliente:</label>
+        <select asp-for="QuantiaCombustivel" class="form-control" asp-items="Html.GetEnumSelectList<EnumMarcadorCombustivel>()">
+            <option value="" disabled selected>Selecione a quantia</option>
+        </select>
+        <span asp-validation-for="QuantiaCombustivel" class="text-danger"></span>
+    </div>
     <div class="form-group">
         <label>Data de Devolução Prevista:</label>
         <input class="form-control"
@@ -56,9 +63,11 @@
         <label>Valor de Entrada:</label>
         <input class="form-control" value="@Model.Aluguel.Entrada.ToString("C")" disabled />
     </div>
+    <partial name="_ListaDeTaxas" model="Model" />
+
     <div class="form-group">
         <label>Serviços:</label>
-        @if (Model.Aluguel.Taxas is not null)
+        @if (Model.Aluguel.Taxas.Count > 0)
         {
             <ul class="list-group">
                 @foreach (var taxa in Model.Aluguel.Taxas)
@@ -74,14 +83,14 @@
             <p class="form-control-static">Nenhuma taxa aplicada.</p>
         }
 
-        <div>
-            <label>Valor final:</label>
-            <input type="text" class="form-control" value="@Model.Aluguel.Entrada + @Model.Aluguel.ValorFinal" disabled />
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Prosseguir</button>
+            <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
         </div>
-    </div>
- 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Prosseguir</button>
-        <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
-    </div>
 </form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}

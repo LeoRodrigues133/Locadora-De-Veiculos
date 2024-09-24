@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class teste : Migration
+    public partial class Tomaraquedecerto : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -191,8 +191,11 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<int>(type: "int", nullable: false),
-                    Preco = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ValorGasolina = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ValorGas = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ValorDiesel = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ValorAlcool = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Empresa_Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -383,11 +386,13 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     KmFinal = table.Column<int>(type: "int", nullable: true),
                     DataLocacao = table.Column<DateTime>(type: "datetime", nullable: false),
                     DateDevolucaoPrevista = table.Column<DateTime>(type: "datetime", nullable: true),
+                    marcadorCombustivel = table.Column<int>(type: "int", nullable: false),
                     GrupoId = table.Column<int>(type: "int", nullable: false),
                     PlanoId = table.Column<int>(type: "int", nullable: false),
                     VeiculoId = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     CondutorId = table.Column<int>(type: "int", nullable: false),
+                    CombustivelId = table.Column<int>(type: "int", nullable: false),
                     Empresa_Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -403,6 +408,11 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         name: "FK_TBAluguel_TBCliente_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "TBCliente",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TBAluguel_TBCombustivel_CombustivelId",
+                        column: x => x.CombustivelId,
+                        principalTable: "TBCombustivel",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TBAluguel_TBCondutor_CondutorId",
@@ -493,6 +503,11 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 name: "IX_TBAluguel_ClienteId",
                 table: "TBAluguel",
                 column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TBAluguel_CombustivelId",
+                table: "TBAluguel",
+                column: "CombustivelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TBAluguel_CondutorId",
@@ -602,9 +617,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 name: "TBAluguelTaxa");
 
             migrationBuilder.DropTable(
-                name: "TBCombustivel");
-
-            migrationBuilder.DropTable(
                 name: "TBFuncionario");
 
             migrationBuilder.DropTable(
@@ -615,6 +627,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "TBTaxasEServicos");
+
+            migrationBuilder.DropTable(
+                name: "TBCombustivel");
 
             migrationBuilder.DropTable(
                 name: "TBCondutor");

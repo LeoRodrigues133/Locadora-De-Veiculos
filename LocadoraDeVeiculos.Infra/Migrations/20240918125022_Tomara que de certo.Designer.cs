@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    [Migration("20240910193816_teste")]
-    partial class teste
+    [Migration("20240918125022_Tomara que de certo")]
+    partial class Tomaraquedecerto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CombustivelId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CondutorId")
                         .HasColumnType("int");
 
@@ -85,9 +88,14 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("VeiculoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("marcadorCombustivel")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("CombustivelId");
 
                     b.HasIndex("CondutorId");
 
@@ -367,15 +375,24 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("EmpresaId")
                         .HasColumnType("int")
                         .HasColumnName("Empresa_Id");
 
-                    b.Property<int>("Nome")
-                        .HasColumnType("int");
+                    b.Property<decimal>("ValorAlcool")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("Preco")
-                        .HasColumnType("decimal");
+                    b.Property<decimal>("ValorDiesel")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorGas")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorGasolina")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -625,6 +642,12 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis.Combustivel", "Combustivel")
+                        .WithMany()
+                        .HasForeignKey("CombustivelId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.Condutor", "Condutor")
                         .WithMany()
                         .HasForeignKey("CondutorId")
@@ -656,6 +679,8 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
+
+                    b.Navigation("Combustivel");
 
                     b.Navigation("Condutor");
 

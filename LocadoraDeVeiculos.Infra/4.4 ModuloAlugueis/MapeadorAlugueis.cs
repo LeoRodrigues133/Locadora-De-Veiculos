@@ -40,9 +40,14 @@ public class MapeadorAlugueis : IEntityTypeConfiguration<Aluguel>
             .IsRequired()
             .HasColumnType("bit");
 
+        builderAluguel.Property(c => c.marcadorCombustivel)
+           .HasColumnType("int")
+           .IsRequired();
+
         builderAluguel.Property(c => c.GrupoId).HasColumnType("int").IsRequired();
         builderAluguel.Property(c => c.PlanoId).HasColumnType("int").IsRequired();
         builderAluguel.Property(c => c.VeiculoId).HasColumnType("int").IsRequired();
+        builderAluguel.Property(c => c.CombustivelId).HasColumnType("int").IsRequired();
         builderAluguel.Property(c => c.CondutorId).HasColumnType("int").IsRequired();
         builderAluguel.Property(c => c.ClienteId).HasColumnType("int").IsRequired();
 
@@ -61,6 +66,12 @@ public class MapeadorAlugueis : IEntityTypeConfiguration<Aluguel>
             .WithMany()
             .HasForeignKey(a => a.CondutorId)
             .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(); 
+        
+        builderAluguel.HasOne(a => a.Combustivel)
+            .WithMany()
+            .HasForeignKey(a => a.CombustivelId)
+            .OnDelete(DeleteBehavior.NoAction)
             .IsRequired();
 
         builderAluguel.HasOne(c => c.Grupo)
@@ -74,7 +85,7 @@ public class MapeadorAlugueis : IEntityTypeConfiguration<Aluguel>
             .HasForeignKey(c => c.PlanoId)
             .OnDelete(DeleteBehavior.NoAction)
             .IsRequired();
-
+       
         builderAluguel.Property(a => a.DataLocacao)
             .IsRequired()
             .HasColumnType("datetime");

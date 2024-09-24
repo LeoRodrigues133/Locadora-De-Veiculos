@@ -36,7 +36,7 @@
         </div>
         <div>
             <label>Km Final:</label>
-            <input type="number" class="form-control" value="@Model.KmFinal" disabled />
+            <input type="number" class="form-control" asp-for="KmFinal" value="@Model.KmFinal" disabled />
         </div>
     </div>
 
@@ -78,7 +78,7 @@
 
     <div class="form-group">
         <label>Serviços:</label>
-        @if (Model.Aluguel.Taxas is not null)
+        @if (Model.Aluguel.Taxas.Count > 0)
         {
             <ul class="list-group">
                 @foreach (var taxa in Model.Aluguel.Taxas)
@@ -96,7 +96,7 @@
 
         <div>
             <label>Valor final:</label>
-            <input type="text" class="form-control" value="@Model.Aluguel.ValorFinal" disabled />
+            <input type="text" class="form-control" value="@Model.ValorFinal" disabled />
         </div>
     </div>
 

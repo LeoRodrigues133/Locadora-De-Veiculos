@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloAlugueis;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
@@ -55,6 +56,23 @@ public class Veiculo : EntidadeBase
     public void Desalocar()
     {
         Alugado = false;
+    }
+
+    public decimal CalcularLitrosParaAbastecimento(EnumMarcadorCombustivel marcadorCombustivel)
+    {
+        switch (marcadorCombustivel)
+        {
+            case EnumMarcadorCombustivel.Vazio: return CapacidadeTanqueDeCombustivel;
+
+            case EnumMarcadorCombustivel.UmQuarto: return CapacidadeTanqueDeCombustivel - (CapacidadeTanqueDeCombustivel * (1m / 4m));
+
+            case EnumMarcadorCombustivel.MeioTanque: return CapacidadeTanqueDeCombustivel - (CapacidadeTanqueDeCombustivel * (1m / 2m));
+
+            case EnumMarcadorCombustivel.TresQuartos: return CapacidadeTanqueDeCombustivel - (CapacidadeTanqueDeCombustivel * (3m / 4m));
+
+            default:
+                return 0;
+        }
     }
     public override List<string> Validar()
     {

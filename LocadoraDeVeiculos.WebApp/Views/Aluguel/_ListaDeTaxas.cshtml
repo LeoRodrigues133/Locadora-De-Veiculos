@@ -4,22 +4,22 @@
     Lista de Serviços
 </button>
 
-    <div class="collapse" id="CollapseTaxas">
-        <div style="max-height: 180px; overflow-y: auto;">
-            <table class="table table-striped" style="position: relative; border-collapse: collapse;">
-                <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
-                    <tr>
-                        <th>Selecionar</th>
-                        <th>Nome</th>
-                        <th>Valor</th>
-                        <th>Tipo de Cobrança</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Taxas != null && Model.Taxas.Count > 0)
+<div class="collapse" id="CollapseTaxas">
+    <div style="max-height: 180px; overflow-y: auto;">
+        <table class="table table-striped" style="position: relative; border-collapse: collapse;">
+            <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                <tr>
+                    <th>Selecionar</th>
+                    <th>Nome</th>
+                    <th>Valor</th>
+                    <th>Tipo de Cobrança</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Taxas != null && Model.Taxas.Count > 0)
+                {
+                    @foreach (var taxa in Model.Taxas)
                     {
-                        @foreach (var taxa in Model.Taxas)
-                        {
                             <tr>
                                 <td>
                                     <input class="form-check-input taxa-checkbox" type="checkbox" name="TaxasSelecionadas" value="@taxa.Id" id="taxa_@taxa.Id" />
@@ -28,15 +28,15 @@
                                 <td>@taxa.Valor.ToString("C")</td>
                                 <td>@(taxa.TipoDeCobranca ? "Fixa" : "Diária")</td>
                             </tr>
-                        }
                     }
-                    else
-                    {
-                        <tr>
-                            <td colspan="4" class="text-center">Nenhuma taxa disponível.</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">Nenhuma taxa disponível.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+</div>
