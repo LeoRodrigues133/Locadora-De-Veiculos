@@ -9,19 +9,13 @@ public class ClienteProfile : Profile
 {
     public ClienteProfile()
     {
-        CreateMap<CadastroClienteViewModel, Cliente>()
+        CreateMap<FormClienteViewModel, Cliente>()
             .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
 
-        CreateMap<Cliente, EditarClienteViewModel>();
-
-        CreateMap<EditarClienteViewModel, Cliente>();
-
-        CreateMap<Cliente, ExcluirClienteViewModel>();
-
-        CreateMap<Cliente, DetalhesClienteViewModel>();
+        CreateMap<Cliente, FormClienteViewModel>();
 
         CreateMap<Cliente, ListarClienteViewModel>()
             .ForMember(x => x.Cliente, opt => opt.MapFrom(cliente => cliente))
-            .ForMember(vm => vm.tipoCliente, opt => opt.MapFrom(c => c.TipoPerfil ?  "Pessoa Física" : "Pessoa Jurídica" ));
+            .ForMember(vm => vm.TipoCliente, opt => opt.MapFrom(c => c.TipoPerfil ?  "Pessoa Física" : "Pessoa Jurídica" ));
     }
 }

@@ -12,15 +12,15 @@ public class GrupoVeiculosProfile : Profile
 
         CreateMap<GrupoVeiculos, ListarGrupoViewModel>();
 
-        CreateMap<GrupoVeiculos, EditarGrupoViewModel>();
+        CreateMap<GrupoVeiculos, FormGrupoViewModel>();
 
-        CreateMap<CadastroGrupoViewModel, GrupoVeiculos>()
+        CreateMap<FormGrupoViewModel, GrupoVeiculos>()
             .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
 
-        CreateMap<EditarGrupoViewModel, GrupoVeiculos>();
+        CreateMap<FormGrupoViewModel, GrupoVeiculos>();
 
-        CreateMap<GrupoVeiculos, DetalhesGrupoViewModel>();
+        CreateMap<GrupoVeiculos, FormGrupoViewModel>();
 
-        CreateMap<GrupoVeiculos, ExcluirGrupoViewModel>();
+        CreateMap<GrupoVeiculos, FormGrupoViewModel>();
     }
 }

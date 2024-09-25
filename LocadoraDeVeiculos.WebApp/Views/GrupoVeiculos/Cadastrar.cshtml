@@ -1,11 +1,11 @@
-﻿@model CadastroGrupoViewModel
+﻿@model FormGrupoViewModel
 @{
     ViewBag.Title = "Cadastro de Grupo de Veículos";
 }
 <form asp-action="Cadastrar">
     <div class="form-group">
         <label asp-for="Nome" class="control-label"></label>
-        <input asp-for="Nome" class="form-control" />
+        <input asp-for="Nome" class="form-control" maxlength="20"/>
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 

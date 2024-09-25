@@ -50,7 +50,7 @@ public class GrupoVeiculosController : WebController
 
         var grupo = resultado.Value;
 
-        var detalheVm = _mapeador.Map<DetalhesGrupoViewModel>(grupo);
+        var detalheVm = _mapeador.Map<FormGrupoViewModel>(grupo);
 
         return View(detalheVm);
     }
@@ -61,7 +61,7 @@ public class GrupoVeiculosController : WebController
     }
 
     [HttpPost]
-    public ActionResult Cadastrar(CadastroGrupoViewModel CadastroVm)
+    public ActionResult Cadastrar(FormGrupoViewModel CadastroVm)
     {
         if (!ModelState.IsValid)
             return View(CadastroVm);
@@ -95,13 +95,13 @@ public class GrupoVeiculosController : WebController
 
         var grupo = resultado.Value;
 
-        var editarVm = _mapeador.Map<EditarGrupoViewModel>(grupo);
+        var editarVm = _mapeador.Map<FormGrupoViewModel>(grupo);
 
         return View(editarVm);
     }
 
     [HttpPost]
-    public ActionResult Editar(EditarGrupoViewModel editarVm)
+    public ActionResult Editar(FormGrupoViewModel editarVm)
     {
         var grupo = _mapeador.Map<GrupoVeiculos>(editarVm);
 
@@ -132,13 +132,13 @@ public class GrupoVeiculosController : WebController
 
         var grupo = resultado.Value;
 
-        var excluirVm = _mapeador.Map<ExcluirGrupoViewModel>(grupo);
+        var excluirVm = _mapeador.Map<FormGrupoViewModel>(grupo);
 
         return View(excluirVm);
     }
 
     [HttpPost]
-    public ActionResult Excluir(ExcluirGrupoViewModel excluirVm)
+    public ActionResult Excluir(FormGrupoViewModel excluirVm)
     {
         var resultado = _serviceGrupo.Excluir(excluirVm.Id);
 

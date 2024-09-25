@@ -53,7 +53,7 @@ public class ClienteController : WebController
 
         var cliente = resultado.Value;
 
-        var detalhesVm = _mapeador.Map<DetalhesClienteViewModel>(cliente);
+        var detalhesVm = _mapeador.Map<FormClienteViewModel>(cliente);
 
         return View(detalhesVm);
     }
@@ -64,7 +64,7 @@ public class ClienteController : WebController
     }
 
     [HttpPost]
-    public ActionResult Cadastrar(CadastroClienteViewModel cadastroVm)
+    public ActionResult Cadastrar(FormClienteViewModel cadastroVm)
     {
         if (!ModelState.IsValid)
             return View(cadastroVm);
@@ -98,13 +98,13 @@ public class ClienteController : WebController
 
         var cliente = resultado.Value;
 
-        var editarVm = _mapeador.Map<EditarClienteViewModel>(cliente);
+        var editarVm = _mapeador.Map<FormClienteViewModel>(cliente);
 
         return View(editarVm);
     }
 
     [HttpPost]
-    public ActionResult Editar(EditarClienteViewModel editarVm)
+    public ActionResult Editar(FormClienteViewModel editarVm)
     {
         if (!ModelState.IsValid)
             return View(editarVm);
@@ -138,13 +138,13 @@ public class ClienteController : WebController
 
         var cliente = resultado.Value;
 
-        var detalhesVm = _mapeador.Map<ExcluirClienteViewModel>(cliente);
+        var detalhesVm = _mapeador.Map<FormClienteViewModel>(cliente);
 
         return View(detalhesVm);
     }
 
     [HttpPost]
-    public ActionResult Excluir(ExcluirClienteViewModel excluirVm)
+    public ActionResult Excluir(FormClienteViewModel excluirVm)
     {
         var resultado = _serviceCliente.Excluir(excluirVm.Id);
 

@@ -22,8 +22,8 @@
             <tr>
                 <td>@condutor.Id</td>
                 <td>@condutor.Nome</td>
-                <td>@condutor.testin(condutor.Nome,@condutor.Cliente)</td>
-                <td>@condutor.CpfOuCnpf(condutor.Cliente)</td>
+                <td>@condutor.DefinirCondutor(condutor.Nome,@condutor.Cliente)</td>
+                <td>@condutor.CpfOuCnpj(condutor.Cliente)</td>
                 <td>@condutor.CNH</td>
                 <td>@condutor.ValidadeCNH.ToString("dd/MM/yyyy")</td>
                 <td>

@@ -22,9 +22,9 @@
                 <td>@cliente.Id</td>
                 <td>@cliente.Nome</td>
                 <td>@cliente.Telefone</td>
-                <td>@cliente.CpfOuCnpf(cliente.Cliente)</td>
+                <td>@cliente.CpfOuCnpj(cliente.Cliente)</td>
                 
-                <td>@cliente.tipoCliente</td>
+                <td>@cliente.TipoCliente</td>
                 <td>
                     <a asp-action="Detalhes" asp-route-id="@cliente.Id" class="btn btn-info">Detalhes</a>
                     <a asp-action="Editar" asp-route-id="@cliente.Id" class="btn btn-primary">Editar</a>

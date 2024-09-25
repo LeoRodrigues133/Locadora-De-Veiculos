@@ -1,27 +1,19 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace LocadoraDeVeiculos.WebApp.Models;
 
 public class FormGrupoViewModel
 {
-    public int Id {  get; set; }
+    public int Id { get; set; }
+
+    [Required(ErrorMessage = "O nome do grupo é obrigatório.")]
+    [StringLength(20, ErrorMessage = "O nome do grupo não pode exceder 20 caracteres.")]
     public string Nome { get; set; }
 }
 
-public class CadastroGrupoViewModel : FormGrupoViewModel
-{
-}
 public class ListarGrupoViewModel : FormGrupoViewModel
 {
+    [Required(ErrorMessage = "É necessário selecionar pelo menos um grupo.")]
     public IEnumerable<SelectListItem> Grupos { get; set; }
-}
-public class EditarGrupoViewModel : FormGrupoViewModel
-{
-}
-public class ExcluirGrupoViewModel : FormGrupoViewModel
-{
-}
-public class DetalhesGrupoViewModel : FormGrupoViewModel
-{
 }

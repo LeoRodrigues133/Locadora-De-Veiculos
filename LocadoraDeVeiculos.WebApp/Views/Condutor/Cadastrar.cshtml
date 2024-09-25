@@ -1,15 +1,13 @@
-﻿@model CadastroCondutorViewModel
+﻿@model FormCondutorViewModel
 
 @{
     ViewBag.Title = "Cadastro de Condutor";
 }
 
-@* //Perguntar sobre como colocar o valor dos atributos no input *@
-
 <form asp-action="Cadastrar" method="post">
     <div class="form-group">
         <label for="ClienteId">Cliente:</label>
-        <select asp-for="ClienteId" class="form-control" asp-items="Model.Clientes"></select>
+        <select asp-for="ClienteId" class="form-control" asp-items="Model.Clientes" id="clienteSelect"></select>
     </div>
 
     <div class="form-group">
@@ -19,37 +17,37 @@
 
     <div class="form-group">
         <label asp-for="Nome" class="control-label">Nome:</label>
-        <input asp-for="Nome" id="nome" class="form-control" />
+        <input asp-for="Nome" id="nome" class="form-control" required />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Email" class="control-label">Email:</label>
-        <input asp-for="Email" id="email" class="form-control" />
+        <input asp-for="Email" id="email" class="form-control" required />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Telefone" class="control-label">Telefone:</label>
-        <input asp-for="Telefone" id="fone" id="fone" maxlength="16" class="form-control" />
+        <input asp-for="Telefone" id="fone" maxlength="16" class="form-control" required />
         <span asp-validation-for="Telefone" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="CPF" class="control-label">CPF:</label>
-        <input asp-for="CPF" id="cpf" maxlength="14" class="form-control" />
+        <input asp-for="CPF" id="cpf" maxlength="14" class="form-control" required />
         <span asp-validation-for="CPF" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="CNH" class="control-label">CNH:</label>
-        <input asp-for="CNH" maxlength="12" class="form-control" />
+        <input asp-for="CNH" maxlength="11" class="form-control" required />
         <span asp-validation-for="CNH" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="ValidadeCNH" class="control-label">Validade:</label>
-        <input asp-for="ValidadeCNH" class="form-control" type="date" value="2000-01-01"/>
+        <input asp-for="ValidadeCNH" class="form-control" type="date" required />
         <span asp-validation-for="ValidadeCNH" class="text-danger"></span>
     </div>
 
@@ -58,6 +56,7 @@
         <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
     </div>
 </form>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var cpfInput = document.getElementById('cpf');
@@ -65,27 +64,42 @@
         var emailInput = document.getElementById('email');
         var nomeInput = document.getElementById('nome');
         var clienteCondutorCheckbox = document.getElementById('ClienteCondutor');
+        var clienteSelect = document.getElementById('clienteSelect');
 
         function atualizarCamposCondutor() {
             var ehCondutor = clienteCondutorCheckbox.checked;
+            var clienteId = clienteSelect.value;
 
-            cpfInput.disabled = ehCondutor;
-            telefoneInput.disabled = ehCondutor;
-            emailInput.disabled = ehCondutor;
-            nomeInput.disabled = ehCondutor;
+            cpfInput.readOnly= ehCondutor;
+            telefoneInput.readOnly = ehCondutor;
+            emailInput.readOnly = ehCondutor;
+            nomeInput.readOnly = ehCondutor;
 
-            cpfInput.value = '';
-            telefoneInput.value = '';
-            emailInput.value = '';
-            nomeInput.value = '';
+            if (ehCondutor && clienteId) {
+                $.get('@Url.Action("CarregarDadosCondutores", "Condutor")', { clienteId: clienteId }, function (Resposta) {
+                    console.log(Resposta);
+                    if (Resposta.success) {
+                        var cliente = Resposta.dados;
+                        nomeInput.value = cliente.nome;
+                        cpfInput.value = cliente.cpf;
+                        telefoneInput.value = cliente.telefone;
+                        emailInput.value = cliente.email;
+                    }
+                });
+            } else {
+                nomeInput.value = '';
+                cpfInput.value = '';
+                telefoneInput.value = '';
+                emailInput.value = '';
+            }
         }
 
-        clienteCondutorCheckbox.addEventListener('change', function () {
-            atualizarCamposCondutor();
-        });
+        clienteCondutorCheckbox.addEventListener('change', atualizarCamposCondutor);
+        clienteSelect.addEventListener('change', atualizarCamposCondutor);
 
-        atualizarCamposCondutor();
+        atualizarCamposCondutor(); 
 
+    
         cpfInput.addEventListener('input', function () {
             var value = cpfInput.value.replace(/\D/g, '');
             if (value.length <= 11) {
@@ -103,16 +117,6 @@
                 value = value.replace(/(\d{1})(\d{4})(\d{4})$/, '$1 $2-$3');
                 telefoneInput.value = value;
             }
-        });
-
-        AtualizaCLiente.addEventListener('change', function () {
-            var selectedOption = clienteSelect.options[clienteSelect.selectedIndex];
-            var nomeCliente = selectedOption.getAttribute('data-nome');
-
-            nomeInput.value = nomeCliente || '';
-            cpfInput.value = cpfCliente || '';
-            foneInput.value = foneCliente || '';
-            emailInput.value = emailCliente || '';
         });
     });
 </script>

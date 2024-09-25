@@ -9,17 +9,12 @@ public class CondutorProfile : Profile
 {
     public CondutorProfile()
     {
-        CreateMap<CadastroCondutorViewModel, Condutor>()
-            .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
+        CreateMap<FormCondutorViewModel, Condutor>()
+            .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>())
+            .ForMember(dest => dest.Cliente, opt => opt.MapFrom(c => c.Cliente));
 
-        CreateMap<Condutor, EditarCondutorViewModel>()
+        CreateMap<Condutor, FormCondutorViewModel>()
             .ForMember(vm => vm.Clientes, opt => opt.MapFrom<Resolver>());
-
-        CreateMap<EditarCondutorViewModel, Condutor>();
-
-        CreateMap<Condutor, ExcluirCondutorViewModel>();
-
-        CreateMap<Condutor, DetalhesCondutorViewModel>();
 
         CreateMap<Condutor, ListarCondutorViewModel>();
     }

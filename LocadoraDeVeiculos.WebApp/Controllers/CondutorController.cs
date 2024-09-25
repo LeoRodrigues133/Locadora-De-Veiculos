@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.WebApp.Controllers.Shared;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class CondutorController : WebController
@@ -54,7 +55,7 @@ public class CondutorController : WebController
 
         var condutor = resultado.Value;
 
-        var detalhesVM = _mapeador.Map<DetalhesCondutorViewModel>(condutor);
+        var detalhesVM = _mapeador.Map<FormCondutorViewModel>(condutor);
 
         return View(detalhesVM);
     }
@@ -65,9 +66,11 @@ public class CondutorController : WebController
     }
 
     [HttpPost]
-    public IActionResult Cadastrar(CadastroCondutorViewModel cadastroVm)
-
+    public IActionResult Cadastrar(FormCondutorViewModel cadastroVm)
     {
+        ModelState.Remove("Cliente");
+        ModelState.Remove("Clientes");
+
         if (!ModelState.IsValid)
             return View(CarregarDadosFormulario(cadastroVm));
 
@@ -86,6 +89,30 @@ public class CondutorController : WebController
 
         return RedirectToAction(nameof(Listar));
     }
+
+    [HttpGet]
+    public JsonResult CarregarDadosCondutores(int clienteId)
+    {
+        var resultado = _serviceCliente.SelecionarId(clienteId);
+
+        if (resultado.IsFailed)
+        {
+            return Json(new { success = false, message = "Cliente não encontrado." });
+        }
+
+        var cliente = resultado.Value;
+
+        var dadosCliente = new
+        {
+            Nome = cliente.Nome,
+            CPF = cliente.CPF,
+            Telefone = cliente.Telefone,
+            Email = cliente.Email
+        };
+
+        return Json(new { success = true, dados = dadosCliente });
+    }
+
 
     public IActionResult Editar(int id)
     {
@@ -108,7 +135,7 @@ public class CondutorController : WebController
 
         var condutor = resultado.Value;
 
-        var editarVm = _mapeador.Map<EditarCondutorViewModel>(condutor);
+        var editarVm = _mapeador.Map<FormCondutorViewModel>(condutor);
 
         var clientesElegiveis = clientes.Value;
 
@@ -124,7 +151,7 @@ public class CondutorController : WebController
     }
 
     [HttpPost]
-    public IActionResult Editar(EditarCondutorViewModel editarVm)
+    public IActionResult Editar(FormCondutorViewModel editarVm)
     {
         if (!ModelState.IsValid)
             return View(editarVm);
@@ -156,13 +183,13 @@ public class CondutorController : WebController
 
         var condutor = resultado.Value;
 
-        var excluirVm = _mapeador.Map<ExcluirCondutorViewModel>(condutor);
+        var excluirVm = _mapeador.Map<FormCondutorViewModel>(condutor);
 
         return View(excluirVm);
     }
 
     [HttpPost]
-    public IActionResult Excluir(ExcluirCondutorViewModel excluirVm)
+    public IActionResult Excluir(FormCondutorViewModel excluirVm)
     {
         var resultado = _serviceCondutor.Excluir(excluirVm.Id);
 
@@ -180,7 +207,7 @@ public class CondutorController : WebController
     }
 
     private FormCondutorViewModel? CarregarDadosFormulario(
-      CadastroCondutorViewModel? dadosPrevios = null)
+      FormCondutorViewModel? dadosPrevios = null)
     {
         var resultadoClientes = _serviceCliente.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
@@ -194,7 +221,7 @@ public class CondutorController : WebController
 
         if (dadosPrevios is null)
         {
-            var formularioVm = new CadastroCondutorViewModel
+            var formularioVm = new FormCondutorViewModel
             {
                 Clientes = Disponiveis.Select(c => new SelectListItem(c.Nome, c.Id.ToString()))
             };
