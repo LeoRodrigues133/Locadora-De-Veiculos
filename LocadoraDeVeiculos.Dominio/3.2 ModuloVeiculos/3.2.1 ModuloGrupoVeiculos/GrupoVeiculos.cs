@@ -24,6 +24,9 @@ public class GrupoVeiculos : EntidadeBase
         if (string.IsNullOrEmpty(Nome.Trim()))
             erros.Add("O grupo deve conter um nome.");
 
+        if (Nome.Trim().Length < 3)
+            erros.Add("O grupo deve conter ao menos tres caracteres.");
+
         return erros;
     }
 }

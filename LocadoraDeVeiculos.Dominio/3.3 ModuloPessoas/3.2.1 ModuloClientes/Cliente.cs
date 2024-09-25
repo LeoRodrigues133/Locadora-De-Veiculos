@@ -39,6 +39,27 @@ public class Cliente : EntidadeBase
 
     public override List<string> Validar()
     {
-        throw new NotImplementedException();
+        var erros = new List<string>();
+
+        if (string.IsNullOrEmpty(Nome.Trim()))
+            erros.Add("O nome é obrigatório.");
+
+        if (string.IsNullOrEmpty(Email.Trim()))
+            erros.Add("O email é obrigatório.");
+
+        if (string.IsNullOrEmpty(Telefone.Trim()))
+            erros.Add("O telefone é obrigatório.");
+
+        if (TipoPerfil && (string.IsNullOrEmpty(CPF?.Trim()) || CPF.Length != 11))
+            erros.Add("O CPF é obrigatório e deve conter 11 dígitos.");
+
+        if (!TipoPerfil && (string.IsNullOrEmpty(CNPJ?.Trim()) || CNPJ.Length != 14))
+            erros.Add("O CNPJ é obrigatório e deve conter 14 dígitos.");
+
+        if (string.IsNullOrEmpty(Endereco.Trim()))
+            erros.Add("O endereço é obrigatório.");
+
+        return erros;
     }
+
 }

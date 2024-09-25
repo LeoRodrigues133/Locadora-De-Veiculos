@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
-using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloAlugueis;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
@@ -25,6 +24,7 @@ public class Veiculo : EntidadeBase
     public int CapacidadeTanqueDeCombustivel { get; set; }
 
     public Veiculo(
+        byte[] foto,
         Cor cor,
         Marca marca,
         EnumCombustivel combustivel,
@@ -36,6 +36,7 @@ public class Veiculo : EntidadeBase
         int quilometragem,
         int capacidadeTanqueDeCombustivel)
     {
+        //Foto = foto;
         Cor = cor;
         Marca = marca;
         Combustivel = combustivel;
@@ -56,6 +57,10 @@ public class Veiculo : EntidadeBase
     public void Desalocar()
     {
         Alugado = false;
+    }
+    public void AlocarQuilometragem(int quilometragem)
+    {
+        Quilometragem += quilometragem;
     }
 
     public decimal CalcularLitrosParaAbastecimento(EnumMarcadorCombustivel marcadorCombustivel)
@@ -88,8 +93,7 @@ public class Veiculo : EntidadeBase
         else if (Modelo.Length < 2)
             erros.Add("O modelo deve ter pelo menos 2 caracteres.");
 
-        // Validação do Ano
-        if (Ano <= 2000 || Ano > DateTime.Now.Year + 1) 
+        if (Ano < 2000 || Ano > DateTime.Now.Year + 1) 
             erros.Add("O ano do veículo é inválido.");
 
         if (Quilometragem < 0)

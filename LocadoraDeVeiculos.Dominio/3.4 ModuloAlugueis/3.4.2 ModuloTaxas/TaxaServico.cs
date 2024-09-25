@@ -25,6 +25,14 @@ public class TaxaServico : EntidadeBase
 
     public override List<string> Validar()
     {
-        throw new NotImplementedException();
+        var erros = new List<string>();
+
+        if (string.IsNullOrEmpty(Nome.Trim()))
+            erros.Add("O nome da taxa é obrigatório.");
+
+        if (Valor <= 0)
+            erros.Add("O valor da taxa deve ser maior que zero.");
+
+        return erros;
     }
 }

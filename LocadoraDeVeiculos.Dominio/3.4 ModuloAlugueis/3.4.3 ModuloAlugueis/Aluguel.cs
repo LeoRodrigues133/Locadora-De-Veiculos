@@ -1,8 +1,8 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.Dominio;
 
@@ -42,6 +42,7 @@ public class Aluguel : EntidadeBase
         marcadorCombustivel = EnumMarcadorCombustivel.Completo;
 
     }
+
     public bool Encerrado { get; set; }
     public int Entrada { get; set; }
     public decimal? ValorFinal { get; set; }
@@ -67,8 +68,8 @@ public class Aluguel : EntidadeBase
     {
         Encerrado = true;
         ValorFinal = CalcularValorParcial(DiasLocado());
-
     }
+
     private decimal CalcularDiaria(int Diarias, int? distancia)
     {
         decimal? valorParcial = 0;
@@ -154,13 +155,6 @@ public class Aluguel : EntidadeBase
         return DiasAlugado;
     }
 
-    //public decimal? CalcularValorTotal()
-    //{
-    //    ValorFinal = CalcularValorParcial();
-
-    //    return ValorFinal;
-    //}
-
     public decimal? CalcularValorParcial(int? distancia)
     {
         decimal valorParcial = 0;
@@ -184,6 +178,7 @@ public class Aluguel : EntidadeBase
 
         return valorParcial;
     }
+
     public decimal CalcularValorDeAbastecimento()
     {
 
@@ -201,8 +196,39 @@ public class Aluguel : EntidadeBase
 
         return TotalAbastecimento;
     }
+
     public override List<string> Validar()
     {
-        throw new NotImplementedException();
+        var erros = new List<string>();
+
+        if (Entrada < 0)
+            erros.Add("A entrada não pode ser negativa.");
+
+        if (PlanoId <= 0)
+            erros.Add("O plano é obrigatório.");
+
+        if (VeiculoId <= 0)
+            erros.Add("O veículo é obrigatório.");
+
+        if (ClienteId <= 0)
+            erros.Add("O cliente é obrigatório.");
+
+        if (CondutorId <= 0)
+            erros.Add("O condutor é obrigatório.");
+
+        if (DataLocacao == default)
+            erros.Add("A data de locação é obrigatória.");
+
+        if (DateDevolucaoPrevista == null || DateDevolucaoPrevista <= DataLocacao)
+            erros.Add("A data de devolução prevista deve ser uma data futura em relação à data de locação.");
+
+        if (KmFinal < 0)
+            erros.Add("A quilometragem final não pode ser negativa.");
+
+        if (ValorFinal < 0)
+            erros.Add("O valor final não pode ser negativo.");
+
+        return erros;
     }
+
 }

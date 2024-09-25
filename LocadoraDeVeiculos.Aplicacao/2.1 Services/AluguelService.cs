@@ -62,10 +62,8 @@ public class AluguelService
 
     public Result<Aluguel> Finalizar (Aluguel aluguel)
     {
-        var QuilometragemDeSaida = aluguel.Veiculo.Quilometragem;
-        aluguel.Veiculo.Quilometragem += aluguel.QuilometrosPercorrido();
-
         aluguel.Veiculo.Desalocar();
+        aluguel.Veiculo.AlocarQuilometragem(aluguel.QuilometrosPercorrido());
         aluguel.FinalizarLocacao();
         
         _repositorioVeiculo.Editar(aluguel.Veiculo);
@@ -125,12 +123,7 @@ public class AluguelService
         aluguel.Combustivel = combustivel;
     }
 
-    public void SalvarCalculos(Aluguel aluguel)
-    {
-        _repositorioAluguel.Editar(aluguel);
-    }
-
-    public void SalvarTaxas(Aluguel aluguel)
+    public void Salvar(Aluguel aluguel)
     {
         _repositorioAluguel.Editar(aluguel);
     }

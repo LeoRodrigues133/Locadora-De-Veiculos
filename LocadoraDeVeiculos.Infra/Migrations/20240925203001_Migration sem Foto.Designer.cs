@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    [Migration("20240918125022_Tomara que de certo")]
-    partial class Tomaraquedecerto
+    [Migration("20240925203001_Migration sem Foto")]
+    partial class MigrationsemFoto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

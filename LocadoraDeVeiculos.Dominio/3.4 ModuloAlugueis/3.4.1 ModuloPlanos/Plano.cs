@@ -31,6 +31,41 @@ public class Plano : EntidadeBase
 
     public override List<string> Validar()
     {
-        throw new NotImplementedException();
+        var erros = new List<string>();
+
+        if(TipoPlano == TipoPlano.Diario)
+        {
+
+            if (ValorDiaria == null || ValorDiaria <= 0)
+                erros.Add("O valor da diária deve ser maior que zero.");
+
+            if (PrecoKm == null || PrecoKm <= 0)
+                erros.Add("O preço por KM deve ser maior que zero.");
+
+        }
+        else if(TipoPlano == TipoPlano.Controlado)
+        {
+            if (ValorDiaria == null || ValorDiaria <= 0)
+                erros.Add("O valor da diária deve ser maior que zero.");
+
+            if (ValorExtrapolado == null || ValorExtrapolado <= 0)
+                erros.Add("O valor extrapolado deve ser maior que zero.");
+
+            if (KmDisponivel == null || KmDisponivel <= 0)
+                erros.Add("A quantidade de KM disponível deve ser maior que zero.");
+
+        }else if( TipoPlano == TipoPlano.Livre)
+        {
+            if (ValorDiaria == null || ValorDiaria <= 0)
+                erros.Add("O valor da diária deve ser maior que zero.");
+        }
+
+        if (GrupoVeiculosId <= 0)
+            erros.Add("O grupo de veículos é obrigatório.");
+
+        if (TipoPlano == null)
+            erros.Add("O tipo de plano é obrigatório.");
+
+        return erros;
     }
 }

@@ -40,6 +40,27 @@ public class Condutor : EntidadeBase
 
     public override List<string> Validar()
     {
-        throw new NotImplementedException();
+        var erros = new List<string>();
+
+        if (string.IsNullOrEmpty(Nome?.Trim()))
+            erros.Add("O nome é obrigatório.");
+
+        if (string.IsNullOrEmpty(Email?.Trim()))
+            erros.Add("O email é obrigatório.");
+
+        if (string.IsNullOrEmpty(Telefone?.Trim()))
+            erros.Add("O telefone é obrigatório.");
+
+        if (string.IsNullOrEmpty(CNH?.Trim()))
+            erros.Add("A CNH é obrigatória.");
+
+        if (ValidadeCNH < DateTime.Now)
+            erros.Add("A validade da CNH deve ser uma data futura.");
+
+        if (ClienteCondutor && (string.IsNullOrEmpty(CPF?.Trim()) || CPF.Length != 11))
+            erros.Add("O CPF é obrigatório e deve conter 11 dígitos.");
+
+        return erros;
     }
+
 }

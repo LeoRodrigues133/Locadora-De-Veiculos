@@ -53,10 +53,11 @@ namespace LocadoraDeVeiculos.WebApp
             builder.Services.AddScoped<ClienteService>();
             builder.Services.AddScoped<VeiculoService>();
             builder.Services.AddScoped<CondutorService>();
+            //builder.Services.AddScoped<FotoValueResolver>();
             builder.Services.AddScoped<CombustivelService>();
             builder.Services.AddScoped<FuncionarioService>();
-            builder.Services.AddScoped<EmpresaIdValueResolver>();
             builder.Services.AddScoped<GrupoVeiculosService>();
+            builder.Services.AddScoped<EmpresaIdValueResolver>();
 
             builder.Services.AddAutoMapper(config =>
             {

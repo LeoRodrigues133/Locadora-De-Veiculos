@@ -119,7 +119,7 @@ public class AluguelController : WebController
             if (aluguel.Taxas.Find(c => c.Id == taxaId) == null &&  taxa != null)
                     aluguel.Taxas.Add(taxa);
         }
-        _aluguelService.SalvarTaxas(aluguel);
+        _aluguelService.Salvar(aluguel);
     }
     public IActionResult PreFinalizacao(int id)
     {
@@ -183,7 +183,7 @@ public class AluguelController : WebController
 
         aluguel.KmFinal = KmFinal;
 
-        _aluguelService.SalvarCalculos(aluguel);
+        _aluguelService.Salvar(aluguel);
 
         var finalizarVm = _mapeador.Map<FinalizarAluguelViewModel>(aluguel);
 

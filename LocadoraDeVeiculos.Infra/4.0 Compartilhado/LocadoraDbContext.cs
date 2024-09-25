@@ -14,13 +14,14 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado;
 public class LocadoraDbContext : IdentityDbContext<Usuario, Perfil, int>
 {
     public DbSet<Plano> Planos { get; set; }
+    public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<Aluguel> Alugueis { get; set; }
     public DbSet<Cliente> Clientes { get;  set; }
-    public DbSet<Combustivel> Combustiveis { get;  set; }
     public DbSet<TaxaServico> Taxas { get; set; }
     public DbSet<Condutor> Condutores { get; set; }
     public DbSet<Funcionario> Funcionarios { get; set; }
+    public DbSet<Combustivel> Combustiveis { get;  set; }
     public DbSet<GrupoVeiculos> GrupoVeiculos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
