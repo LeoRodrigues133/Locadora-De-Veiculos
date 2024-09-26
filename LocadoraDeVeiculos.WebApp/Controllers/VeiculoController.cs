@@ -56,7 +56,7 @@ public class VeiculoController : WebController
 
         var veiculo = resultado.Value;
 
-        var detalhesVm = _mapeador.Map<DetalhesVeiculoViewModel>(veiculo);
+        var detalhesVm = _mapeador.Map<FormVeiculoViewModel>(veiculo);
 
         return View(detalhesVm);
     }
@@ -67,7 +67,7 @@ public class VeiculoController : WebController
     }
 
     [HttpPost]
-    public IActionResult Cadastrar(CadastroVeiculoViewModel cadastroVm)
+    public IActionResult Cadastrar(FormVeiculoViewModel cadastroVm)
     {
         if (!ModelState.IsValid)
             return View(CarregarDadosFormulario(cadastroVm));
@@ -78,7 +78,7 @@ public class VeiculoController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult());
 
             return RedirectToAction(nameof(Listar));
         }
@@ -94,7 +94,7 @@ public class VeiculoController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); 
 
             return RedirectToAction(nameof(Listar));
         }
@@ -110,7 +110,7 @@ public class VeiculoController : WebController
 
         var veiculo = resultado.Value;
 
-        var editarVm = _mapeador.Map<EditarVeiculoViewModel>(veiculo);
+        var editarVm = _mapeador.Map<FormVeiculoViewModel>(veiculo);
 
         var gruposDisponiveis = resultadoGrupos.Value;
 
@@ -119,7 +119,7 @@ public class VeiculoController : WebController
             {
                 Value = g.Id.ToString(),
                 Text = g.Nome,
-                Selected = g.Id == veiculo.GrupoVeiculos.Id // Seleciona o grupo associado ao veículo
+                Selected = g.Id == veiculo.GrupoVeiculos.Id
             }).ToList();
 
         if (veiculo.Alugado == true)
@@ -133,7 +133,7 @@ public class VeiculoController : WebController
     }
 
     [HttpPost]
-    public IActionResult Editar(EditarVeiculoViewModel editarVm)
+    public IActionResult Editar(FormVeiculoViewModel editarVm)
     {
         if (!ModelState.IsValid)
             return View(editarVm);
@@ -144,7 +144,7 @@ public class VeiculoController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); 
 
             return RedirectToAction(nameof(Editar));
         }
@@ -160,26 +160,26 @@ public class VeiculoController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult());
 
             return RedirectToAction(nameof(Listar));
         }
 
         var veiculo = resultado.Value;
 
-        var detalhesVm = _mapeador.Map<DetalhesVeiculoViewModel>(veiculo);
+        var detalhesVm = _mapeador.Map<FormVeiculoViewModel>(veiculo);
 
         return View(detalhesVm);
     }
 
     [HttpPost]
-    public IActionResult Excluir(DetalhesVeiculoViewModel detalhesVm)
+    public IActionResult Excluir(FormVeiculoViewModel detalhesVm)
     {
         var resultado = _serviceVeiculo.Excluir(detalhesVm.Id);
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); 
 
             return RedirectToAction(nameof(Listar));
         }

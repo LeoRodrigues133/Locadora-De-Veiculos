@@ -12,15 +12,12 @@ public class PlanoProfile : Profile
         CreateMap<Plano, ListarPlanoViewModel>()
             .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom(v => v.GrupoVeiculos));
 
-        CreateMap<Plano, EditarPlanoViewModel>()
+        CreateMap<Plano, FormPlanoViewModels>()
             .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom<Resolver>());
 
-        CreateMap<CadastroPlanoViewModel, Plano>()
+        CreateMap<FormPlanoViewModels, Plano>()
             .ForMember(vm => vm.GrupoVeiculos, opt => opt.MapFrom(p => p.GrupoVeiculos))
             .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
 
-        CreateMap<EditarPlanoViewModel, Plano>();
-
-        CreateMap<Plano, DetalhesPlanoViewModel>();
     }
 }

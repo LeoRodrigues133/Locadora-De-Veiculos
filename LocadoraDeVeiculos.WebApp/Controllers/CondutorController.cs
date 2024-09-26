@@ -80,7 +80,7 @@ public class CondutorController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult());
 
             return RedirectToAction(nameof(Listar));
         }
@@ -162,7 +162,7 @@ public class CondutorController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult());
 
             return RedirectToAction(nameof(Editar));
         }

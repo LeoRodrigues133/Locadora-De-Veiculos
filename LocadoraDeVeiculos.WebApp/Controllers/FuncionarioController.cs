@@ -45,11 +45,11 @@ public class FuncionarioController : WebController
 
     public IActionResult Cadastrar()
     {
-        return View(new CadastroFuncionarioViewModel());
+        return View(new FormFuncionarioViewModel());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Cadastrar(CadastroFuncionarioViewModel cadastrarVm)
+    public async Task<IActionResult> Cadastrar(FormFuncionarioViewModel cadastrarVm)
     {
         if (!ModelState.IsValid)
             return View(cadastrarVm);

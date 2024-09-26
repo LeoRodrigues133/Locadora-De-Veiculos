@@ -5,9 +5,9 @@ using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
 
 namespace LocadoraDeVeiculos.WebApp.Mapping;
 
-public class CombustivelController : Profile
+public class CombustivelProfile : Profile
 {
-    public CombustivelController() 
+    public CombustivelProfile() 
     {
 
         CreateMap<FormCombustivelViewModel, Combustivel>()

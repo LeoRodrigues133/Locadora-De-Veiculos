@@ -9,8 +9,11 @@ public class FuncionarioProfile :Profile
 {
     public FuncionarioProfile()
     {
-        CreateMap<CadastroFuncionarioViewModel, Funcionario>()
+        CreateMap<FormFuncionarioViewModel, Funcionario>()
             .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
+
+        CreateMap<Funcionario, FormFuncionarioViewModel>();
+
 
         CreateMap<Funcionario, ListarFuncionarioViewModel>();
     }

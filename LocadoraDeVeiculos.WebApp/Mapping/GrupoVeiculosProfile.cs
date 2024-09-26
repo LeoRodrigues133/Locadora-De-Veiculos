@@ -17,10 +17,5 @@ public class GrupoVeiculosProfile : Profile
         CreateMap<FormGrupoViewModel, GrupoVeiculos>()
             .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
 
-        CreateMap<FormGrupoViewModel, GrupoVeiculos>();
-
-        CreateMap<GrupoVeiculos, FormGrupoViewModel>();
-
-        CreateMap<GrupoVeiculos, FormGrupoViewModel>();
     }
 }

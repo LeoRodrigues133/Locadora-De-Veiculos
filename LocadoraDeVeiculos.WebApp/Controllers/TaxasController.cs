@@ -57,7 +57,7 @@ public class TaxasController : WebController
 
         var taxas = resultado.Value;
 
-        var editarVm = _mapeador.Map<DetalhesTaxasViewModel>(taxas);
+        var editarVm = _mapeador.Map<FormTaxasViewModel>(taxas);
 
         return View(editarVm);
     }
@@ -68,7 +68,7 @@ public class TaxasController : WebController
     }
 
     [HttpPost]
-    public IActionResult Cadastrar(CadastroTaxasViewModel cadastroVm)
+    public IActionResult Cadastrar(FormTaxasViewModel cadastroVm)
     {
         if (!ModelState.IsValid)
             return View(cadastroVm);
@@ -102,13 +102,13 @@ public class TaxasController : WebController
 
         var taxa = resultado.Value;
 
-        var editarVm = _mapeador.Map<EditarTaxasViewModel>(taxa);
+        var editarVm = _mapeador.Map<FormTaxasViewModel>(taxa);
 
         return View(editarVm);
     }
 
     [HttpPost]
-    public IActionResult Editar(EditarTaxasViewModel editarVm)
+    public IActionResult Editar(FormTaxasViewModel editarVm)
     {
         var taxa = _mapeador.Map<TaxaServico>(editarVm);
 
@@ -139,13 +139,13 @@ public class TaxasController : WebController
 
         var taxa = resultado.Value;
 
-        var excluirVM = _mapeador.Map<ExcluirTaxasViewModel>(taxa);
+        var excluirVM = _mapeador.Map<FormTaxasViewModel>(taxa);
 
         return View(excluirVM);
     }
 
     [HttpPost]
-    public IActionResult Excluir(ExcluirTaxasViewModel excluirVm)
+    public IActionResult Excluir(FormTaxasViewModel excluirVm)
     {
 
 

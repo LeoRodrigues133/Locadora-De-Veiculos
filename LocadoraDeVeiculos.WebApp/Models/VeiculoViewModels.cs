@@ -54,21 +54,6 @@ public class FormVeiculoViewModel
     //public IFormFile Foto { get; set; }
 }
 
-public class CadastroVeiculoViewModel : FormVeiculoViewModel
-{
-
-}
-
-public class EditarVeiculoViewModel : FormVeiculoViewModel
-{
-}
-
-public class DetalhesVeiculoViewModel : FormVeiculoViewModel
-{
-    public int Id { get; set; }
-    public GrupoVeiculos GrupoVeiculos { get; set; }
-}
-
 public class ListarVeiculoViewModel : FormVeiculoViewModel
 {
     public string Alugado { get; set; }

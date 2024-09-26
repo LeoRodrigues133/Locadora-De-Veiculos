@@ -14,7 +14,11 @@ public class PlanoController : WebController
     readonly PlanoService _servicePlano;
     readonly GrupoVeiculosService _serviceGrupo;
 
-    public PlanoController(IMapper mapeador, PlanoService servicePlano, GrupoVeiculosService serviceGrupo, AuthService authService) : base(authService)
+    public PlanoController(
+        IMapper mapeador,
+        PlanoService servicePlano,
+        GrupoVeiculosService serviceGrupo,
+        AuthService authService) : base(authService)
     {
         _mapeador = mapeador;
         _servicePlano = servicePlano;
@@ -54,7 +58,7 @@ public class PlanoController : WebController
 
         var plano = resultado.Value;
 
-        var detalhesVm = _mapeador.Map<DetalhesPlanoViewModel>(plano);
+        var detalhesVm = _mapeador.Map<FormPlanoViewModels>(plano);
 
         return View(detalhesVm);
     }
@@ -65,8 +69,10 @@ public class PlanoController : WebController
     }
 
     [HttpPost]
-    public IActionResult Cadastrar(CadastroPlanoViewModel cadastroVm)
+    public IActionResult Cadastrar(FormPlanoViewModels cadastroVm)
     {
+        VerificarValidacaoDeModelo(cadastroVm);
+
         if (!ModelState.IsValid)
             return View(CarregarDadosFormulario(cadastroVm));
 
@@ -76,7 +82,7 @@ public class PlanoController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); 
 
             return RedirectToAction(nameof(Listar));
         }
@@ -86,13 +92,28 @@ public class PlanoController : WebController
         return RedirectToAction(nameof(Listar));
     }
 
+    private void VerificarValidacaoDeModelo(FormPlanoViewModels cadastroVm)
+    {
+        if (cadastroVm.TipoPlano == TipoPlano.Diario)
+        {
+            ModelState.Remove("ValorExtrapolado");
+            ModelState.Remove("kmDisponivel");
+        }
+        else
+        {
+            ModelState.Remove("PrecoKm");
+            ModelState.Remove("ValorExtrapolado");
+            ModelState.Remove("kmDisponivel");
+        }
+    }
+
     public IActionResult Editar(int id)
     {
         var resultado = _servicePlano.SelecionarId(id);
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult()); 
 
             return RedirectToAction(nameof(Listar));
         }
@@ -108,7 +129,7 @@ public class PlanoController : WebController
 
         var plano = resultado.Value;
 
-        var editarVm = _mapeador.Map<EditarPlanoViewModel>(plano);
+        var editarVm = _mapeador.Map<FormPlanoViewModels>(plano);
 
         var gruposDisponiveis = resultadoGrupos.Value;
 
@@ -117,17 +138,19 @@ public class PlanoController : WebController
             {
                 Value = g.Id.ToString(),
                 Text = g.Nome,
-                Selected = g.Id == plano.GrupoVeiculos.Id // Seleciona o grupo associado ao veículo
+                Selected = g.Id == plano.GrupoVeiculos.Id 
             }).ToList();
 
         return View(editarVm);
     }
 
     [HttpPost]
-    public IActionResult Editar(int id, EditarPlanoViewModel editarVm)
+    public IActionResult Editar(int id, FormPlanoViewModels editarVm)
     {
+        VerificarValidacaoDeModelo(editarVm);
+
         if (!ModelState.IsValid)
-            return View(editarVm);
+            return View(CarregarDadosFormulario(editarVm));
 
         var plano = _mapeador.Map<Plano>(editarVm);
 
@@ -135,7 +158,7 @@ public class PlanoController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult());
 
             return RedirectToAction(nameof(Editar));
         }
@@ -151,26 +174,26 @@ public class PlanoController : WebController
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult());
 
             return RedirectToAction(nameof(Listar));
         }
 
         var plano = resultado.Value;
 
-        var excluirVm = _mapeador.Map<DetalhesPlanoViewModel>(plano);
+        var excluirVm = _mapeador.Map<FormPlanoViewModels>(plano);
 
         return View(excluirVm);
     }
 
     [HttpPost]
-    public IActionResult Excluir(DetalhesPlanoViewModel excluirVm)
+    public IActionResult Excluir(FormPlanoViewModels excluirVm)
     {
         var resultado = _servicePlano.Excluir(excluirVm.Id);
 
         if (resultado.IsFailed)
         {
-            ApresentarMensagemFalha(resultado.ToResult()); ////Ainda não implementado
+            ApresentarMensagemFalha(resultado.ToResult());
 
             return RedirectToAction(nameof(Listar));
         }

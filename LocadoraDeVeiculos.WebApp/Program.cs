@@ -1,6 +1,5 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
-using LocadoraDeVeiculos.WebApp.Mapping;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.Infra.Compartilhado;
 using LocadoraDeVeiculos.Infra.ModuloAlugueis;

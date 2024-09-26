@@ -1,4 +1,4 @@
-﻿@model CadastroTaxasViewModel
+﻿@model FormTaxasViewModel
 
 @{
     ViewBag.Title = "Cadastro de Taxa ou Serviço";
@@ -13,7 +13,7 @@
 
     <div class="form-group">
         <label asp-for="Valor" class="control-label">Valor:</label>
-        <input asp-for="Valor" class="form-control" />
+        <input asp-for="Valor" type="number" class="form-control" min="0"/>
         <span asp-validation-for="Valor" class="text-danger"></span>
     </div>
 

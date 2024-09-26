@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
-namespace LocadoraDeVeiculos.WebApp.Mapping;
+namespace LocadoraDeVeiculos.WebApp.Mapping.Resolvers;
 
-public class Resolver : IValueResolver<Object?, Object, IEnumerable<SelectListItem>?>
+public class Resolver : IValueResolver<object?, object, IEnumerable<SelectListItem>?>
 {
     readonly IRepositorioGrupoVeiculos _repositorioGrupo;
 

@@ -1,5 +1,5 @@
 ﻿@using LocadoraDeVeiculos.Dominio
-@model CadastroFuncionarioViewModel
+@model FormFuncionarioViewModel
 
 @{
     ViewBag.Title = "Cadastro de Funcionário";
@@ -19,14 +19,14 @@
 
     <div class="form-group">
         <label asp-for="Salario" class="control-label"></label>
-        <input asp-for="Salario" class="form-control" type="number" step="0.01" />
+        <input asp-for="Salario" class="form-control" type="number" min="0" />
         <span asp-validation-for="Salario" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Adimissao" class="control-label"></label>
-        <input asp-for="Adimissao" class="form-control" type="date" />
-        <span asp-validation-for="Adimissao" class="text-danger"></span>
+        <label asp-for="Admissao" class="control-label"></label>
+        <input asp-for="Admissao" class="form-control" type="date" />
+        <span asp-validation-for="Admissao" class="text-danger"></span>
     </div>
 
     <div class="form-group">
