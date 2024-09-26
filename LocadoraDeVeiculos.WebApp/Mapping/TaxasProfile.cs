@@ -12,12 +12,9 @@ public class TaxasProfile : Profile
     {
         CreateMap<TaxaServico, ListarTaxasViewModel>();
 
-        CreateMap< CadastroTaxasViewModel, TaxaServico>()
+        CreateMap< FormTaxasViewModel, TaxaServico>()
             .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>()); 
 
-        CreateMap<TaxaServico, ExcluirTaxasViewModel>();
-        CreateMap<TaxaServico, EditarTaxasViewModel>();
-        CreateMap<TaxaServico, DetalhesTaxasViewModel>();
-        CreateMap<EditarTaxasViewModel, TaxasService>();
+        CreateMap<TaxaServico, FormTaxasViewModel>();
     }
 }

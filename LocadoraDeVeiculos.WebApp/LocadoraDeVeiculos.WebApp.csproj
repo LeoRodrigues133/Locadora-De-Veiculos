@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\src\**" />
+    <Content Remove="wwwroot\src\**" />
+    <EmbeddedResource Remove="wwwroot\src\**" />
+    <None Remove="wwwroot\src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Aluguel\Cadastrar.cshtml" />
     <None Include="Views\Aluguel\Detalhes.cshtml" />
     <None Include="Views\Aluguel\Editar.cshtml" />

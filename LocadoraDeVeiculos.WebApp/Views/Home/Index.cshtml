@@ -1,8 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Página Inicial";
 }
+<hr />
+<div class="row d-flex justify-content-center" style="background-size: cover; background-position: center; height: 100vh;">
+    <div class="col-lg-10">
+        <div class="container card-body text-secondary text-center fw-bold">
+            <img src="~/img/CarRentFoto.png" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+            <h1 class="display-4">Bem-vindo(a) à Locadora de Veículo - 2024</h1>
+            <p class="lead">Gerencie aluguéis de veículos com eficiência e simplicidade.</p>
+            <a asp-controller="Veiculo" asp-action="Listar" class="btn btn-primary">Ver Veículos</a>
+        </div>
+    </div>
 </div>

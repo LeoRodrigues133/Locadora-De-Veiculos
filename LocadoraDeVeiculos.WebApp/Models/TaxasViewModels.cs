@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client;
-
-namespace LocadoraDeVeiculos.WebApp.Models;
+﻿namespace LocadoraDeVeiculos.WebApp.Models;
 
 public class FormTaxasViewModel
 {
@@ -10,7 +8,4 @@ public class FormTaxasViewModel
     public bool TipoDeCobranca { get; set; }
 }
 public class ListarTaxasViewModel : FormTaxasViewModel { }
-public class ExcluirTaxasViewModel : FormTaxasViewModel { }
-public class DetalhesTaxasViewModel : FormTaxasViewModel { }
-public class EditarTaxasViewModel : FormTaxasViewModel { }
-public class CadastroTaxasViewModel : FormTaxasViewModel { }
+

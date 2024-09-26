@@ -3,71 +3,73 @@
 @{
     ViewBag.Title = "Excluir Aluguel";
 }
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-6 ">
+        <div class="alert alert-danger" role="alert">
+            <strong>Tem certeza que deseja excluir este aluguel?</strong>
+        </div>
 
-<h2>@ViewBag.Title</h2>
+        <div class="form-group">
+            <label>Cliente:</label>
+            <input class="form-control" value="@Model.Cliente.Nome" disabled />
+        </div>
 
-<div class="alert alert-danger" role="alert">
-    <strong>Tem certeza que deseja excluir este aluguel?</strong>
-</div>
+        <div class="form-group">
+            <label>Condutor:</label>
+            <input class="form-control" value="@Model.Condutor.Nome" disabled />
+        </div>
 
-<div class="form-group">
-    <label>Cliente:</label>
-    <input class="form-control" value="@Model.Cliente.Nome" disabled />
-</div>
+        <div class="form-group">
+            <label>Veículo:</label>
+            <input class="form-control" value="@Model.Veiculo.Modelo" disabled />
+        </div>
 
-<div class="form-group">
-    <label>Condutor:</label>
-    <input class="form-control" value="@Model.Condutor.Nome" disabled />
-</div>
+        <div class="form-group">
+            <label>Grupo de Veículos:</label>
+            <input class="form-control" value="@Model.Grupo.Nome" disabled />
+        </div>
 
-<div class="form-group">
-    <label>Veículo:</label>
-    <input class="form-control" value="@Model.Veiculo.Modelo" disabled />
-</div>
+        <div class="form-group">
+            <label>Plano:</label>
+            <input class="form-control" value="@Model.Plano.TipoPlano.ToString()" disabled />
+        </div>
 
-<div class="form-group">
-    <label>Grupo de Veículos:</label>
-    <input class="form-control" value="@Model.Grupo.Nome" disabled />
-</div>
+        <div class="form-group">
+            <label>Data de Locação:</label>
+            <input class="form-control" value="@Model.DataLocacao.ToString("dd/MM/yyyy")" disabled />
+        </div>
 
-<div class="form-group">
-    <label>Plano:</label>
-    <input class="form-control" value="@Model.Plano.TipoPlano.ToString()" disabled />
-</div>
+        <div class="form-group">
+            <label>Data de Devolução Prevista:</label>
+            <input class="form-control" value="@Model.DateDevolucaoPrevista?.ToString("dd/MM/yyyy")" disabled />
+        </div>
 
-<div class="form-group">
-    <label>Data de Locação:</label>
-    <input class="form-control" value="@Model.DataLocacao.ToString("dd/MM/yyyy")" disabled />
-</div>
-
-<div class="form-group">
-    <label>Data de Devolução Prevista:</label>
-    <input class="form-control" value="@Model.DateDevolucaoPrevista?.ToString("dd/MM/yyyy")" disabled />
-</div>
-
-<div class="form-group">
-    <label>Taxas Aplicadas:</label>
-    @if (Model.Taxas != null && Model.Taxas.Any())
-    {
-        <ul class="list-group">
-            @foreach (var taxa in Model.Taxas)
+        <div class="form-group">
+            <label>Taxas Aplicadas:</label>
+            @if (Model.Taxas != null && Model.Taxas.Any())
             {
-                <li class="list-group-item">
-                    @taxa.Nome - @taxa.Valor.ToString("C")
-                </li>
+                <ul class="list-group">
+                    @foreach (var taxa in Model.Taxas)
+                    {
+                        <li class="list-group-item">
+                            @taxa.Nome - @taxa.Valor.ToString("C")
+                        </li>
+                    }
+                </ul>
             }
-        </ul>
-    }
-    else
-    {
-        <p class="form-control-static">Nenhuma taxa aplicada.</p>
-    }
-</div>
+            else
+            {
+                <p class="form-control-static">Nenhuma taxa aplicada.</p>
+            }
+        </div>
 
-<form asp-action="Excluir" method="post">
-    <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-        <input type="submit" value="Excluir" class="btn btn-danger" />
-        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+        <form asp-action="Excluir" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group my-3">
+                <button type="submit" class="btn btn-danger">Excluir</button>
+                <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
     </div>
-</form>
+</div>

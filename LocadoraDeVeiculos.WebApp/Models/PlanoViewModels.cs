@@ -32,6 +32,8 @@ public class FormPlanoViewModels
 public class CadastroPlanoViewModel : FormPlanoViewModels { }
 public class ListarPlanoViewModel : FormPlanoViewModels
 {
+    public TipoPlano TipoPlano { get; set; }
+
     public GrupoVeiculos GrupoVeiculos { get; set; }
     public string testin<t>(t info) // Esperando aprovação do rech(Mudo nome Dps)
     {

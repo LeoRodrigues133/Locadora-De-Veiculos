@@ -3,72 +3,74 @@
 @{
     ViewBag.Title = "Cadastro de Veículo";
 }
-<form asp-action="Cadastrar">
-@*     <div class="form-group">
-        <label asp-for="Foto" class="control-label"></label>
-        <input asp-for="Foto" class="form-control" type="file" accept="image/jpeg" />
-        <span asp-validation-for="Foto" class="text-danger"></span>
-    </div>  *@
-    
-    <div class="form-group">
-        <label asp-for="grupoVeiculosId" class="control-label"></label>
-        <select asp-for="grupoVeiculosId" class="form-control" asp-items="Model.GrupoVeiculos"></select>
-        <span asp-validation-for="grupoVeiculosId" class="text-danger"></span>
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-6 ">
+        <form asp-action="Cadastrar">
+            @*     <div class="form-group">
+            <label asp-for="Foto" class="control-label"></label>
+            <input asp-for="Foto" class="form-control" type="file" accept="image/jpeg" />
+            <span asp-validation-for="Foto" class="text-danger"></span>
+            </div>  *@
+
+            <div class="form-group">
+                <label asp-for="grupoVeiculosId" class="control-label"></label>
+                <select asp-for="grupoVeiculosId" class="form-control" asp-items="Model.GrupoVeiculos"></select>
+                <span asp-validation-for="grupoVeiculosId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Cor" class="control-label"></label>
+                <select asp-for="Cor" class="form-control" asp-items="Html.GetEnumSelectList<Cor>()"></select>
+                <span asp-validation-for="Cor" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Marca" class="control-label"></label>
+                <select asp-for="Marca" class="form-control" asp-items="Html.GetEnumSelectList<Marca>()"></select>
+                <span asp-validation-for="Marca" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Combustivel" class="control-label"></label>
+                <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<EnumCombustivel>()"></select>
+                <span asp-validation-for="Combustivel" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Ano" class="control-label"></label>
+                <input asp-for="Ano" class="form-control" value="2000" min="2000" />
+                <span asp-validation-for="Ano" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Placa" class="control-label"></label>
+                <input asp-for="Placa" class="form-control" placeholder="ABC1D23" maxlength="7" />
+                <span asp-validation-for="Placa" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Modelo" class="control-label"></label>
+                <input asp-for="Modelo" placeholder="Modelo do Veículo" class="form-control" />
+                <span asp-validation-for="Modelo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quilometragem" class="control-label"></label>
+                <input asp-for="Quilometragem" type="number" class="form-control" min="0" />
+                <span asp-validation-for="Quilometragem" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CapacidadeTanqueDeCombustivel" class="control-label"></label>
+                <input asp-for="CapacidadeTanqueDeCombustivel" type="number" class="form-control" min="20" />
+                <span asp-validation-for="CapacidadeTanqueDeCombustivel" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+
+        <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Cor" class="control-label"></label>
-        <select asp-for="Cor" class="form-control" asp-items="Html.GetEnumSelectList<Cor>()"></select>
-        <span asp-validation-for="Cor" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Marca" class="control-label"></label>
-        <select asp-for="Marca" class="form-control" asp-items="Html.GetEnumSelectList<Marca>()"></select>
-        <span asp-validation-for="Marca" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Combustivel" class="control-label"></label>
-        <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<EnumCombustivel>()"></select>
-        <span asp-validation-for="Combustivel" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Ano" class="control-label"></label>
-        <input asp-for="Ano" class="form-control" value="1950" min="1950"/>
-        <span asp-validation-for="Ano" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Placa" class="control-label"></label>
-        <input asp-for="Placa" class="form-control" placeholder="ABC1D23" maxlength="7"/>
-        <span asp-validation-for="Placa" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Modelo" class="control-label"></label>
-        <input asp-for="Modelo" placeholder="Modelo do Veículo" class="form-control" />
-        <span asp-validation-for="Modelo" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Quilometragem" class="control-label"></label>
-        <input asp-for="Quilometragem" class="form-control" min="0" />
-        <span asp-validation-for="Quilometragem" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CapacidadeTanqueDeCombustivel" class="control-label"></label>
-        <input asp-for="CapacidadeTanqueDeCombustivel" class="form-control" min="20" />
-        <span asp-validation-for="CapacidadeTanqueDeCombustivel" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Cadastrar" class="btn btn-primary" />
-    </div>
-</form>
-
-<a asp-action="Listar" class="btn btn-secondary">Voltar</a>
-
-
+</div>
