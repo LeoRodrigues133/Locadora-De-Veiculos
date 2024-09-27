@@ -12,18 +12,7 @@ public class AluguelTests
     {
         var aluguel = new Aluguel
         (
-            100,
-            1,
-            1,
-            1,
-            1,
-            1,
-            null,
-            1,
-            200.00m,
-            DateTime.Now,
-            DateTime.Now.AddDays(5),
-            EnumMarcadorCombustivel.Completo
+            100, 1, 1, null,1,1,1, 1, 200.00m, DateTime.Now, DateTime.Now.AddDays(5), EnumMarcadorCombustivel.Completo
         );
 
         var erros = aluguel.Validar();
@@ -39,10 +28,10 @@ public class AluguelTests
             -50,
             1,
             1,
-            1,
-            1,
-            1,
             null,
+            1,
+            1,
+            1,
             1,
             200.00m,
             DateTime.Now,
@@ -69,10 +58,10 @@ public class AluguelTests
             100,
             1,
             1,
-            1,
-            1,
-            1,
             null,
+            1,
+            1,
+            1,
             1,
             200.00m,
             DateTime.Now,
@@ -99,10 +88,10 @@ public class AluguelTests
             100,
             1,
             1,
+            null,
+            1,
             0,
             1,
-            1,
-            null,
             1,
             200.00m,
             DateTime.Now,
