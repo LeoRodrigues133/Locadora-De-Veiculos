@@ -8,6 +8,7 @@
         <tr>
             <th>ID</th>
             <th>Grupo de Veículos</th>
+            <th>Tipo</th>
             <th>Valor Diária</th>
             <th>Preço KM</th>
             <th>Km Disponível</th>
@@ -21,10 +22,12 @@
             <tr>
                 <th>@plano.Id</th>
                 <td>@plano.GrupoVeiculos</td>
+                <td>@plano.TipoPlano</td>
                 <td>@plano.OcultarValoresNulos(plano.ValorDiaria)</td>
                 <td>@plano.OcultarValoresNulos(plano.PrecoKm)</td>
                 <td>@plano.OcultarValoresNulos(plano.kmDisponivel)</td>
                 <td>@plano.OcultarValoresNulos(plano.ValorExtrapolado)</td>
+
                 <td>
                     <a asp-action="Editar" asp-route-id="@plano.Id" class="btn btn-primary">Editar</a>
                     <a asp-action="Detalhes" asp-route-id="@plano.Id" class="btn btn-info">Detalhes</a>

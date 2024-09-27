@@ -15,11 +15,11 @@ public class Aluguel : EntidadeBase
     public Aluguel(
         int entrada,
         int planoId,
+        int grupoId,
+        int? kmFinal,
         int veiculoId,
         int clienteId,
-        int grupoId,
         int condutorId,
-        int? kmFinal,
         int combustivelId,
         decimal valorFinal,
         DateTime dataLocacao,

@@ -3,55 +3,59 @@
 @{
     ViewBag.Title = "Cadastro de Plano";
 }
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-6 ">
+        <form asp-action="Cadastrar">
+            <div class="form-group">
+                <label asp-for="GrupoVeiculos" class="control-label"></label>
+                <select asp-for="grupoVeiculosId" class="form-control" asp-items="Model.GrupoVeiculos"></select>
+                <span asp-validation-for="GrupoVeiculos" class="text-danger"></span>
+            </div>
+            <label>Tipo de Plano:</label><br />
+            <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" hidden id="Diario" name="TipoPlano" value="Diario" asp-for="TipoPlano" autocomplete="off" />
+                <label for="Diario" class="btn btn-outline-secondary">Plano Diário</label>
 
-<form asp-action="Cadastrar">
-    <div class="form-group">
-        <label asp-for="GrupoVeiculos" class="control-label"></label>
-        <select asp-for="grupoVeiculosId" class="form-control" asp-items="Model.GrupoVeiculos"></select>
-        <span asp-validation-for="GrupoVeiculos" class="text-danger"></span>
+                <input type="radio" class="btn-check" hidden id="Controlado" name="TipoPlano" value="Controlado" asp-for="TipoPlano" autocomplete="off" />
+                <label for="Controlado" class="btn btn-outline-secondary">Plano Controlado</label>
+
+                <input type="radio" class="btn-check" hidden id="Livre" name="TipoPlano" value="Livre" asp-for="TipoPlano" autocomplete="off" />
+                <label for="Livre" class="btn btn-outline-secondary">Plano Livre</label>
+            </div>
+            <span asp-validation-for="TipoPlano" class="text-danger"></span>
+
+
+            <div class="form-group">
+                <label asp-for="ValorDiaria" id="valorDiarialabel" class="control-label">Valor da Diária</label>
+                <input asp-for="ValorDiaria" type="number" id="valorDiaria" class="form-control" />
+                <span asp-validation-for="ValorDiaria" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="divprecoKm">
+                <label asp-for="PrecoKm" class="control-label">Valor por Km</label>
+                <input asp-for="PrecoKm" type="number" id="precoKm" class="form-control" />
+                <span asp-validation-for="PrecoKm" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" id="divkmDisponivel">
+                <label asp-for="kmDisponivel" class="control-label">Km Disponível</label>
+                <input asp-for="kmDisponivel" type="number" id="kmDisponivel" class="form-control" />
+                <span asp-validation-for="kmDisponivel" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" id="divvalorExtrapolado">
+                <label asp-for="ValorExtrapolado" class="control-label">Valor Extrapolado por Km</label>
+                <input asp-for="ValorExtrapolado" type="number" id="valorExtrapolado" class="form-control" />
+                <span asp-validation-for="ValorExtrapolado" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
     </div>
-    <label>Tipo de Plano:</label><br />
-    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" hidden id="Diario" name="TipoPlano" value="Diario" asp-for="TipoPlano" autocomplete="off" />
-        <label for="Diario" class="btn btn-outline-secondary">Plano Diário</label>
-
-        <input type="radio" class="btn-check" hidden id="Controlado" name="TipoPlano" value="Controlado" asp-for="TipoPlano" autocomplete="off" />
-        <label for="Controlado" class="btn btn-outline-secondary">Plano Controlado</label>
-
-        <input type="radio" class="btn-check" hidden id="Livre" name="TipoPlano" value="Livre" asp-for="TipoPlano" autocomplete="off" />
-        <label for="Livre" class="btn btn-outline-secondary">Plano Livre</label>
-    </div>
-    <span asp-validation-for="TipoPlano" class="text-danger"></span>
-
-
-    <div class="form-group">
-        <label asp-for="ValorDiaria" id="valorDiarialabel" class="control-label">Valor da Diária</label>
-        <input asp-for="ValorDiaria" type="number" id="valorDiaria" class="form-control" />
-        <span asp-validation-for="ValorDiaria" class="text-danger"></span>
-    </div>
-    <div class="form-group" id="divprecoKm">
-        <label asp-for="PrecoKm" class="control-label">Valor por Km</label>
-        <input asp-for="PrecoKm" type="number" id="precoKm" class="form-control" />
-        <span asp-validation-for="PrecoKm" class="text-danger"></span>
-    </div>
-
-    <div class="form-group" id="divkmDisponivel">
-        <label asp-for="kmDisponivel" class="control-label">Km Disponível</label>
-        <input asp-for="kmDisponivel" type="number" id="kmDisponivel" class="form-control" />
-        <span asp-validation-for="kmDisponivel" class="text-danger"></span>
-    </div>
-
-    <div class="form-group" id="divvalorExtrapolado">
-        <label asp-for="ValorExtrapolado"  class="control-label">Valor Extrapolado por Km</label>
-        <input asp-for="ValorExtrapolado" type="number" id="valorExtrapolado" class="form-control"/>
-        <span asp-validation-for="ValorExtrapolado" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Cadastrar" class="btn btn-primary" />
-        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
-    </div>
-</form>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

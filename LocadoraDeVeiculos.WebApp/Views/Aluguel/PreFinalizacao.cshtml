@@ -3,91 +3,95 @@
 @{
     ViewBag.Title = "Detalhes do Aluguel";
 }
-
-<div class="form-group">
-    <label>Cliente:</label>
-    <input class="form-control" value="@Model.Aluguel.Cliente.Nome" disabled />
-</div>
-<div class="form-group">
-    <label>Condutor:</label>
-    <input class="form-control" value="@Model.Aluguel.Condutor.Nome" disabled />
-</div>
-<div class="form-group">
-    <label>Grupo de Veículos:</label>
-    <input class="form-control" value="@Model.Aluguel.Grupo.Nome" disabled />
-</div>
-
-<div class="form-group">
-    <label>Veículo:</label>
-    <input class="form-control" value="@Model.Aluguel.Veiculo.Modelo" disabled />
-</div>
-
-<div class="form-group">
-    <label>Plano:</label>
-    <input class="form-control" value="@Model.Aluguel.Plano.TipoPlano.ToString()" disabled />
-</div>
-
-<div class="form-group">
-    <label>Data de Locação:</label>
-    <input class="form-control" value="@Model.Aluguel.DataLocacao.ToString("dd/MM/yyyy")" disabled />
-</div>
-
-<form asp-action="CalcularValorFinal" asp-route-id="@Model.Id" method="post">
-    <div class="form-group d-flex gap-4">
-        <div>
-            <label>Km Inicial:</label>
-            <input type="number" class="form-control" value="@Model.Aluguel.Veiculo.Quilometragem" disabled />
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-6 ">
+        <div class="form-group">
+            <label>Cliente:</label>
+            <input class="form-control" value="@Model.Aluguel.Cliente.Nome" disabled />
         </div>
-        <div>
-            <label>Km Final:</label>
-            <input type="number" class="form-control" asp-for="@Model.KmFinal" value="@Model.KmFinal" min="@Model.Aluguel.Veiculo.Quilometragem" required />
+        <div class="form-group">
+            <label>Condutor:</label>
+            <input class="form-control" value="@Model.Aluguel.Condutor.Nome" disabled />
         </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="QuantiaCombustivel" class="control-label">Cliente:</label>
-        <select asp-for="QuantiaCombustivel" class="form-control" asp-items="Html.GetEnumSelectList<EnumMarcadorCombustivel>()">
-            <option value="" disabled selected>Selecione a quantia</option>
-        </select>
-        <span asp-validation-for="QuantiaCombustivel" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label>Data de Devolução Prevista:</label>
-        <input class="form-control"
-               value="@Model.Aluguel.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy")"
-               disabled />
-    </div>
-
-
-    <div class="form-group">
-        <label>Valor de Entrada:</label>
-        <input class="form-control" value="@Model.Aluguel.Entrada.ToString("C")" disabled />
-    </div>
-    <partial name="_ListaDeTaxas" model="Model" />
-
-    <div class="form-group">
-        <label>Serviços:</label>
-        @if (Model.Aluguel.Taxas.Count > 0)
-        {
-            <ul class="list-group">
-                @foreach (var taxa in Model.Aluguel.Taxas)
-                {
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        @taxa.Nome - @taxa.Valor.ToString("C")
-                    </li>
-                }
-            </ul>
-        }
-        else
-        {
-            <p class="form-control-static">Nenhuma taxa aplicada.</p>
-        }
+        <div class="form-group">
+            <label>Grupo de Veículos:</label>
+            <input class="form-control" value="@Model.Aluguel.Grupo.Nome" disabled />
+        </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Prosseguir</button>
-            <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
+            <label>Veículo:</label>
+            <input class="form-control" value="@Model.Aluguel.Veiculo.Modelo" disabled />
         </div>
-</form>
+
+        <div class="form-group">
+            <label>Plano:</label>
+            <input class="form-control" value="@Model.Aluguel.Plano.TipoPlano.ToString()" disabled />
+        </div>
+
+        <div class="form-group">
+            <label>Data de Locação:</label>
+            <input class="form-control" value="@Model.Aluguel.DataLocacao.ToString("dd/MM/yyyy")" disabled />
+        </div>
+
+        <form asp-action="CalcularValorFinal" asp-route-id="@Model.Id" method="post">
+            <div class="form-group d-flex gap-4">
+                <div>
+                    <label>Km Inicial:</label>
+                    <input type="number" class="form-control" value="@Model.Aluguel.Veiculo.Quilometragem" disabled />
+                </div>
+                <div>
+                    <label>Km Final:</label>
+                    <input type="number" class="form-control" asp-for="@Model.KmFinal" value="@Model.KmFinal" min="@Model.Aluguel.Veiculo.Quilometragem" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="QuantiaCombustivel" class="control-label">Cliente:</label>
+                <select asp-for="QuantiaCombustivel" class="form-control" asp-items="Html.GetEnumSelectList<EnumMarcadorCombustivel>()">
+                    <option value="" disabled selected>Selecione a quantia</option>
+                </select>
+                <span asp-validation-for="QuantiaCombustivel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Data de Devolução Prevista:</label>
+                <input class="form-control"
+                       value="@Model.Aluguel.DateDevolucaoPrevista.Value.ToString("dd/MM/yyyy")"
+                       disabled />
+            </div>
+
+
+            <div class="form-group">
+                <label>Valor de Entrada:</label>
+                <input class="form-control" value="@Model.Aluguel.Entrada.ToString("C")" disabled />
+            </div>
+            <partial name="_ListaDeTaxas" model="Model" />
+
+            <div class="form-group">
+                <label>Serviços:</label>
+                @if (Model.Aluguel.Taxas.Count > 0)
+                {
+                    <ul class="list-group">
+                        @foreach (var taxa in Model.Aluguel.Taxas)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                @taxa.Nome - @taxa.Valor.ToString("C")
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="form-control-static">Nenhuma taxa aplicada.</p>
+                }
+
+                <div class="form-group my-3">
+                    <button type="submit" class="btn btn-primary">Prosseguir</button>
+                    <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
+                </div>
+        </form>
+    </div>
+</div>
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

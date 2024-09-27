@@ -31,7 +31,7 @@ public class AluguelProfile : Profile
         CreateMap<Aluguel, PrefinalizarAluguelViewModel>()
             .ForMember(vm => vm.Aluguel, opt => opt.MapFrom(c => c))
             .ForMember(vm => vm.KmFinal, opt => opt.MapFrom(c => c.Veiculo.Quilometragem))
-            .ForMember(vm => vm.Taxas, opt => opt.MapFrom(c => c.Taxas)) ;
+            .ForMember(vm => vm.Taxas, opt => opt.MapFrom(c => c.Taxas));
 
         CreateMap<PrefinalizarAluguelViewModel, Aluguel>()
             .ForMember(vm => vm.Id, opt => opt.MapFrom(c => c.Aluguel.Id))

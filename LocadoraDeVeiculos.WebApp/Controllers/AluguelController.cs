@@ -7,6 +7,7 @@ using LocadoraDeVeiculos.WebApp.Extensions;
 using LocadoraDeVeiculos.Aplicacao.Services;
 using LocadoraDeVeiculos.WebApp.Controllers.Shared;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
+using Microsoft.SqlServer.Server;
 
 namespace LocadoraDeVeiculos.WebApp.Controllers;
 public class AluguelController : WebController
@@ -92,7 +93,15 @@ public class AluguelController : WebController
 
         var aluguel = _mapeador.Map<Aluguel>(cadastroVm);
 
-        CadastrarTaxas(cadastroVm, aluguel);
+        foreach (var taxaId in cadastroVm.taxasSelecionadas)
+        {
+            var result = _taxasService.SelecionarId(taxaId);
+
+            var taxa = result.Value;
+
+            if (aluguel.Taxas.Find(c => c.Id == taxaId) == null && taxa != null)
+                aluguel.Taxas.Add(taxa);
+        }
 
         var resultado = _aluguelService.Cadastrar(aluguel);
 
@@ -108,19 +117,6 @@ public class AluguelController : WebController
         return RedirectToAction(nameof(Listar));
     }
 
-    private void CadastrarTaxas(FormAluguelViewModel formVm, Aluguel aluguel)
-    {
-        foreach (var taxaId in formVm.taxasSelecionadas)
-        {
-            var result = _taxasService.SelecionarId(taxaId);
-
-            var taxa = result.Value;
-
-            if (aluguel.Taxas.Find(c => c.Id == taxaId) == null &&  taxa != null)
-                    aluguel.Taxas.Add(taxa);
-        }
-        _aluguelService.Salvar(aluguel);
-    }
     public IActionResult PreFinalizacao(int id)
     {
         var resultado = _aluguelService.SelecionarId(id);
@@ -157,7 +153,17 @@ public class AluguelController : WebController
 
         var aluguel = resultado.Value;
 
-        CadastrarTaxas(preFinalizacaoVm, aluguel);
+        foreach (var taxaId in preFinalizacaoVm.taxasSelecionadas)
+        {
+            var result = _taxasService.SelecionarId(taxaId);
+
+            var taxa = result.Value;
+
+            if (aluguel.Taxas.Find(c => c.Id == taxaId) == null && taxa != null)
+                aluguel.Taxas.Add(taxa);
+        }
+
+        _aluguelService.Salvar(aluguel);
 
         aluguel.marcadorCombustivel = preFinalizacaoVm.QuantiaCombustivel;
 

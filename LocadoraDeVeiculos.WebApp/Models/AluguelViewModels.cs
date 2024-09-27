@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloAlugueis.ModuloTaxas;
-using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloCombustiveis;
+using LocadoraDeVeiculos.Dominio.ModuloVeiculos.ModuloGrupoVeiculos;
 
 namespace LocadoraDeVeiculos.WebApp.Models;
 
@@ -39,7 +39,7 @@ public class ListarAluguelViewModel : FormAluguelViewModel
     public string Plano { get; set; }
     public string Seguro { get; set; }
     public string Grupo { get; set; }
-    public bool encerrado {  get; set; }
+    public bool encerrado { get; set; }
 }
 
 public class CadastroAluguelViewModel : FormAluguelViewModel
@@ -50,7 +50,7 @@ public class CadastroAluguelViewModel : FormAluguelViewModel
     public IEnumerable<SelectListItem>? Planos { get; set; }
     public IEnumerable<SelectListItem>? Grupos { get; set; }
     public decimal? ValorFinal { get; set; } = 0;
-    public EnumMarcadorCombustivel marcadorCombustivel {  get; set; }
+    public EnumMarcadorCombustivel marcadorCombustivel { get; set; }
 
 }
 public class ExcluirAluguelViewModel : FormAluguelViewModel
@@ -76,10 +76,10 @@ public class FinalizarAluguelViewModel : FormAluguelViewModel
     public List<TaxaServico> Taxas { get; set; }
     public List<int> TaxasId { get; set; }
     public decimal? ValorFinal { get; set; }
-    public int KmFinal {  get; set; }
+    public int KmFinal { get; set; }
     public Cliente Cliente { get; set; }
     public Condutor Condutor { get; set; }
-    public Combustivel Combustivel{ get; set; }
+    public Combustivel Combustivel { get; set; }
     public Veiculo Veiculo { get; set; }
     public Aluguel Aluguel { get; set; }
     public Plano Plano { get; set; }
@@ -95,11 +95,11 @@ public class DetalhesAluguelViewModel : FormAluguelViewModel
     public List<TaxaServico> Taxas { get; set; }
 }
 
-public class PrefinalizarAluguelViewModel : FormAluguelViewModel
+public class PrefinalizarAluguelViewModel : CadastroAluguelViewModel
 {
-    public int KmFinal {  set; get; }
-    public decimal? ValorFinal {  set; get; }
+    public int KmFinal { set; get; }
+    public decimal? ValorFinal { set; get; }
     public Aluguel Aluguel { get; set; }
-    public Combustivel Combustivel {  get; set; }
-    public EnumMarcadorCombustivel QuantiaCombustivel {  get; set; }
+    public Combustivel Combustivel { get; set; }
+    public EnumMarcadorCombustivel QuantiaCombustivel { get; set; }
 }

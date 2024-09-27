@@ -3,94 +3,98 @@
 @{
     ViewBag.Title = "Editar Aluguel";
 }
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-6 ">
+        <form asp-action="Editar" method="post">
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label">Cliente:</label>
+                <select asp-for="ClienteId" class="form-control" asp-items="@Model.Clientes" id="clienteSelect" disabled>
+                    <option value="" disabled>Selecione um Cliente</option>
+                </select>
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
 
-<form asp-action="Editar" method="post">
-    <div class="form-group">
-        <label asp-for="ClienteId" class="control-label">Cliente:</label>
-        <select asp-for="ClienteId" class="form-control" asp-items="@Model.Clientes" id="clienteSelect" disabled>
-            <option value="" disabled>Selecione um Cliente</option>
-        </select>
-        <span asp-validation-for="ClienteId" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="CondutorId" class="control-label">Condutor:</label>
+                <select asp-for="CondutorId" class="form-control" id="condutorSelect">
+                    <option value="" disabled>Selecione um Condutor</option>
+                </select>
+                <span asp-validation-for="CondutorId" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="CondutorId" class="control-label">Condutor:</label>
-        <select asp-for="CondutorId" class="form-control" id="condutorSelect">
-            <option value="" disabled>Selecione um Condutor</option>
-        </select>
-        <span asp-validation-for="CondutorId" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="GrupoId" class="control-label">Grupo de Automóveis:</label>
+                <select asp-for="GrupoId" class="form-control" asp-items="Model.Grupos" id="grupoSelect">
+                    <option value="" disabled>Selecione um Grupo Veículo</option>
+                </select>
+                <span asp-validation-for="GrupoId" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="GrupoId" class="control-label">Grupo de Automóveis:</label>
-        <select asp-for="GrupoId" class="form-control" asp-items="Model.Grupos" id="grupoSelect">
-            <option value="" disabled>Selecione um Grupo Veículo</option>
-        </select>
-        <span asp-validation-for="GrupoId" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="VeiculoId" class="control-label">Automóvel:</label>
+                <select asp-for="VeiculoId" class="form-control" asp-items="Model.Veiculos" id="veiculoSelect">
+                    <option value="" disabled>Selecione um Veículo</option>
+                </select>
+                <span asp-validation-for="VeiculoId" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="VeiculoId" class="control-label">Automóvel:</label>
-        <select asp-for="VeiculoId" class="form-control" asp-items="Model.Veiculos" id="veiculoSelect">
-            <option value="" disabled>Selecione um Veículo</option>
-        </select>
-        <span asp-validation-for="VeiculoId" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="DataLocacao" class="control-label">Data de Saída:</label>
+                <input asp-for="DataLocacao" class="form-control" type="date" disabled />
+                <span asp-validation-for="DataLocacao" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="DataLocacao" class="control-label">Data de Saída:</label>
-        <input asp-for="DataLocacao" class="form-control" type="date" disabled />
-        <span asp-validation-for="DataLocacao" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="DateDevolucaoPrevista" class="control-label">Retorno:</label>
+                <input asp-for="DateDevolucaoPrevista" class="form-control" type="date" />
+                <span asp-validation-for="DateDevolucaoPrevista" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="DateDevolucaoPrevista" class="control-label">Retorno:</label>
-        <input asp-for="DateDevolucaoPrevista" class="form-control" type="date" />
-        <span asp-validation-for="DateDevolucaoPrevista" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="Entrada" class="control-label">Valor de Entrada:</label>
+                <input asp-for="Entrada" class="form-control" type="text" />
+                <span asp-validation-for="Entrada" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="Entrada" class="control-label">Valor de Entrada:</label>
-        <input asp-for="Entrada" class="form-control" type="text" />
-        <span asp-validation-for="Entrada" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="PlanoId" class="control-label">Plano:</label>
+                <select asp-for="PlanoId" class="form-control" asp-items="Model.Planos" id="planoSelect">
+                    <option value="" disabled>Selecione um Plano</option>
+                </select>
+                <span asp-validation-for="PlanoId" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="PlanoId" class="control-label">Plano:</label>
-        <select asp-for="PlanoId" class="form-control" asp-items="Model.Planos" id="planoSelect">
-            <option value="" disabled>Selecione um Plano</option>
-        </select>
-        <span asp-validation-for="PlanoId" class="text-danger"></span>
-    </div>
+            <partial name="_ListaDeTaxas" model="Model" />
 
-    <partial name="_ListaDeTaxas" model="Model" /> 
-
-    <div class="form-group">
-        <label>Taxas:</label>
-        @if (Model.Taxas is not null)
-        {
-            <ul class="list-group">
-                @foreach (var taxa in Model.Taxas)
+            <div class="form-group">
+                <label>Taxas:</label>
+                @if (Model.Taxas is not null)
                 {
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        @taxa.Nome - @taxa.Valor.ToString("C")
+                    <ul class="list-group">
+                        @foreach (var taxa in Model.Taxas)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                @taxa.Nome - @taxa.Valor.ToString("C")
 
-                    </li>
+                            </li>
+                        }
+                    </ul>
                 }
-            </ul>
-        }
-        else
-        {
-            <p class="form-control-static">Nenhuma taxa aplicada.</p>
-        }
-    </div>
+                else
+                {
+                    <p class="form-control-static">Nenhuma taxa aplicada.</p>
+                }
+            </div>
 
-  
-<div class="form-group">
-    <input type="submit" class="btn btn-primary" value="Editar" />
-    <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+
+            <div class="form-group my-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
 </div>
-</form>
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

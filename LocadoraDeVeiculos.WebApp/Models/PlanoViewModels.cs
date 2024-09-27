@@ -44,6 +44,8 @@ public class FormPlanoViewModels
 
 public class ListarPlanoViewModel : FormPlanoViewModels
 {
+    public TipoPlano TipoPlano { get; set; }
+
     public GrupoVeiculos GrupoVeiculos { get; set; }
     public string OcultarValoresNulos<t>(t valor)
     {

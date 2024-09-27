@@ -8,7 +8,7 @@ public class FormClienteViewModel
     public int Id { get; set; }
 
     [Required(ErrorMessage = "O RG é obrigatório.")]
-    [MinLength(12, ErrorMessage = "O RG deve conter 12 caracteres.")]
+    [MinLength(9, ErrorMessage = "O RG deve conter 7 caracteres.")]
     public string RG { get; set; }
 
     [Required(ErrorMessage = "O nome é obrigatório.")]

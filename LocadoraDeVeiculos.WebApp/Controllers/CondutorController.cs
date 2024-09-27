@@ -107,7 +107,8 @@ public class CondutorController : WebController
             Nome = cliente.Nome,
             CPF = cliente.CPF,
             Telefone = cliente.Telefone,
-            Email = cliente.Email
+            Email = cliente.Email,
+            CNPJ = cliente.CNPJ
         };
 
         return Json(new { success = true, dados = dadosCliente });
@@ -153,6 +154,9 @@ public class CondutorController : WebController
     [HttpPost]
     public IActionResult Editar(FormCondutorViewModel editarVm)
     {
+        ModelState.Remove("Cliente");
+        ModelState.Remove("Clientes");
+
         if (!ModelState.IsValid)
             return View(editarVm);
 

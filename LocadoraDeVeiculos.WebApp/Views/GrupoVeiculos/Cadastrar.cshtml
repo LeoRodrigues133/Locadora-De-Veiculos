@@ -2,16 +2,20 @@
 @{
     ViewBag.Title = "Cadastro de Grupo de Veículos";
 }
-<form asp-action="Cadastrar">
-    <div class="form-group">
-        <label asp-for="Nome" class="control-label"></label>
-        <input asp-for="Nome" class="form-control" maxlength="20"/>
-        <span asp-validation-for="Nome" class="text-danger"></span>
-    </div>
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-6 ">
+        <form asp-action="Cadastrar" class="d-grid">
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <input type="submit" value="Cadastrar" class="btn btn-primary" />
-    </div>
-</form>
+            <div class="form-group my-3">
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+        </form>
 
-<a asp-action="Listar" class="btn btn-secondary">Voltar</a>
+        <a asp-action="Listar" class="btn btn-secondary">Voltar</a>
+    </div>
+</div>
