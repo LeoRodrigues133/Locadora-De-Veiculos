@@ -1,5 +1,5 @@
 {
   "title": "Sistema de Gerenciamento de Locadora de Veículos",
-  "description": "Sistema de gerenciamento de locadora de veículos com controle de clientes, reservas, devoluções e frota disponível."
+  "description": "Sistema de gerenciamento de locadora de veículos com controle de clientes, reservas, devoluções e frota disponível.",
   "gif":"https://raw.githubusercontent.com/LeoRodrigues133/LocadoraDeVeiculos2024/refs/heads/master/LocadoraDeVeiculos.WebApp/wwwroot/img/apresentacao.gif"
 }
