@@ -50,6 +50,10 @@ cd LocadoraDeVeiculos.WebApp
 ```
 dotnet run
 ```
+
+### Demonstração
+
+![Demonstração do sistema](LocadoraDeVeiculos.WebApp/wwwroot/img/apresentacao.gif?raw=true)
     
 ### Acesse a aplicação Abra o navegador e acesse http://localhost:5000 para interagir com o sistema.
 
