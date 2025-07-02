@@ -57,7 +57,7 @@ public class MapeadorClientes : IEntityTypeConfiguration<Cliente>
             .HasColumnType("bit");
 
         // Adiciona dados iniciais
-        //builderCliente.HasData(DefaultDataClientes());
+        builderCliente.HasData(DefaultDataClientes());
     }
 
     private Cliente[] DefaultDataClientes()

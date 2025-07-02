@@ -56,7 +56,7 @@ public class MapeadorPlanos : IEntityTypeConfiguration<Plano>
             .OnDelete(DeleteBehavior.Restrict);
 
         // Adiciona dados iniciais
-        //builderPlano.HasData(DefaultDataPlanos());
+        builderPlano.HasData(DefaultDataPlanos());
     }
 
     private Plano[] DefaultDataPlanos()

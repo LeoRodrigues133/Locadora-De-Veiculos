@@ -38,7 +38,7 @@ public class MapeadorTaxas : IEntityTypeConfiguration<TaxaServico>
 
 
         // Adiciona dados iniciais
-        //builderTaxas.HasData(DefaultDataTaxas());
+        builderTaxas.HasData(DefaultDataTaxas());
     }
 
     private TaxaServico[] DefaultDataTaxas()

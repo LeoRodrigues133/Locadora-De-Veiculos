@@ -29,7 +29,7 @@ public class MapeadorGrupoVeiculos : IEntityTypeConfiguration<GrupoVeiculos>
             .HasColumnType("varchar(25)");
 
         // Adiciona dados iniciais
-        //builderGrupo.HasData(DefaultDataGrupos());
+        builderGrupo.HasData(DefaultDataGrupos());
     }
 
     private GrupoVeiculos[] DefaultDataGrupos()

@@ -62,7 +62,7 @@ public class MapeadorCondutores : IEntityTypeConfiguration<Condutor>
             .OnDelete(DeleteBehavior.Restrict);
 
         // Adiciona dados iniciais
-        //builderCondutor.HasData(DefaultDataCondutores());
+        builderCondutor.HasData(DefaultDataCondutores());
     }
 
     private Condutor[] DefaultDataCondutores()
